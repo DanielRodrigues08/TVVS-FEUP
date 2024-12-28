@@ -32,6 +32,10 @@ public class SoundManager {
         return soundManager;
     }
 
+    public static void setInstance(SoundManager soundManagerMock) {
+        soundManager = soundManagerMock;
+    }
+
     public void playSound(Sound_Options option){
         switch (option){
             case MUSIC -> backgroundMusic.playContinuously();
