@@ -47,15 +47,15 @@ public class ShipControllerTest {
 
     private static Stream<Arguments> stepValues() {
         return Stream.of(
-                Arguments.of(null, 100, new Position(WIDTH / 2, HEIGHT - 2), 0, 0, 0, ShipMode.NORMAL_MODE),
-                Arguments.of(new KeyStroke(KeyType.ArrowLeft), 50, new Position(WIDTH / 2, HEIGHT - 2), 0, 0, 0, ShipMode.NORMAL_MODE),
-                Arguments.of(new KeyStroke(KeyType.ArrowLeft), 51, new Position(WIDTH / 2 - 1, HEIGHT - 2), 0, 51, 0, ShipMode.NORMAL_MODE),
-                Arguments.of(new KeyStroke(KeyType.ArrowRight), 50, new Position(WIDTH / 2, HEIGHT - 2), 0, 0, 0, ShipMode.NORMAL_MODE),
-                Arguments.of(new KeyStroke(KeyType.ArrowRight), 51, new Position(WIDTH / 2 + 1, HEIGHT - 2), 0, 51, 0, ShipMode.NORMAL_MODE),
-                Arguments.of(new KeyStroke(KeyType.ArrowUp), 76, new Position(WIDTH / 2, HEIGHT - 2), 1, 0, 76, ShipMode.MACHINE_GUN_MODE),
-                Arguments.of(new KeyStroke(KeyType.ArrowUp), 75, new Position(WIDTH / 2, HEIGHT - 2), 0, 0, 0, ShipMode.MACHINE_GUN_MODE),
-                Arguments.of(new KeyStroke(KeyType.ArrowUp), 301, new Position(WIDTH / 2, HEIGHT - 2), 1, 0, 301, ShipMode.NORMAL_MODE),
-                Arguments.of(new KeyStroke(KeyType.ArrowUp), 300, new Position(WIDTH / 2, HEIGHT - 2), 0, 0, 0, ShipMode.NORMAL_MODE)
+                Arguments.of(null, 100, 0, 0, new Position(WIDTH / 2, HEIGHT - 2), 0, 0, 0, ShipMode.NORMAL_MODE),
+                Arguments.of(new KeyStroke(KeyType.ArrowLeft), 100, 50, 0, new Position(WIDTH / 2, HEIGHT - 2), 0, 50, 0, ShipMode.NORMAL_MODE),
+                Arguments.of(new KeyStroke(KeyType.ArrowLeft), 101, 50, 0, new Position(WIDTH / 2 - 1, HEIGHT - 2), 0, 101, 0, ShipMode.NORMAL_MODE),
+                Arguments.of(new KeyStroke(KeyType.ArrowRight), 100, 50, 0, new Position(WIDTH / 2, HEIGHT - 2), 0, 50, 0, ShipMode.NORMAL_MODE),
+                Arguments.of(new KeyStroke(KeyType.ArrowRight), 101, 50, 0, new Position(WIDTH / 2 + 1, HEIGHT - 2), 0, 101, 0, ShipMode.NORMAL_MODE),
+                Arguments.of(new KeyStroke(KeyType.ArrowUp), 151, 0, 75, new Position(WIDTH / 2, HEIGHT - 2), 1, 0, 151, ShipMode.MACHINE_GUN_MODE),
+                Arguments.of(new KeyStroke(KeyType.ArrowUp), 150, 0, 75, new Position(WIDTH / 2, HEIGHT - 2), 0, 0, 75, ShipMode.MACHINE_GUN_MODE),
+                Arguments.of(new KeyStroke(KeyType.ArrowUp), 601, 0, 300, new Position(WIDTH / 2, HEIGHT - 2), 1, 0, 601, ShipMode.NORMAL_MODE),
+                Arguments.of(new KeyStroke(KeyType.ArrowUp), 600, 0, 300, new Position(WIDTH / 2, HEIGHT - 2), 0, 0, 300, ShipMode.NORMAL_MODE)
         );
     }
 
@@ -170,8 +170,10 @@ public class ShipControllerTest {
 
     @ParameterizedTest
     @MethodSource("stepValues")
-    public void stepTest(KeyStroke key, long time, Position expectedPosition, int expectedProjectiles, long expectedMovementTime, long expectedShootingTime, ShipMode shipMode) throws IOException {
+    public void stepTest(KeyStroke key, long time, long movementTime, long shootingTime, Position expectedPosition, int expectedProjectiles, long expectedMovementTime, long expectedShootingTime, ShipMode shipMode) throws IOException {
         arena.getShip().setShipMode(shipMode);
+        shipController.setMovementTime(movementTime);
+        shipController.setShootingTime(shootingTime);
 
         shipController.step(null, key, time);
 
