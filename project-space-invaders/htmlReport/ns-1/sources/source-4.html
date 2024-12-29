@@ -1,0 +1,181 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CollectableController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SpaceInvaders.Controller.Game</a>
+</div>
+
+<h1>Coverage Summary for Class: CollectableController (SpaceInvaders.Controller.Game)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CollectableController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    44.4%
+  </span>
+  <span class="absValue">
+    (4/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/14)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    38.1%
+  </span>
+  <span class="absValue">
+    (8/21)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Controller.Game;
+&nbsp;
+&nbsp;import SpaceInvaders.Game;
+&nbsp;import SpaceInvaders.Model.Game.Arena;
+&nbsp;import SpaceInvaders.Model.Game.Collectables.Collectable;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.AlienMode;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.ShipMode;
+&nbsp;import SpaceInvaders.Model.Position;
+&nbsp;import com.googlecode.lanterna.input.KeyStroke;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;
+&nbsp;public class CollectableController extends GameController {
+&nbsp;
+&nbsp;    private long generateCollectableTime;
+&nbsp;
+&nbsp;    private long movementTime;
+&nbsp;
+&nbsp;    public CollectableController(Arena arena) {
+<b class="fc">&nbsp;        super(arena);</b>
+<b class="fc">&nbsp;        this.generateCollectableTime = 0;</b>
+<b class="fc">&nbsp;        this.movementTime = 0;</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public long getGenerateCollectableTime() {return generateCollectableTime;}</b>
+&nbsp;
+<b class="nc">&nbsp;    public void setGenerateCollectableTime(long generateCollectableTime) {this.generateCollectableTime = generateCollectableTime;}</b>
+&nbsp;
+<b class="nc">&nbsp;    public void setMovementTime(long movementTime) {this.movementTime = movementTime;}</b>
+&nbsp;
+<b class="nc">&nbsp;    public long getMovementTime() {return movementTime;}</b>
+&nbsp;
+&nbsp;    public void generateCollectable(){
+<b class="fc">&nbsp;        getArenaModifier().createCollectable();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void moveCollectable(){
+<b class="fc">&nbsp;        Collectable collectable = getModel().getActiveCollectable();</b>
+<b class="fc">&nbsp;        collectable.setPosition(new Position(collectable.getPosition().getX(),collectable.getPosition().getY() + 1));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public void endCollectableEffect(){
+<b class="fc">&nbsp;        getArenaModifier().resetShipMode();</b>
+<b class="fc">&nbsp;        getArenaModifier().resetAliensMode();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void step(Game game, KeyStroke key, long time) throws IOException {
+<b class="nc">&nbsp;        if(time - generateCollectableTime &gt; 20000){</b>
+<b class="nc">&nbsp;            generateCollectable();</b>
+<b class="nc">&nbsp;            generateCollectableTime = time;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(getModel().getActiveCollectable() != null &amp;&amp; time - movementTime &gt; 150){</b>
+<b class="nc">&nbsp;            moveCollectable();</b>
+<b class="nc">&nbsp;            movementTime = time;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(!getModel().getAliens().isEmpty()){</b>
+<b class="nc">&nbsp;            if((getModel().getShip().getShipMode() != ShipMode.NORMAL_MODE || getModel().getAliens().get(0).getAlienMode() != AlienMode.NORMAL_MODE) &amp;&amp; time - generateCollectableTime &gt; 19900){</b>
+<b class="nc">&nbsp;                endCollectableEffect();</b>
+&nbsp;            }
+&nbsp;        }
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-12-29 16:37</div>
+</div>
+</body>
+</html>
