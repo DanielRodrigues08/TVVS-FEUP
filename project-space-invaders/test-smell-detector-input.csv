@@ -1,3 +1,5 @@
 SpaceInvaders,src/test/java/SpaceInvaders/Controller/Game/ShipControllerTest.java,src/main/java/SpaceInvaders/Controller/Game/ShipController.java
 SpaceInvaders,src/test/java/SpaceInvaders/Controller/Game/ProjectileControllerTest.java,src/main/java/SpaceInvaders/Controller/Game/ProjectileController.java
 SpaceInvaders,src/test/java/SpaceInvaders/Controller/Game/CollectableControllerTest.java,src/main/java/SpaceInvaders/Controller/Game/CollectableController.java
+SpaceInvaders,src/test/java/SpaceInvaders/Controller/Game/AlienShipControllerTest.java,src/main/java/SpaceInvaders/Controller/Game/AlienShipController.java
+SpaceInvaders,src/test/java/SpaceInvaders/Viewer/Game/Collectables/DamageCollectableViewerTest.java,src/main/java/SpaceInvaders/Viewer/Game/Collectables/DamageCollectableViewer.java
