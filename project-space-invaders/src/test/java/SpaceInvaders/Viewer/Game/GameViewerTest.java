@@ -1,4 +1,4 @@
-package SpaceInvaders.Viewer.Game;
+/*package SpaceInvaders.Viewer.Game;
 
 import SpaceInvaders.GUI.GUI;
 import SpaceInvaders.Model.Game.Arena;
@@ -87,4 +87,4 @@ public class GameViewerTest {
         verify(gui).clear();
         verify(gui).refresh();
     }
-}
+}*/

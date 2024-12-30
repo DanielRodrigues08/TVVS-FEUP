@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > Leaderboard</title>
+  <title>Coverage Report > CollectableType</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Model.Menu</a>
+    <a href="../index.html">SpaceInvaders.Model.Game.Collectables</a>
 </div>
 
-<h1>Coverage Summary for Class: Leaderboard (SpaceInvaders.Model.Menu)</h1>
+<h1>Coverage Summary for Class: CollectableType (SpaceInvaders.Model.Game.Collectables)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Leaderboard</td>
+  <td class="name">CollectableType</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -55,7 +55,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/3)
+    (0/2)
   </span>
 </td>
 <td class="coverageStat">
@@ -75,25 +75,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Menu;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.Collectables;
 &nbsp;
-&nbsp;import java.io.IOException;
+<b class="nc">&nbsp;public enum CollectableType {</b>
+<b class="nc">&nbsp;    HEALTH,</b>
 &nbsp;
-&nbsp;public class Leaderboard extends OnlyTextMenu {
+<b class="nc">&nbsp;    DAMAGE,</b>
 &nbsp;
-&nbsp;    public Leaderboard() throws IOException {
-<b class="nc">&nbsp;        super(&quot;src/main/resources/text/Leaderboard.txt&quot;);</b>
-<b class="nc">&nbsp;        sortByScore();</b>
-&nbsp;    }
+<b class="nc">&nbsp;    SCORE,</b>
 &nbsp;
-&nbsp;    public void sortByScore(){
-<b class="nc">&nbsp;        text.sort((s1, s2) -&gt; {</b>
-<b class="nc">&nbsp;            String[] splitS1 = s1.split(&quot; &quot;, -1);</b>
-<b class="nc">&nbsp;            String[] splitS2 = s2.split(&quot; &quot;, -1);</b>
-<b class="nc">&nbsp;            return Integer.parseInt(splitS2[1]) - Integer.parseInt(splitS1[1]);</b>
-&nbsp;                });
-&nbsp;    }
+<b class="nc">&nbsp;    MACHINE_GUN_MODE,</b>
 &nbsp;
+<b class="nc">&nbsp;    GOD_MODE</b>
 &nbsp;}
 </code>
 </pre>
@@ -118,7 +111,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 16:16</div>
+    <div style="float:right;">generated on 2024-12-30 17:28</div>
 </div>
 </body>
 </html>

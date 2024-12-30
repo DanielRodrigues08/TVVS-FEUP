@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > StartMenu</title>
+  <title>Coverage Report > HealthCollectable</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Model.Menu</a>
+    <a href="../index.html">SpaceInvaders.Model.Game.Collectables</a>
 </div>
 
-<h1>Coverage Summary for Class: StartMenu (SpaceInvaders.Model.Menu)</h1>
+<h1>Coverage Summary for Class: HealthCollectable (SpaceInvaders.Model.Game.Collectables)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">StartMenu</td>
+  <td class="name">HealthCollectable</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -55,7 +55,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/5)
+    (0/2)
   </span>
 </td>
 <td class="coverageStat">
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/6)
+    (0/2)
   </span>
 </td>
 </tr>
@@ -75,30 +75,21 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Menu;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.Collectables;
 &nbsp;
-&nbsp;import java.util.Arrays;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Ship;
+&nbsp;import SpaceInvaders.Model.Position;
 &nbsp;
-&nbsp;public class StartMenu extends Menu {
+&nbsp;public class HealthCollectable extends Collectable&lt;Ship&gt; {
 &nbsp;
-<b class="nc">&nbsp;    public StartMenu(){</b>
-<b class="nc">&nbsp;        options = Arrays.asList(&quot;Play&quot;, &quot;Leaderboard&quot;, &quot;Instructions&quot;, &quot;Exit&quot;);</b>
+&nbsp;
+&nbsp;    public HealthCollectable(Position position, Ship ship) {
+<b class="nc">&nbsp;        super(position,ship);</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public boolean isSelectedPlay(){
-<b class="nc">&nbsp;        return isSelected(0);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public boolean isSelectedLeaderboard(){
-<b class="nc">&nbsp;        return isSelected(1);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public boolean isSelectedInstructions(){
-<b class="nc">&nbsp;        return  isSelected(2);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public boolean isSelectedExit(){
-<b class="nc">&nbsp;        return isSelected(3);</b>
+&nbsp;    @Override
+&nbsp;    public void execute() {
+<b class="nc">&nbsp;        getAttackingElement().restoreHealth();</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -124,7 +115,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 16:16</div>
+    <div style="float:right;">generated on 2024-12-30 17:28</div>
 </div>
 </body>
 </html>

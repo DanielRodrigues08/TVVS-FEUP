@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > PauseMenu</title>
+  <title>Coverage Report > GodModeCollectable</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Model.Menu</a>
+    <a href="../index.html">SpaceInvaders.Model.Game.Collectables</a>
 </div>
 
-<h1>Coverage Summary for Class: PauseMenu (SpaceInvaders.Model.Menu)</h1>
+<h1>Coverage Summary for Class: GodModeCollectable (SpaceInvaders.Model.Game.Collectables)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">PauseMenu</td>
+  <td class="name">GodModeCollectable</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -55,7 +55,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/5)
+    (0/2)
   </span>
 </td>
 <td class="coverageStat">
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/6)
+    (0/2)
   </span>
 </td>
 </tr>
@@ -75,30 +75,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Menu;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.Collectables;
 &nbsp;
-&nbsp;import java.util.Arrays;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Ship;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.ShipMode;
+&nbsp;import SpaceInvaders.Model.Position;
 &nbsp;
-&nbsp;public class PauseMenu extends Menu {
+&nbsp;public class GodModeCollectable extends Collectable&lt;Ship&gt;{
 &nbsp;
-<b class="nc">&nbsp;    public PauseMenu(){</b>
-<b class="nc">&nbsp;        options = Arrays.asList(&quot;Continue&quot;, &quot;Instructions&quot;, &quot;Restart&quot;, &quot;Exit&quot;);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public boolean isSelectedContinue(){
-<b class="nc">&nbsp;        return isSelected(0);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public boolean isSelectedInstructions(){
-<b class="nc">&nbsp;        return isSelected(1);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public boolean isSelectedRestart(){
-<b class="nc">&nbsp;        return isSelected(2);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public boolean isSelectedExit(){
-<b class="nc">&nbsp;        return isSelected(3);</b>
+<b class="nc">&nbsp;    public GodModeCollectable(Position position, Ship ship){super(position, ship);}</b>
+&nbsp;    @Override
+&nbsp;    public void execute() {
+<b class="nc">&nbsp;        getAttackingElement().setShipMode(ShipMode.GOD_MODE);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -124,7 +112,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 16:16</div>
+    <div style="float:right;">generated on 2024-12-30 17:28</div>
 </div>
 </body>
 </html>
