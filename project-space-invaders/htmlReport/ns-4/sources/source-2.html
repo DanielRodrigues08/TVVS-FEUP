@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > AlienMode</title>
+  <title>Coverage Report > OnlyTextMenuController</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Model.Game.RegularGameElements</a>
+    <a href="../index.html">SpaceInvaders.Controller.Menu</a>
 </div>
 
-<h1>Coverage Summary for Class: AlienMode (SpaceInvaders.Model.Game.RegularGameElements)</h1>
+<h1>Coverage Summary for Class: OnlyTextMenuController (SpaceInvaders.Controller.Menu)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -37,11 +37,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 <th class="coverageStat 
 ">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
   Line, %
 </th>
 </tr>
 <tr>
-  <td class="name">AlienMode</td>
+  <td class="name">OnlyTextMenuController</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -63,7 +67,15 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/7)
+    (0/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/4)
   </span>
 </td>
 </tr>
@@ -75,21 +87,32 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.RegularGameElements;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Controller.Menu;
 &nbsp;
-<b class="nc">&nbsp;public enum AlienMode {</b>
+&nbsp;import SpaceInvaders.Controller.Controller;
+&nbsp;import SpaceInvaders.Game;
+&nbsp;import SpaceInvaders.Model.Menu.OnlyTextMenu;
+&nbsp;import com.googlecode.lanterna.input.KeyStroke;
+&nbsp;import com.googlecode.lanterna.input.KeyType;
 &nbsp;
-<b class="nc">&nbsp;    NORMAL_MODE,</b>
+&nbsp;import java.io.IOException;
+&nbsp;import java.net.URISyntaxException;
 &nbsp;
-<b class="nc">&nbsp;    SCORE_2X,</b>
+&nbsp;public class OnlyTextMenuController extends Controller&lt;OnlyTextMenu&gt; {
 &nbsp;
-<b class="nc">&nbsp;    SCORE_3X,</b>
+&nbsp;    public OnlyTextMenuController(OnlyTextMenu menu){
+<b class="nc">&nbsp;        super(menu);</b>
+&nbsp;    }
 &nbsp;
-<b class="nc">&nbsp;    SCORE_4X,</b>
-&nbsp;
-<b class="nc">&nbsp;    SCORE_5X,</b>
-&nbsp;
-<b class="nc">&nbsp;    SCORE_10X</b>
+&nbsp;    @Override
+&nbsp;    public void step(Game game, KeyStroke key, long time) throws IOException, URISyntaxException {
+<b class="nc">&nbsp;        if(key == null){</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;       if(key.getKeyType() == KeyType.Escape){</b>
+<b class="nc">&nbsp;           game.setPrevState();</b>
+&nbsp;       }
+&nbsp;    }
 &nbsp;}
 </code>
 </pre>
@@ -114,7 +137,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 14:59</div>
+    <div style="float:right;">generated on 2024-12-30 16:37</div>
 </div>
 </body>
 </html>

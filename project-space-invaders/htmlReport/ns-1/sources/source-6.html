@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > WallViewer</title>
+  <title>Coverage Report > PauseMenu</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Viewer.Game.RegularElements</a>
+    <a href="../index.html">SpaceInvaders.Model.Menu</a>
 </div>
 
-<h1>Coverage Summary for Class: WallViewer (SpaceInvaders.Viewer.Game.RegularElements)</h1>
+<h1>Coverage Summary for Class: PauseMenu (SpaceInvaders.Model.Menu)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,29 +41,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">WallViewer</td>
+  <td class="name">PauseMenu</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (2/2)
+    (0/5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (4/4)
+    (0/6)
   </span>
 </td>
 </tr>
@@ -75,19 +75,30 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Viewer.Game.RegularElements;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Menu;
 &nbsp;
-&nbsp;import SpaceInvaders.GUI.GUI;
-&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Wall;
+&nbsp;import java.util.Arrays;
 &nbsp;
-<b class="fc">&nbsp;public class WallViewer implements ElementViewer&lt;Wall&gt; {</b>
+&nbsp;public class PauseMenu extends Menu {
 &nbsp;
+<b class="nc">&nbsp;    public PauseMenu(){</b>
+<b class="nc">&nbsp;        options = Arrays.asList(&quot;Continue&quot;, &quot;Instructions&quot;, &quot;Restart&quot;, &quot;Exit&quot;);</b>
+&nbsp;    }
 &nbsp;
-&nbsp;    @Override
-&nbsp;    public void draw(GUI gui, Wall element) {
-<b class="fc">&nbsp;        char coverWallChar = &#39;\u00d2&#39;;</b>
-<b class="fc">&nbsp;        String coverWallColor = &quot;#000080&quot;;</b>
-<b class="fc">&nbsp;        gui.drawElement(element.getPosition(), coverWallChar, coverWallColor);</b>
+&nbsp;    public boolean isSelectedContinue(){
+<b class="nc">&nbsp;        return isSelected(0);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isSelectedInstructions(){
+<b class="nc">&nbsp;        return isSelected(1);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isSelectedRestart(){
+<b class="nc">&nbsp;        return isSelected(2);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean isSelectedExit(){
+<b class="nc">&nbsp;        return isSelected(3);</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -113,7 +124,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 09:56</div>
+    <div style="float:right;">generated on 2024-12-30 16:16</div>
 </div>
 </body>
 </html>

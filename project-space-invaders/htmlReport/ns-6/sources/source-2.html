@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > Sound_Options</title>
+  <title>Coverage Report > GUI</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,53 +19,17 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Model.Sound</a>
+    <a href="../index.html">SpaceInvaders.GUI</a>
 </div>
 
-<h1>Coverage Summary for Class: Sound_Options (SpaceInvaders.Model.Sound)</h1>
+<h1>Coverage Summary for Class: GUI (SpaceInvaders.GUI)</h1>
 
 <table class="coverageStats">
 <tr>
   <th class="name">Class</th>
-<th class="coverageStat 
-">
-  Class, %
-</th>
-<th class="coverageStat 
-">
-  Method, %
-</th>
-<th class="coverageStat 
-">
-  Line, %
-</th>
 </tr>
 <tr>
-  <td class="name">Sound_Options</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/2)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    0%
-  </span>
-  <span class="absValue">
-    (0/8)
-  </span>
-</td>
+  <td class="name">GUI</td>
 </tr>
 
 </table>
@@ -75,17 +39,24 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Sound;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.GUI;
 &nbsp;
-<b class="nc">&nbsp;public enum Sound_Options {</b>
-<b class="nc">&nbsp;    MUSIC,</b>
-<b class="nc">&nbsp;    LASER,</b>
-<b class="nc">&nbsp;    DESTRUCTION,</b>
-<b class="nc">&nbsp;    MENU_SWITCH,</b>
-<b class="nc">&nbsp;    COLLECTABLE,</b>
+&nbsp;import SpaceInvaders.Model.Position;
+&nbsp;import com.googlecode.lanterna.input.KeyStroke;
 &nbsp;
-<b class="nc">&nbsp;    ALIEN_SHIP_LOW,</b>
-<b class="nc">&nbsp;    ALIEN_SHIP_HIGH</b>
+&nbsp;import java.io.IOException;
+&nbsp;
+&nbsp;public interface GUI {
+&nbsp;
+&nbsp;   void drawElement(Position position, char character, String Color);
+&nbsp;   void drawText(Position position, String text, String color);
+&nbsp;
+&nbsp;   KeyStroke getNextAction() throws IOException;
+&nbsp;   void clear();
+&nbsp;   void refresh() throws IOException;
+&nbsp;   void close() throws IOException;
+&nbsp;
+&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -110,7 +81,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 14:59</div>
+    <div style="float:right;">generated on 2024-12-30 16:37</div>
 </div>
 </body>
 </html>

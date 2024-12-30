@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > GodModeCollectable</title>
+  <title>Coverage Report > MovementDirection</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Model.Game.Collectables</a>
+    <a href="../index.html">SpaceInvaders.Controller.Game</a>
 </div>
 
-<h1>Coverage Summary for Class: GodModeCollectable (SpaceInvaders.Model.Game.Collectables)</h1>
+<h1>Coverage Summary for Class: MovementDirection (SpaceInvaders.Controller.Game)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">GodModeCollectable</td>
+  <td class="name">MovementDirection</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/2)
+    (0/4)
   </span>
 </td>
 </tr>
@@ -75,19 +75,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.Collectables;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Controller.Game;
 &nbsp;
-&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Ship;
-&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.ShipMode;
-&nbsp;import SpaceInvaders.Model.Position;
-&nbsp;
-&nbsp;public class GodModeCollectable extends Collectable&lt;Ship&gt;{
-&nbsp;
-<b class="nc">&nbsp;    public GodModeCollectable(Position position, Ship ship){super(position, ship);}</b>
-&nbsp;    @Override
-&nbsp;    public void execute() {
-<b class="nc">&nbsp;        getAttackingElement().setShipMode(ShipMode.GOD_MODE);</b>
-&nbsp;    }
+<b class="nc">&nbsp;public enum MovementDirection {</b>
+<b class="nc">&nbsp;    LEFT,</b>
+<b class="nc">&nbsp;    RIGHT,</b>
+<b class="nc">&nbsp;    DOWN,</b>
 &nbsp;}
 </code>
 </pre>
@@ -112,7 +105,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 14:59</div>
+    <div style="float:right;">generated on 2024-12-30 16:37</div>
 </div>
 </body>
 </html>

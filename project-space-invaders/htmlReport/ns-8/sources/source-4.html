@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">ArenaModifier</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    56.2%
+    0%
   </span>
   <span class="absValue">
-    (9/16)
+    (0/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    20.8%
+    0%
   </span>
   <span class="absValue">
-    (5/24)
+    (0/24)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    56.1%
+    0%
   </span>
   <span class="absValue">
-    (32/57)
+    (0/57)
   </span>
 </td>
 </tr>
@@ -105,32 +105,32 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;    private Random random;
 &nbsp;
-<b class="fc">&nbsp;    public ArenaModifier(Arena arena){</b>
-<b class="fc">&nbsp;        this.arena = arena;</b>
-<b class="fc">&nbsp;        this.random = new Random();</b>
+<b class="nc">&nbsp;    public ArenaModifier(Arena arena){</b>
+<b class="nc">&nbsp;        this.arena = arena;</b>
+<b class="nc">&nbsp;        this.random = new Random();</b>
 &nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    public Arena getArena() {return arena;}</b>
+<b class="nc">&nbsp;    public Arena getArena() {return arena;}</b>
 &nbsp;
 <b class="nc">&nbsp;    public void setRandom(Random random){this.random = random;}</b>
 &nbsp;
 &nbsp;    public void resetShipMode(){
-<b class="fc">&nbsp;        arena.getShip().setShipMode(ShipMode.NORMAL_MODE);</b>
+<b class="nc">&nbsp;        arena.getShip().setShipMode(ShipMode.NORMAL_MODE);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void resetAliensMode(){
-<b class="fc">&nbsp;        List&lt;Alien&gt; aliens = arena.getAliens();</b>
-<b class="fc">&nbsp;        for(Alien alien : aliens){</b>
-<b class="fc">&nbsp;            alien.setAlienMode(AlienMode.NORMAL_MODE);</b>
+<b class="nc">&nbsp;        List&lt;Alien&gt; aliens = arena.getAliens();</b>
+<b class="nc">&nbsp;        for(Alien alien : aliens){</b>
+<b class="nc">&nbsp;            alien.setAlienMode(AlienMode.NORMAL_MODE);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;    public void createCollectable() {
-<b class="fc">&nbsp;        List&lt;Integer&gt; columns = arena.getFreeArenaColumns();</b>
-<b class="fc">&nbsp;        int randomElement = random.nextInt(2);</b>
-<b class="fc">&nbsp;        int randomIndex = random.nextInt(columns.size());</b>
-<b class="fc">&nbsp;        Position position = new Position(columns.get(randomIndex),1);</b>
-<b class="pc">&nbsp;        if(randomElement == 0){</b>
-<b class="fc">&nbsp;            createCollectableAffectingShip(position);</b>
+<b class="nc">&nbsp;        List&lt;Integer&gt; columns = arena.getFreeArenaColumns();</b>
+<b class="nc">&nbsp;        int randomElement = random.nextInt(2);</b>
+<b class="nc">&nbsp;        int randomIndex = random.nextInt(columns.size());</b>
+<b class="nc">&nbsp;        Position position = new Position(columns.get(randomIndex),1);</b>
+<b class="nc">&nbsp;        if(randomElement == 0){</b>
+<b class="nc">&nbsp;            createCollectableAffectingShip(position);</b>
 &nbsp;        }
 &nbsp;        else{
 <b class="nc">&nbsp;            createCollectableAffectingAliens(position);</b>
@@ -138,17 +138,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void createCollectableAffectingShip(Position position){
-<b class="fc">&nbsp;        List&lt;CollectableType&gt; collectableTypes = new ArrayList&lt;&gt;(Arrays.asList(CollectableType.HEALTH, CollectableType.DAMAGE, CollectableType.MACHINE_GUN_MODE, CollectableType.GOD_MODE));</b>
-<b class="fc">&nbsp;        int randomCollectableTypeIndex = random.nextInt(collectableTypes.size());</b>
+<b class="nc">&nbsp;        List&lt;CollectableType&gt; collectableTypes = new ArrayList&lt;&gt;(Arrays.asList(CollectableType.HEALTH, CollectableType.DAMAGE, CollectableType.MACHINE_GUN_MODE, CollectableType.GOD_MODE));</b>
+<b class="nc">&nbsp;        int randomCollectableTypeIndex = random.nextInt(collectableTypes.size());</b>
 &nbsp;
-<b class="fc">&nbsp;        List&lt;Integer&gt; collectableMultiplier = new ArrayList&lt;&gt;(Arrays.asList(2,3,4,5,10));</b>
-<b class="fc">&nbsp;        int randomCollectableMultiplierIndex = random.nextInt(collectableMultiplier.size());</b>
+<b class="nc">&nbsp;        List&lt;Integer&gt; collectableMultiplier = new ArrayList&lt;&gt;(Arrays.asList(2,3,4,5,10));</b>
+<b class="nc">&nbsp;        int randomCollectableMultiplierIndex = random.nextInt(collectableMultiplier.size());</b>
 &nbsp;
-<b class="fc">&nbsp;        CollectableType collectableType = collectableTypes.get(randomCollectableTypeIndex);</b>
-<b class="fc">&nbsp;        int multiplier = collectableMultiplier.get(randomCollectableMultiplierIndex);</b>
+<b class="nc">&nbsp;        CollectableType collectableType = collectableTypes.get(randomCollectableTypeIndex);</b>
+<b class="nc">&nbsp;        int multiplier = collectableMultiplier.get(randomCollectableMultiplierIndex);</b>
 &nbsp;
-<b class="fc">&nbsp;        CollectableFactory&lt;Ship&gt; collectableFactory = new CollectableFactory&lt;&gt;(position,collectableType,multiplier,arena.getShip());</b>
-<b class="fc">&nbsp;        arena.setActiveCollectable(collectableFactory.createCollectable());</b>
+<b class="nc">&nbsp;        CollectableFactory&lt;Ship&gt; collectableFactory = new CollectableFactory&lt;&gt;(position,collectableType,multiplier,arena.getShip());</b>
+<b class="nc">&nbsp;        arena.setActiveCollectable(collectableFactory.createCollectable());</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
@@ -162,16 +162,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void createAlienShip() {
-<b class="fc">&nbsp;        List&lt;Integer&gt; movementOptions = new ArrayList&lt;&gt;(Arrays.asList(-1,1));</b>
-<b class="fc">&nbsp;        int movementChoiceIndex = random.nextInt(movementOptions.size());</b>
-<b class="fc">&nbsp;        int movement = movementOptions.get(movementChoiceIndex);</b>
-<b class="fc">&nbsp;        if(movement == -1){</b>
-<b class="fc">&nbsp;            AlienShip alienShip = new AlienShip(new Position(arena.getWidth() - 4, 6),50 , 1000, movement);</b>
-<b class="fc">&nbsp;            arena.setAlienShip(alienShip);</b>
+<b class="nc">&nbsp;        List&lt;Integer&gt; movementOptions = new ArrayList&lt;&gt;(Arrays.asList(-1,1));</b>
+<b class="nc">&nbsp;        int movementChoiceIndex = random.nextInt(movementOptions.size());</b>
+<b class="nc">&nbsp;        int movement = movementOptions.get(movementChoiceIndex);</b>
+<b class="nc">&nbsp;        if(movement == -1){</b>
+<b class="nc">&nbsp;            AlienShip alienShip = new AlienShip(new Position(arena.getWidth() - 4, 6),50 , 1000, movement);</b>
+<b class="nc">&nbsp;            arena.setAlienShip(alienShip);</b>
 &nbsp;        }
 &nbsp;        else {
-<b class="fc">&nbsp;            AlienShip alienShip = new AlienShip(new Position(4, 6),50 , 1000, movement);</b>
-<b class="fc">&nbsp;            arena.setAlienShip(alienShip);</b>
+<b class="nc">&nbsp;            AlienShip alienShip = new AlienShip(new Position(4, 6),50 , 1000, movement);</b>
+<b class="nc">&nbsp;            arena.setAlienShip(alienShip);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
@@ -209,11 +209,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="nc">&nbsp;    public void removeActiveCollectable(){getArena().setActiveCollectable(null);}</b>
 &nbsp;
-<b class="fc">&nbsp;    public void addProjectile(Projectile projectile) {getArena().getProjectiles().add(projectile);}</b>
+<b class="nc">&nbsp;    public void addProjectile(Projectile projectile) {getArena().getProjectiles().add(projectile);}</b>
 &nbsp;
 <b class="nc">&nbsp;    public void removeProjectile(Projectile projectile) {getArena().getProjectiles().remove(projectile);}</b>
 &nbsp;
-<b class="fc">&nbsp;    public void removeAlienShip(){getArena().setAlienShip(null);}</b>
+<b class="nc">&nbsp;    public void removeAlienShip(){getArena().setAlienShip(null);}</b>
 &nbsp;
 &nbsp;}
 </code>
@@ -239,7 +239,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 14:53</div>
+    <div style="float:right;">generated on 2024-12-30 16:37</div>
 </div>
 </body>
 </html>
