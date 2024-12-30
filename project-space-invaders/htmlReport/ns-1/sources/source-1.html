@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > GameStates</title>
+  <title>Coverage Report > GUILanterna</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.State</a>
+    <a href="../index.html">SpaceInvaders.GUI</a>
 </div>
 
-<h1>Coverage Summary for Class: GameStates (SpaceInvaders.State)</h1>
+<h1>Coverage Summary for Class: GUILanterna (SpaceInvaders.GUI)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">GameStates</td>
+  <td class="name">GUILanterna</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -52,18 +52,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    61.5%
   </span>
   <span class="absValue">
-    (2/2)
+    (8/13)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    36.8%
   </span>
   <span class="absValue">
-    (10/10)
+    (14/38)
   </span>
 </td>
 </tr>
@@ -75,18 +75,113 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.State;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.GUI;
 &nbsp;
-<b class="fc">&nbsp;public enum GameStates {</b>
-<b class="fc">&nbsp;    GAME_OVER,</b>
-<b class="fc">&nbsp;    START_MENU,</b>
-<b class="fc">&nbsp;    PAUSE,</b>
-<b class="fc">&nbsp;    LEADERBOARD,</b>
-<b class="fc">&nbsp;    INSTRUCTIONS,</b>
-<b class="fc">&nbsp;    NEW_GAME,</b>
-<b class="fc">&nbsp;    RESUME_GAME,</b>
-<b class="fc">&nbsp;    NEW_GAME_ROUND,</b>
-<b class="fc">&nbsp;    QUIT_GAME</b>
+&nbsp;import SpaceInvaders.Model.Position;
+&nbsp;import com.googlecode.lanterna.TerminalSize;
+&nbsp;import com.googlecode.lanterna.TextColor;
+&nbsp;import com.googlecode.lanterna.graphics.TextGraphics;
+&nbsp;import com.googlecode.lanterna.screen.Screen;
+&nbsp;import com.googlecode.lanterna.screen.TerminalScreen;
+&nbsp;import com.googlecode.lanterna.terminal.DefaultTerminalFactory;
+&nbsp;import com.googlecode.lanterna.terminal.Terminal;
+&nbsp;import com.googlecode.lanterna.terminal.swing.AWTTerminalFontConfiguration;
+&nbsp;import com.googlecode.lanterna.input.KeyStroke;
+&nbsp;
+&nbsp;import java.awt.*;
+&nbsp;import java.io.File;
+&nbsp;import java.io.IOException;
+&nbsp;import java.net.URISyntaxException;
+&nbsp;import java.net.URL;
+&nbsp;
+&nbsp;public class GUILanterna implements GUI {
+&nbsp;    private final Screen screen;
+&nbsp;
+<b class="fc">&nbsp;    public GUILanterna(Screen screen) {</b>
+<b class="fc">&nbsp;        this.screen = screen;</b>
+&nbsp;    }
+&nbsp;
+<b class="nc">&nbsp;    public GUILanterna(int width, int height) throws IOException, FontFormatException, URISyntaxException {</b>
+<b class="nc">&nbsp;        AWTTerminalFontConfiguration fontConfig = loadFont();</b>
+<b class="nc">&nbsp;        Terminal terminal = createTerminal(width, height, fontConfig);</b>
+<b class="nc">&nbsp;        this.screen = createScreen(terminal);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private Screen createScreen(Terminal terminal) throws IOException {
+&nbsp;        final Screen screen;
+<b class="nc">&nbsp;        screen = new TerminalScreen(terminal);</b>
+&nbsp;
+<b class="nc">&nbsp;        screen.setCursorPosition(null);</b>
+<b class="nc">&nbsp;        screen.startScreen();</b>
+<b class="nc">&nbsp;        screen.doResizeIfNecessary();</b>
+<b class="nc">&nbsp;        return screen;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private Terminal createTerminal(int width, int height, AWTTerminalFontConfiguration fontConfig) throws IOException {
+<b class="nc">&nbsp;        TerminalSize terminalSize = new TerminalSize(width, height + 1);</b>
+<b class="nc">&nbsp;        DefaultTerminalFactory terminalFactory = new DefaultTerminalFactory().setInitialTerminalSize(terminalSize);</b>
+<b class="nc">&nbsp;        terminalFactory.setForceAWTOverSwing(true);</b>
+<b class="nc">&nbsp;        terminalFactory.setTerminalEmulatorFontConfiguration(fontConfig);</b>
+<b class="nc">&nbsp;        Terminal terminal = terminalFactory.createTerminal();</b>
+<b class="nc">&nbsp;        return terminal;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private AWTTerminalFontConfiguration loadFont() throws URISyntaxException, FontFormatException, IOException {
+<b class="nc">&nbsp;        URL resource = getClass().getClassLoader().getResource(&quot;fonts/CosmicAlien.ttf&quot;);</b>
+<b class="nc">&nbsp;        File fontFile = new File(resource.toURI());</b>
+<b class="nc">&nbsp;        Font font = Font.createFont(Font.TRUETYPE_FONT, fontFile);</b>
+&nbsp;
+<b class="nc">&nbsp;        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();</b>
+<b class="nc">&nbsp;        ge.registerFont(font);</b>
+&nbsp;
+<b class="nc">&nbsp;        Font loadedFont = font.deriveFont(Font.PLAIN, 25);</b>
+<b class="nc">&nbsp;        AWTTerminalFontConfiguration fontConfig = AWTTerminalFontConfiguration.newInstance(loadedFont);</b>
+<b class="nc">&nbsp;        return fontConfig;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Screen getScreen() {
+<b class="nc">&nbsp;        return screen;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void drawElement(Position position, char character, String color){
+<b class="fc">&nbsp;        drawCharacter(position.getX(), position.getY(), character, color);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void drawText(Position position, String text, String color){
+<b class="fc">&nbsp;        TextGraphics tg = screen.newTextGraphics();</b>
+<b class="fc">&nbsp;        tg.setForegroundColor(TextColor.Factory.fromString(color));</b>
+<b class="fc">&nbsp;        tg.putString(position.getX(), position.getY(), text);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public KeyStroke getNextAction() throws IOException {
+<b class="fc">&nbsp;        KeyStroke k = screen.pollInput();</b>
+<b class="fc">&nbsp;        return k;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    private void drawCharacter(int x, int y, char c, String color) {
+<b class="fc">&nbsp;        TextGraphics tg = screen.newTextGraphics();</b>
+<b class="fc">&nbsp;        tg.setForegroundColor(TextColor.Factory.fromString(color));</b>
+<b class="fc">&nbsp;        tg.putString(x, y + 1, &quot;&quot; + c);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void clear() {
+<b class="fc">&nbsp;        screen.clear();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void refresh() throws IOException {
+<b class="fc">&nbsp;        screen.refresh();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public void close() throws IOException{
+<b class="fc">&nbsp;        screen.close();</b>
+&nbsp;    }
 &nbsp;}
 </code>
 </pre>
@@ -111,7 +206,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 12:14</div>
+    <div style="float:right;">generated on 2024-12-30 14:44</div>
 </div>
 </body>
 </html>
