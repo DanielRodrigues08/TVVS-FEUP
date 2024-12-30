@@ -1,0 +1,146 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > Viewer</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SpaceInvaders.Viewer</a>
+</div>
+
+<h1>Coverage Summary for Class: Viewer (SpaceInvaders.Viewer)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">Viewer</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">Viewer$MockitoMock$j9J60Xs2</td>
+  </tr>
+  <tr>
+    <td class="name">Viewer$MockitoMock$j9J60Xs2$auxiliary$42Hip06p</td>
+  </tr>
+  <tr>
+    <td class="name">Viewer$MockitoMock$j9J60Xs2$auxiliary$vJmqqaba</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (3/3)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (6/6)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Viewer;
+&nbsp;
+&nbsp;import SpaceInvaders.GUI.GUI;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;
+&nbsp;public abstract class Viewer&lt;T&gt; {
+&nbsp;    private final T model;
+&nbsp;
+<b class="fc">&nbsp;    public Viewer(T model) {</b>
+<b class="fc">&nbsp;        this.model = model;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public T getModel() {
+<b class="fc">&nbsp;        return model;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void draw(GUI gui, long time) throws IOException {
+<b class="fc">&nbsp;        gui.clear();</b>
+<b class="fc">&nbsp;        drawElements(gui, time);</b>
+<b class="fc">&nbsp;        gui.refresh();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    protected abstract void drawElements(GUI gui, long time);
+&nbsp;}
+&nbsp;
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-12-30 14:53</div>
+</div>
+</body>
+</html>

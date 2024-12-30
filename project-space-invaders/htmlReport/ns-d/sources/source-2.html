@@ -1,0 +1,327 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > State</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">SpaceInvaders.State</a>
+</div>
+
+<h1>Coverage Summary for Class: State (SpaceInvaders.State)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">State</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (15/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93.3%
+  </span>
+  <span class="absValue">
+    (14/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (66/66)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">State$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (16/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    93.3%
+  </span>
+  <span class="absValue">
+    (14/15)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (67/67)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.State;
+&nbsp;
+&nbsp;import SpaceInvaders.Controller.Controller;
+&nbsp;import SpaceInvaders.Controller.Game.ArenaController;
+&nbsp;import SpaceInvaders.Controller.Menu.GameOverController;
+&nbsp;import SpaceInvaders.Controller.Menu.OnlyTextMenuController;
+&nbsp;import SpaceInvaders.Controller.Menu.PauseMenuController;
+&nbsp;import SpaceInvaders.Controller.Menu.StartMenuController;
+&nbsp;import SpaceInvaders.Controller.Sound.SoundManager;
+&nbsp;import SpaceInvaders.GUI.GUI;
+&nbsp;import SpaceInvaders.Game;
+&nbsp;import SpaceInvaders.Model.Game.Arena;
+&nbsp;import SpaceInvaders.Model.Game.ArenaBuilderByRound;
+&nbsp;import SpaceInvaders.Model.Menu.*;
+&nbsp;import SpaceInvaders.Model.Sound.Sound_Options;
+&nbsp;import SpaceInvaders.Viewer.Game.GameViewer;
+&nbsp;import SpaceInvaders.Viewer.Menu.*;
+&nbsp;import SpaceInvaders.Viewer.Viewer;
+&nbsp;import com.googlecode.lanterna.input.KeyStroke;
+&nbsp;
+&nbsp;import java.io.IOException;
+&nbsp;import java.net.URISyntaxException;
+&nbsp;
+&nbsp;public class State {
+&nbsp;    private static State instance;
+&nbsp;    private GameStates currentState;
+&nbsp;    private GameStates previousState;
+&nbsp;    private Controller controller;
+&nbsp;    private ArenaController arenaController;
+&nbsp;    private Viewer viewer;
+&nbsp;    private Arena arena;
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    private State() {</b>
+<b class="fc">&nbsp;        currentState = GameStates.START_MENU;</b>
+<b class="fc">&nbsp;        previousState = GameStates.START_MENU;</b>
+<b class="fc">&nbsp;        StartMenu menu = new StartMenu();</b>
+<b class="fc">&nbsp;        viewer = new StartMenuViewer(menu);</b>
+<b class="fc">&nbsp;        controller = new StartMenuController(menu);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static State getInstance() {
+<b class="fc">&nbsp;        if (instance == null) {</b>
+<b class="fc">&nbsp;            instance = new State();</b>
+&nbsp;        }
+<b class="fc">&nbsp;        return instance;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public static void setInstance(State newInstance) {
+<b class="fc">&nbsp;        instance = newInstance;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Arena getArena() {
+<b class="fc">&nbsp;        return arena;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setArena(Arena arena) {
+<b class="fc">&nbsp;        this.arena = arena;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Controller getController() {
+<b class="fc">&nbsp;        return controller;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setController(Controller controller) {
+<b class="fc">&nbsp;        this.controller = controller;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Viewer getViewer() {
+<b class="fc">&nbsp;        return viewer;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setViewer(Viewer viewer) {
+<b class="fc">&nbsp;        this.viewer = viewer;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public GameStates getCurrentState() {
+<b class="fc">&nbsp;        return currentState;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public GameStates getPreviousState() {
+<b class="fc">&nbsp;        return previousState;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void UpdateState(GameStates newState) throws IOException, URISyntaxException {
+<b class="fc">&nbsp;        if (newState == GameStates.START_MENU) {</b>
+<b class="fc">&nbsp;            previousState = GameStates.START_MENU;</b>
+&nbsp;        } else {
+<b class="fc">&nbsp;            previousState = currentState;</b>
+&nbsp;        }
+<b class="fc">&nbsp;        currentState = newState;</b>
+<b class="fc">&nbsp;        StateActions();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void UpdateToPrevious() throws IOException, URISyntaxException {
+<b class="fc">&nbsp;        GameStates aux = currentState;</b>
+<b class="fc">&nbsp;        currentState = previousState;</b>
+<b class="fc">&nbsp;        previousState = aux;</b>
+<b class="fc">&nbsp;        StateActions();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void step(GUI gui, Game game, long time) throws IOException, URISyntaxException {
+<b class="fc">&nbsp;        KeyStroke key = gui.getNextAction();</b>
+<b class="fc">&nbsp;        controller.step(game, key, time);</b>
+<b class="fc">&nbsp;        viewer.draw(gui, time);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void StateActions() throws IOException, URISyntaxException {
+&nbsp;
+<b class="pc">&nbsp;        switch (currentState) {</b>
+&nbsp;            case START_MENU:
+<b class="fc">&nbsp;                StartMenu menuS = new StartMenu();</b>
+<b class="fc">&nbsp;                controller = new StartMenuController(menuS);</b>
+<b class="fc">&nbsp;                viewer = new StartMenuViewer(menuS);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case PAUSE:
+<b class="fc">&nbsp;                PauseMenu menuP = new PauseMenu();</b>
+<b class="fc">&nbsp;                controller = new PauseMenuController(menuP);</b>
+<b class="fc">&nbsp;                viewer = new PauseMenuViewer(menuP);</b>
+<b class="fc">&nbsp;                SoundManager.getInstance().stopAllSounds();</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case NEW_GAME:
+&nbsp;                ArenaBuilderByRound arenaBuilder;
+<b class="fc">&nbsp;                arenaBuilder = new ArenaBuilderByRound(1);</b>
+<b class="fc">&nbsp;                this.arena = arenaBuilder.buildArena();</b>
+<b class="fc">&nbsp;                controller = new ArenaController(arena);</b>
+<b class="fc">&nbsp;                arenaController = (ArenaController) controller;</b>
+<b class="fc">&nbsp;                viewer = new GameViewer(arena);</b>
+<b class="fc">&nbsp;                SoundManager.getInstance().playSound(Sound_Options.MUSIC);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case LEADERBOARD:
+<b class="fc">&nbsp;                Leaderboard leaderboard = new Leaderboard();</b>
+<b class="fc">&nbsp;                controller = new OnlyTextMenuController(leaderboard);</b>
+<b class="fc">&nbsp;                viewer = new LeaderboardViewer(leaderboard);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case GAME_OVER:
+<b class="fc">&nbsp;                GameOverMenu menuG = new GameOverMenu(arena.getScore());</b>
+<b class="fc">&nbsp;                controller = new GameOverController(menuG);</b>
+<b class="fc">&nbsp;                viewer = new GameOverMenuViewer(menuG);</b>
+<b class="fc">&nbsp;                SoundManager.getInstance().stopAllSounds();</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case NEW_GAME_ROUND:
+<b class="fc">&nbsp;                ArenaBuilderByRound newArenaBuilder = new ArenaBuilderByRound(arena.getRound() + 1);</b>
+<b class="fc">&nbsp;                int score = this.arena.getScore();</b>
+<b class="fc">&nbsp;                this.arena = newArenaBuilder.buildArena();</b>
+<b class="fc">&nbsp;                this.arena.increaseScore(score);</b>
+<b class="fc">&nbsp;                controller = new ArenaController(arena);</b>
+<b class="fc">&nbsp;                arenaController = (ArenaController) controller;</b>
+<b class="fc">&nbsp;                viewer = new GameViewer(arena);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case RESUME_GAME:
+<b class="fc">&nbsp;                controller = arenaController;</b>
+<b class="fc">&nbsp;                viewer = new GameViewer(arena);</b>
+<b class="fc">&nbsp;                SoundManager.getInstance().resumePlayingMusic();</b>
+<b class="fc">&nbsp;                if (arena.getAlienShip() != null) {</b>
+<b class="fc">&nbsp;                    SoundManager.getInstance().resumePlayingAlienShipSound();</b>
+&nbsp;                }
+&nbsp;                break;
+&nbsp;
+&nbsp;            case INSTRUCTIONS:
+<b class="fc">&nbsp;                Instructions instructions = new Instructions();</b>
+<b class="fc">&nbsp;                controller = new OnlyTextMenuController(instructions);</b>
+<b class="fc">&nbsp;                viewer = new InstructionsViewer(instructions);</b>
+&nbsp;                break;
+&nbsp;
+&nbsp;            case QUIT_GAME: // No new controllers or viewers, the main function will close the game
+&nbsp;        }
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2024-12-30 14:53</div>
+</div>
+</body>
+</html>
