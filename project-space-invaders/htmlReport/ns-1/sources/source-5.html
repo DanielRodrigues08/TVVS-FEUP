@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > AttackingElement</title>
+  <title>Coverage Report > Element</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Model.Game.RegularGameElements</a>
+    <a href="../index.html">SpaceInvaders.Model.Game</a>
 </div>
 
-<h1>Coverage Summary for Class: AttackingElement (SpaceInvaders.Model.Game.RegularGameElements)</h1>
+<h1>Coverage Summary for Class: Element (SpaceInvaders.Model.Game)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -45,7 +45,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">AttackingElement</td>
+  <td class="name">Element</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    20%
+    60%
   </span>
   <span class="absValue">
-    (1/5)
+    (3/5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    50%
   </span>
   <span class="absValue">
-    (0/10)
+    (2/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    14.3%
+    60%
   </span>
   <span class="absValue">
-    (2/14)
+    (6/10)
   </span>
 </td>
 </tr>
@@ -87,41 +87,40 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.RegularGameElements;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game;
 &nbsp;
 &nbsp;import SpaceInvaders.Model.Position;
 &nbsp;
-&nbsp;public class AttackingElement extends DestroyableElement {
+&nbsp;public abstract class Element {
 &nbsp;
-&nbsp;    private int damagePerShot;
+&nbsp;    private Position position;
 &nbsp;
-&nbsp;    public AttackingElement(Position position, int health, int damagePerShot) {
-<b class="fc">&nbsp;        super(position, health);</b>
-<b class="fc">&nbsp;        this.damagePerShot = damagePerShot;</b>
+<b class="fc">&nbsp;    public Element(Position position){</b>
+<b class="fc">&nbsp;        this.position = position;</b>
 &nbsp;    }
 &nbsp;
-<b class="nc">&nbsp;    public int getDamagePerShot() {return damagePerShot;}</b>
+&nbsp;    public Position getPosition(){
+<b class="fc">&nbsp;        return position;</b>
+&nbsp;    }
 &nbsp;
-<b class="nc">&nbsp;    public void setDamagePerShot(int damagePerShot){this.damagePerShot = damagePerShot;}</b>
+&nbsp;    public void setPosition(Position position){
+<b class="nc">&nbsp;        this.position = position;</b>
+&nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public boolean equals(Object o){
-<b class="nc">&nbsp;        if(this == o){</b>
+<b class="pc">&nbsp;        if(this == o){</b>
 <b class="nc">&nbsp;            return true;</b>
 &nbsp;        }
-<b class="nc">&nbsp;        if(!(o instanceof AttackingElement)){</b>
+<b class="pc">&nbsp;        if(!(o instanceof Element)){</b>
 <b class="nc">&nbsp;            return false;</b>
 &nbsp;        }
-<b class="nc">&nbsp;        return this.getPosition().equals(((AttackingElement) o).getPosition()) &amp;&amp; this.getHealth() == ((AttackingElement) o).getHealth() &amp;&amp; this.getDamagePerShot() == ((AttackingElement) o).getDamagePerShot();</b>
+<b class="fc">&nbsp;        return this.getPosition().equals(((Element) o).getPosition());</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public int hashCode() {
-<b class="nc">&nbsp;        int prime = 31;</b>
-<b class="nc">&nbsp;        int result = prime + damagePerShot;</b>
-<b class="nc">&nbsp;        result = prime * result + getHealth();</b>
-<b class="nc">&nbsp;        result = prime * result + getPosition().hashCode();</b>
-<b class="nc">&nbsp;        return result;</b>
+<b class="nc">&nbsp;        return position.hashCode();</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -147,7 +146,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-31 00:05</div>
+    <div style="float:right;">generated on 2024-12-31 14:28</div>
 </div>
 </body>
 </html>

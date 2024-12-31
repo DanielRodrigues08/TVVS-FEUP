@@ -165,6 +165,7 @@ class ArenaTest {
 
     @Test
     void testGetFreeArenaColumns(){
+        List<Integer> expected = List.of(0, 3, 4);
         var alien1 = mock(Alien.class);
         var alien2 = mock(Alien.class);
         when(alien1.getPosition()).thenReturn(new Position(1, 1));
@@ -175,6 +176,6 @@ class ArenaTest {
 
         List<Integer> freeColumns = arena.getFreeArenaColumns();
 
-        assertEquals(List.of(0, 3, 4), freeColumns);
+        assertEquals(expected, freeColumns);
     }
 }

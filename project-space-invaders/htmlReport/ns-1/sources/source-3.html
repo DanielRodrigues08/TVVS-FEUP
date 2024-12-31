@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > AlienShip</title>
+  <title>Coverage Report > ArenaBuilderByRound</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Model.Game.RegularGameElements</a>
+    <a href="../index.html">SpaceInvaders.Model.Game</a>
 </div>
 
-<h1>Coverage Summary for Class: AlienShip (SpaceInvaders.Model.Game.RegularGameElements)</h1>
+<h1>Coverage Summary for Class: ArenaBuilderByRound (SpaceInvaders.Model.Game)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -37,33 +37,45 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 <th class="coverageStat 
 ">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
   Line, %
 </th>
 </tr>
 <tr>
-  <td class="name">AlienShip</td>
+  <td class="name">ArenaBuilderByRound</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/3)
+    (12/12)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    97.2%
   </span>
   <span class="absValue">
-    (0/5)
+    (35/36)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (54/54)
   </span>
 </td>
 </tr>
@@ -75,28 +87,146 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.RegularGameElements;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game;
 &nbsp;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.*;
 &nbsp;import SpaceInvaders.Model.Position;
 &nbsp;
-&nbsp;public class AlienShip extends DestroyableElement {
+&nbsp;import java.io.*;
+&nbsp;import java.net.URISyntaxException;
+&nbsp;import java.net.URL;
+&nbsp;import java.nio.charset.Charset;
+&nbsp;import java.nio.file.Files;
+&nbsp;import java.nio.file.Path;
+&nbsp;import java.nio.file.Paths;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
 &nbsp;
-&nbsp;    private int score;
-&nbsp;    private int movementDirection;
+&nbsp;public class ArenaBuilderByRound extends ArenaBuilder {
 &nbsp;
-&nbsp;    public AlienShip(Position position,int health,int score, int movementDirection) {
-<b class="nc">&nbsp;        super(position,health);</b>
-<b class="nc">&nbsp;        this.score = score;</b>
-<b class="nc">&nbsp;        this.movementDirection = movementDirection;</b>
+&nbsp;    private int round;
+&nbsp;
+&nbsp;    private List&lt;String&gt; arenaLines;
+&nbsp;
+<b class="fc">&nbsp;    public ArenaBuilderByRound(int round) throws IOException, URISyntaxException {</b>
+<b class="fc">&nbsp;        this.round = round;</b>
+<b class="fc">&nbsp;        if(round &lt;= 5){</b>
+<b class="fc">&nbsp;            URL resource = ArenaBuilderByRound.class.getResource(&quot;/rounds/round&quot; + round + &quot;.txt&quot;);</b>
+<b class="fc">&nbsp;            Reader fileReader = Files.newBufferedReader(Paths.get(resource.toURI()), Charset.defaultCharset());</b>
+<b class="fc">&nbsp;            BufferedReader br = new BufferedReader(fileReader);</b>
+<b class="fc">&nbsp;            arenaLines = readArenaLines(br);</b>
+&nbsp;        }
+&nbsp;        else{
+<b class="fc">&nbsp;            URL resource = ArenaBuilderByRound.class.getResource(&quot;/rounds/round3.txt&quot;);</b>
+<b class="fc">&nbsp;            Reader fileReader = Files.newBufferedReader(Paths.get(resource.toURI()), Charset.defaultCharset());</b>
+<b class="fc">&nbsp;            BufferedReader br = new BufferedReader(fileReader);</b>
+<b class="fc">&nbsp;            arenaLines = readArenaLines(br);</b>
+&nbsp;        }
 &nbsp;    }
 &nbsp;
-&nbsp;    public int getScore() {
-<b class="nc">&nbsp;        return score;</b>
+&nbsp;    public List&lt;String&gt; readArenaLines(BufferedReader br) throws IOException {
+<b class="fc">&nbsp;        List&lt;String&gt; arenaLines = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (String line; (line = br.readLine()) != null; )</b>
+<b class="fc">&nbsp;            arenaLines.add(line);</b>
+<b class="fc">&nbsp;        return arenaLines;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public int getMovementDirection() {
-<b class="nc">&nbsp;        return movementDirection;</b>
+&nbsp;    @Override
+&nbsp;    public int getWidth() {
+<b class="fc">&nbsp;        return arenaLines.get(0).length();</b>
 &nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getHeight() {
+<b class="fc">&nbsp;        return arenaLines.size();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public int getRound(){
+<b class="fc">&nbsp;        return round;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setArenaLines(List&lt;String&gt; arenaLines) {
+<b class="fc">&nbsp;        this.arenaLines = arenaLines;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public List&lt;String&gt; getArenaLines(){
+<b class="fc">&nbsp;        return arenaLines;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private int getAliensAttackLine(){
+<b class="fc">&nbsp;        int i = 0;</b>
+<b class="pc">&nbsp;        for(i = arenaLines.size() - 1; i &gt;= 0; i--){</b>
+<b class="fc">&nbsp;            if(arenaLines.get(i).indexOf(&#39;A&#39;) != -1){</b>
+&nbsp;                break;
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return i;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public Ship createShip() {
+<b class="fc">&nbsp;        for(int x = 0; x &lt; arenaLines.get(0).length(); x++){</b>
+<b class="fc">&nbsp;            for(int y = 0; y &lt; arenaLines.size(); y++){</b>
+<b class="fc">&nbsp;                if(arenaLines.get(y).charAt(x) == &#39;S&#39;){</b>
+<b class="fc">&nbsp;                    return new Ship(new Position(x,y),getBaseShipHealth(), getBaseShipDamage());</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return null;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Alien&gt; createAliens() {
+<b class="fc">&nbsp;        List&lt;Alien&gt; aliens = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for(int x = 0; x &lt; arenaLines.get(0).length(); x++){</b>
+<b class="fc">&nbsp;            int type = 0;</b>
+<b class="fc">&nbsp;            for (int y = 0; y &lt; arenaLines.size(); y++){</b>
+<b class="fc">&nbsp;                if(arenaLines.get(y).charAt(x) == &#39;A&#39;){</b>
+<b class="fc">&nbsp;                    if(y == getAliensAttackLine()){</b>
+<b class="fc">&nbsp;                        aliens.add(new Alien(new Position(x,y),getBaseAlienHealth() * (int) Math.pow(2,round - 1),getBaseAlienDamage() * (int) Math.pow(2, round - 1),getBaseAlienScore() * round,AlienState.ATTACKING, type));</b>
+<b class="fc">&nbsp;                        type++;</b>
+&nbsp;                    }
+&nbsp;                    else{
+<b class="fc">&nbsp;                        aliens.add(new Alien(new Position(x,y),getBaseAlienHealth() * (int) Math.pow(2,round - 1),getBaseAlienDamage() * (int) Math.pow(2, round - 1),getBaseAlienScore() * round,AlienState.PASSIVE,type));</b>
+<b class="fc">&nbsp;                        type++;</b>
+&nbsp;                    }
+&nbsp;                }
+&nbsp;
+<b class="fc">&nbsp;                if(type &gt;= 3 ){</b>
+<b class="fc">&nbsp;                    type = 0;</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return aliens;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;Wall&gt; createWalls() {
+<b class="fc">&nbsp;        List&lt;Wall&gt; walls = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for(int x = 0; x &lt; arenaLines.get(0).length(); x++){</b>
+<b class="fc">&nbsp;            for(int y = 0; y &lt; arenaLines.size(); y++){</b>
+<b class="fc">&nbsp;                if(arenaLines.get(y).charAt(x) == &#39;#&#39;){</b>
+<b class="fc">&nbsp;                    walls.add(new Wall(new Position(x,y)));</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return walls;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @Override
+&nbsp;    public List&lt;CoverWall&gt; createCoverWalls() {
+<b class="fc">&nbsp;        List&lt;CoverWall&gt; coverWalls = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for(int x = 0; x &lt; arenaLines.get(0).length(); x++){</b>
+<b class="fc">&nbsp;            for(int y = 0; y &lt; arenaLines.size(); y++){</b>
+<b class="fc">&nbsp;                if(arenaLines.get(y).charAt(x) == &#39;W&#39;){</b>
+<b class="fc">&nbsp;                    coverWalls.add(new CoverWall(new Position(x,y),getBaseCoverWallHealth()));</b>
+&nbsp;                }
+&nbsp;            }
+&nbsp;        }
+<b class="fc">&nbsp;        return coverWalls;</b>
+&nbsp;    }
+&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -121,7 +251,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-31 00:05</div>
+    <div style="float:right;">generated on 2024-12-31 14:28</div>
 </div>
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > CollectableType</title>
+  <title>Coverage Report > MachineGunModeCollectable</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -22,7 +22,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     <a href="../index.html">SpaceInvaders.Model.Game.Collectables</a>
 </div>
 
-<h1>Coverage Summary for Class: CollectableType (SpaceInvaders.Model.Game.Collectables)</h1>
+<h1>Coverage Summary for Class: MachineGunModeCollectable (SpaceInvaders.Model.Game.Collectables)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">CollectableType</td>
+  <td class="name">MachineGunModeCollectable</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/6)
+    (0/2)
   </span>
 </td>
 </tr>
@@ -77,16 +77,19 @@ Current scope:     <a href="../../index.html">all classes</a>
 <pre>
 <code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.Collectables;
 &nbsp;
-<b class="nc">&nbsp;public enum CollectableType {</b>
-<b class="nc">&nbsp;    HEALTH,</b>
 &nbsp;
-<b class="nc">&nbsp;    DAMAGE,</b>
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Ship;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.ShipMode;
+&nbsp;import SpaceInvaders.Model.Position;
 &nbsp;
-<b class="nc">&nbsp;    SCORE,</b>
+&nbsp;public class MachineGunModeCollectable extends Collectable&lt;Ship&gt;{
 &nbsp;
-<b class="nc">&nbsp;    MACHINE_GUN_MODE,</b>
+<b class="nc">&nbsp;    public MachineGunModeCollectable(Position position, Ship ship){super(position, ship);}</b>
 &nbsp;
-<b class="nc">&nbsp;    GOD_MODE</b>
+&nbsp;    @Override
+&nbsp;    public void execute() {
+<b class="nc">&nbsp;        getAttackingElement().setShipMode(ShipMode.MACHINE_GUN_MODE);</b>
+&nbsp;    }
 &nbsp;}
 </code>
 </pre>

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > Element</title>
+  <title>Coverage Report > DamageCollectable</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Model.Game</a>
+    <a href="../index.html">SpaceInvaders.Model.Game.Collectables</a>
 </div>
 
-<h1>Coverage Summary for Class: Element (SpaceInvaders.Model.Game)</h1>
+<h1>Coverage Summary for Class: DamageCollectable (SpaceInvaders.Model.Game.Collectables)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -45,7 +45,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Element</td>
+  <td class="name">DamageCollectable</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -59,7 +59,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/5)
+    (0/2)
   </span>
 </td>
 <td class="coverageStat">
@@ -67,7 +67,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/4)
+    (0/9)
   </span>
 </td>
 <td class="coverageStat">
@@ -75,7 +75,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/10)
+    (0/7)
   </span>
 </td>
 </tr>
@@ -87,40 +87,36 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game;
-&nbsp;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.Collectables;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Ship;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.ShipMode;
 &nbsp;import SpaceInvaders.Model.Position;
 &nbsp;
-&nbsp;public abstract class Element {
+&nbsp;public class DamageCollectable extends CollectableWithMultiplier&lt;Ship&gt; {
 &nbsp;
-&nbsp;    private Position position;
-&nbsp;
-<b class="nc">&nbsp;    public Element(Position position){</b>
-<b class="nc">&nbsp;        this.position = position;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public Position getPosition(){
-<b class="nc">&nbsp;        return position;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setPosition(Position position){
-<b class="nc">&nbsp;        this.position = position;</b>
+&nbsp;    public DamageCollectable(Position position, Ship ship, int multiplier){
+<b class="nc">&nbsp;        super(position,ship,multiplier);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
-&nbsp;    public boolean equals(Object o){
-<b class="nc">&nbsp;        if(this == o){</b>
-<b class="nc">&nbsp;            return true;</b>
+&nbsp;    public void execute() {
+<b class="nc">&nbsp;        switch (getMultiplier()){</b>
+&nbsp;            case 2:
+<b class="nc">&nbsp;                getAttackingElement().setShipMode(ShipMode.DAMAGE_2X);</b>
+&nbsp;                break;
+&nbsp;            case 3:
+<b class="nc">&nbsp;                getAttackingElement().setShipMode(ShipMode.DAMAGE_3X);</b>
+&nbsp;                break;
+&nbsp;            case 4:
+<b class="nc">&nbsp;                getAttackingElement().setShipMode(ShipMode.DAMAGE_4X);</b>
+&nbsp;                break;
+&nbsp;            case 5:
+<b class="nc">&nbsp;                getAttackingElement().setShipMode(ShipMode.DAMAGE_5X);</b>
+&nbsp;                break;
+&nbsp;            case 10:
+<b class="nc">&nbsp;                getAttackingElement().setShipMode(ShipMode.DAMAGE_10X);</b>
+&nbsp;                break;
 &nbsp;        }
-<b class="nc">&nbsp;        if(!(o instanceof Element)){</b>
-<b class="nc">&nbsp;            return false;</b>
-&nbsp;        }
-<b class="nc">&nbsp;        return this.getPosition().equals(((Element) o).getPosition());</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @Override
-&nbsp;    public int hashCode() {
-<b class="nc">&nbsp;        return position.hashCode();</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -146,7 +142,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 14:59</div>
+    <div style="float:right;">generated on 2024-12-31 14:28</div>
 </div>
 </body>
 </html>
