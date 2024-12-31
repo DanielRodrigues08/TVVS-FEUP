@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > CollectableWithMultiplier</title>
+  <title>Coverage Report > AlienState</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Model.Game.Collectables</a>
+    <a href="../index.html">SpaceInvaders.Model.Game.RegularGameElements</a>
 </div>
 
-<h1>Coverage Summary for Class: CollectableWithMultiplier (SpaceInvaders.Model.Game.Collectables)</h1>
+<h1>Coverage Summary for Class: AlienState (SpaceInvaders.Model.Game.RegularGameElements)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">CollectableWithMultiplier</td>
+  <td class="name">AlienState</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -75,26 +75,11 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.Collectables;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.RegularGameElements;
 &nbsp;
-&nbsp;import SpaceInvaders.Model.Position;
-&nbsp;
-&nbsp;
-&nbsp;public abstract class CollectableWithMultiplier&lt;T&gt; extends Collectable&lt;T&gt; {
-&nbsp;
-&nbsp;    private int multiplier;
-&nbsp;
-&nbsp;    public CollectableWithMultiplier(Position position,T attackingElement,int multiplier) {
-<b class="fc">&nbsp;        super(position,attackingElement);</b>
-<b class="fc">&nbsp;        this.multiplier = multiplier;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public int getMultiplier() {
-<b class="fc">&nbsp;        return multiplier;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    @Override
-&nbsp;    public abstract void execute();
+<b class="fc">&nbsp;public enum AlienState {</b>
+<b class="fc">&nbsp;    ATTACKING,</b>
+<b class="fc">&nbsp;    PASSIVE</b>
 &nbsp;}
 </code>
 </pre>
@@ -119,7 +104,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 17:28</div>
+    <div style="float:right;">generated on 2024-12-31 00:05</div>
 </div>
 </body>
 </html>
