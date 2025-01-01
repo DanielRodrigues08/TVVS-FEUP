@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">GameOverMenu</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (9/9)
+    (0/9)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (4/4)
+    (0/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (14/14)
+    (0/14)
   </span>
 </td>
 </tr>
@@ -95,47 +95,47 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private StringBuilder username;
 &nbsp;    private final Integer score;
 &nbsp;
-<b class="fc">&nbsp;    public GameOverMenu(int score){</b>
-<b class="fc">&nbsp;        this.score = score;</b>
-<b class="fc">&nbsp;        this.username = new StringBuilder(&quot;&quot;);</b>
-<b class="fc">&nbsp;        this.options = Arrays.asList(&quot;Restart&quot;, &quot;Leaderboard&quot;, &quot;Exit&quot;);</b>
+<b class="nc">&nbsp;    public GameOverMenu(int score){</b>
+<b class="nc">&nbsp;        this.score = score;</b>
+<b class="nc">&nbsp;        this.username = new StringBuilder(&quot;&quot;);</b>
+<b class="nc">&nbsp;        this.options = Arrays.asList(&quot;Restart&quot;, &quot;Leaderboard&quot;, &quot;Exit&quot;);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public Integer getScore(){
-<b class="fc">&nbsp;        return score;</b>
+<b class="nc">&nbsp;        return score;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public String getUsername(){
-<b class="fc">&nbsp;        return username.toString();</b>
+<b class="nc">&nbsp;        return username.toString();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
 &nbsp;    public void addLetter(Character Letter){
-<b class="fc">&nbsp;        if(username.length() &lt; 6) {</b>
-<b class="fc">&nbsp;            username.append(Letter);</b>
+<b class="nc">&nbsp;        if(username.length() &lt; 6) {</b>
+<b class="nc">&nbsp;            username.append(Letter);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;    public void removeLetter(){
-<b class="fc">&nbsp;        if(username.length() &gt; 0) {</b>
-<b class="fc">&nbsp;            username.deleteCharAt(username.length()-1);</b>
+<b class="nc">&nbsp;        if(username.length() &gt; 0) {</b>
+<b class="nc">&nbsp;            username.deleteCharAt(username.length()-1);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;    public boolean isSelectedRestart(){
-<b class="fc">&nbsp;        return isSelected(0);</b>
+<b class="nc">&nbsp;        return isSelected(0);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public boolean isSelectedLeaderboard(){
-<b class="fc">&nbsp;        return isSelected(1);</b>
+<b class="nc">&nbsp;        return isSelected(1);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public boolean isSelectedExit(){
-<b class="fc">&nbsp;        return isSelected(2);</b>
+<b class="nc">&nbsp;        return isSelected(2);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setUsername(StringBuilder username) {
-<b class="fc">&nbsp;        this.username = username;</b>
+<b class="nc">&nbsp;        this.username = username;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -161,7 +161,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 16:37</div>
+    <div style="float:right;">generated on 2025-01-01 14:20</div>
 </div>
 </body>
 </html>

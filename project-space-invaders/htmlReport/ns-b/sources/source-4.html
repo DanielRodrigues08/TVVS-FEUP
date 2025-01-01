@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">Menu</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (6/6)
+    (0/6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    83.3%
+    0%
   </span>
   <span class="absValue">
-    (5/6)
+    (0/6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (11/11)
+    (0/11)
   </span>
 </td>
 </tr>
@@ -91,34 +91,34 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import java.util.List;
 &nbsp;
-<b class="fc">&nbsp;public abstract class Menu {</b>
+<b class="nc">&nbsp;public abstract class Menu {</b>
 &nbsp;    protected List&lt;String&gt; options;
-<b class="fc">&nbsp;    protected int selected = 0;</b>
+<b class="nc">&nbsp;    protected int selected = 0;</b>
 &nbsp;
 &nbsp;    public void nextOption() {
-<b class="fc">&nbsp;        selected++;</b>
-<b class="fc">&nbsp;        if(selected &gt;= options.size()){</b>
-<b class="fc">&nbsp;            selected = 0;</b>
+<b class="nc">&nbsp;        selected++;</b>
+<b class="nc">&nbsp;        if(selected &gt;= options.size()){</b>
+<b class="nc">&nbsp;            selected = 0;</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;    public void previousOption() {
-<b class="fc">&nbsp;        selected--;</b>
-<b class="fc">&nbsp;        if(selected &lt; 0){</b>
-<b class="fc">&nbsp;            selected = options.size() - 1;</b>
+<b class="nc">&nbsp;        selected--;</b>
+<b class="nc">&nbsp;        if(selected &lt; 0){</b>
+<b class="nc">&nbsp;            selected = options.size() - 1;</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;    public String getOption(int i){
-<b class="fc">&nbsp;        return options.get(i);</b>
+<b class="nc">&nbsp;        return options.get(i);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public boolean isSelected(int i){
-<b class="pc">&nbsp;        return selected == i;</b>
+<b class="nc">&nbsp;        return selected == i;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public int getNumberOptions(){
-<b class="fc">&nbsp;        return options.size();</b>
+<b class="nc">&nbsp;        return options.size();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;
@@ -146,7 +146,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-30 16:37</div>
+    <div style="float:right;">generated on 2025-01-01 14:20</div>
 </div>
 </body>
 </html>

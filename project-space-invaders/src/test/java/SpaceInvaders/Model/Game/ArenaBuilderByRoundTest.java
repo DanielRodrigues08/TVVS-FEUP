@@ -52,6 +52,12 @@ class ArenaBuilderByRoundTest {
         );
     }
 
+    @BeforeEach
+    void setUp() {
+        arenaBuilder = assertDoesNotThrow(() -> new ArenaBuilderByRound(5));
+        arenaBuilder.setArenaLines(LINES_ROUND5);
+    }
+
     @ParameterizedTest
     @MethodSource("testArenaBuilderByRoundValues")
     public void testArenaBuilderByRound(int round, int expectedRound, List<String> expectedLines) {
@@ -63,12 +69,6 @@ class ArenaBuilderByRoundTest {
     @Test
     public void testInvalidArenaBuilderByRound() {
         assertThrows(Exception.class, () -> new ArenaBuilderByRound(-1));
-    }
-
-    @BeforeEach
-    void setUp() {
-        arenaBuilder = assertDoesNotThrow(() -> new ArenaBuilderByRound(5));
-        arenaBuilder.setArenaLines(LINES_ROUND5);
     }
 
     @Test
@@ -144,6 +144,31 @@ class ArenaBuilderByRoundTest {
 
         List<CoverWall> coverWalls = arenaBuilder.createCoverWalls();
         assertEquals(expectedCoverWalls, coverWalls);
+    }
+
+    @Test
+    void testCreateArena() {
+        arenaBuilder.setArenaLines(LINES_ROUND3);
+
+        Ship ship = new Ship(new Position(2, 1), 100, 50);
+        Alien alien = new Alien(new Position(2, 0), 160, 160, 100, AlienState.PASSIVE, 0);
+        CoverWall coverWall = new CoverWall(new Position(0, 1), 100);
+        Wall wall = new Wall(new Position(0, 0));
+        int expectedRound = 5;
+        int expectedWidth = 3;
+        int expectedHeight = 2;
+
+        Arena arena = arenaBuilder.buildArena();
+
+        assertEquals(expectedRound, arena.getRound());
+        assertEquals(expectedWidth, arena.getWidth());
+        assertEquals(expectedHeight, arena.getHeight());
+        assertEquals(ship, arena.getShip());
+        assertEquals(List.of(alien), arena.getAliens());
+        assertEquals(List.of(wall), arena.getWalls());
+        assertEquals(List.of(coverWall), arena.getCoverWalls());
+        assertTrue(arena.getProjectiles().isEmpty());
+
     }
 
 }

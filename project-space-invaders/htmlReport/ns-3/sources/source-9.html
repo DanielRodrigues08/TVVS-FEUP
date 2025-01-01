@@ -45,18 +45,18 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">Ship</td>
 <td class="coverageStat">
   <span class="percent">
-    25%
+    37.5%
   </span>
   <span class="absValue">
-    (2/8)
+    (3/8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    12.5%
+    0%
   </span>
   <span class="absValue">
-    (1/8)
+    (0/8)
   </span>
 </td>
 <td class="coverageStat">
@@ -72,18 +72,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     <td class="name">Ship$1</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
   </tr>
@@ -99,18 +99,18 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    12.5%
+    0%
   </span>
   <span class="absValue">
-    (1/8)
+    (0/8)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    31.6%
+    26.3%
   </span>
   <span class="absValue">
-    (6/19)
+    (5/19)
   </span>
 </td>
 </tr>
@@ -136,14 +136,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="fc">&nbsp;        this.shipMode = ShipMode.NORMAL_MODE;</b>
 &nbsp;    }
 &nbsp;
-<b class="nc">&nbsp;    public ShipMode getShipMode() {return shipMode;}</b>
+<b class="fc">&nbsp;    public ShipMode getShipMode() {return shipMode;}</b>
 &nbsp;
 <b class="nc">&nbsp;    public int getMaxHealth() {return maxHealth;}</b>
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public int getDamagePerShot(){
-<b class="pc">&nbsp;        return switch (shipMode) {</b>
-<b class="fc">&nbsp;            case NORMAL_MODE -&gt; super.getDamagePerShot();</b>
+<b class="nc">&nbsp;        return switch (shipMode) {</b>
+<b class="nc">&nbsp;            case NORMAL_MODE -&gt; super.getDamagePerShot();</b>
 <b class="nc">&nbsp;            case DAMAGE_2X -&gt; super.getDamagePerShot() * 2;</b>
 <b class="nc">&nbsp;            case DAMAGE_3X -&gt; super.getDamagePerShot() * 3;</b>
 <b class="nc">&nbsp;            case DAMAGE_4X -&gt; super.getDamagePerShot() * 4;</b>
@@ -168,7 +168,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        this.setHealth(maxHealth);</b>
 &nbsp;    }
 &nbsp;
-<b class="nc">&nbsp;    public void setShipMode(ShipMode shipMode) {this.shipMode = shipMode;}</b>
+<b class="fc">&nbsp;    public void setShipMode(ShipMode shipMode) {this.shipMode = shipMode;}</b>
 &nbsp;}
 </code>
 </pre>
@@ -193,7 +193,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2024-12-31 14:28</div>
+    <div style="float:right;">generated on 2025-01-01 15:05</div>
 </div>
 </body>
 </html>
