@@ -90,14 +90,14 @@ Current scope:     <a href="../../index.html">all classes</a>
 <code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Viewer.Game;
 &nbsp;
 &nbsp;import SpaceInvaders.GUI.GUI;
+&nbsp;import SpaceInvaders.Model.Game.Arena;
 &nbsp;import SpaceInvaders.Model.Game.Collectables.*;
 &nbsp;import SpaceInvaders.Model.Game.Element;
-&nbsp;import SpaceInvaders.Model.Game.Arena;
 &nbsp;import SpaceInvaders.Model.Game.RegularGameElements.AlienMode;
 &nbsp;import SpaceInvaders.Model.Game.RegularGameElements.ShipMode;
+&nbsp;import SpaceInvaders.Model.Position;
 &nbsp;import SpaceInvaders.Viewer.Game.Collectables.*;
 &nbsp;import SpaceInvaders.Viewer.Game.RegularElements.*;
-&nbsp;import SpaceInvaders.Model.Position;
 &nbsp;import SpaceInvaders.Viewer.Viewer;
 &nbsp;
 &nbsp;import java.util.List;
@@ -106,7 +106,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="nc">&nbsp;    private int alienCharChoice = 0;</b>
 <b class="nc">&nbsp;    private long lastCharChange = 0;</b>
-&nbsp;    public GameViewer(Arena arena){
+&nbsp;
+&nbsp;    public GameViewer(Arena arena) {
 <b class="nc">&nbsp;        super(arena);</b>
 &nbsp;    }
 &nbsp;
@@ -115,44 +116,44 @@ Current scope:     <a href="../../index.html">all classes</a>
 <b class="nc">&nbsp;        drawElements(gui, getModel().getAliens(), new AlienViewer(alienCharChoice));</b>
 &nbsp;        //Changes alien char for the next frame (only if needed)
 <b class="nc">&nbsp;        ChangeChar(time);</b>
-<b class="nc">&nbsp;        drawElements(gui,getModel().getCoverWalls(), new CoverWallViewer());</b>
+<b class="nc">&nbsp;        drawElements(gui, getModel().getCoverWalls(), new CoverWallViewer());</b>
 <b class="nc">&nbsp;        drawElements(gui, getModel().getWalls(), new WallViewer());</b>
 <b class="nc">&nbsp;        drawElement(gui, getModel().getShip(), new ShipViewer());</b>
 <b class="nc">&nbsp;        drawElements(gui, getModel().getProjectiles(), new ProjectileViewer());</b>
-<b class="nc">&nbsp;        drawElement(gui,getModel().getAlienShip(),new AlienShipViewer());</b>
+<b class="nc">&nbsp;        drawElement(gui, getModel().getAlienShip(), new AlienShipViewer());</b>
 <b class="nc">&nbsp;        drawCollectable(gui, getModel().getActiveCollectable());</b>
 <b class="nc">&nbsp;        drawGameHUD(gui);</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    private void ChangeChar(long time){
-<b class="nc">&nbsp;        if(time - lastCharChange &gt; 300) {</b>
+&nbsp;    private void ChangeChar(long time) {
+<b class="nc">&nbsp;        if (time - lastCharChange &gt; 300) {</b>
 <b class="nc">&nbsp;            alienCharChoice++;</b>
 <b class="nc">&nbsp;            alienCharChoice = alienCharChoice % 2;</b>
 <b class="nc">&nbsp;            lastCharChange = time;</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
-&nbsp;    public int getAlienCharChoice(){
+&nbsp;    public int getAlienCharChoice() {
 <b class="nc">&nbsp;        return alienCharChoice;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public long getLastCharChange(){
+&nbsp;    public long getLastCharChange() {
 <b class="nc">&nbsp;        return lastCharChange;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    private void drawGameHUD(GUI gui){
-<b class="nc">&nbsp;        gui.drawText(new Position(5,3), &quot;SCORE = &quot;, &quot;#F8F8FF&quot;);</b>
-<b class="nc">&nbsp;        gui.drawText(new Position(15,3), String.valueOf(getModel().getScore()),&quot;#F8F8FF&quot; );</b>
-<b class="nc">&nbsp;        gui.drawText(new Position(55,3), &quot;HEALTH = &quot;, &quot;#F8F8FF&quot;);</b>
-<b class="nc">&nbsp;        gui.drawText(new Position(65,3), String.valueOf(getModel().getShip().getHealth()),&quot;#F8F8FF&quot; );</b>
-<b class="nc">&nbsp;        gui.drawText(new Position(5,5),&quot;ROUND &quot;,&quot;#F8F8FF&quot;);</b>
-<b class="nc">&nbsp;        gui.drawText(new Position(11,5),String.valueOf(getModel().getRound()),&quot;#F8F8FF&quot;);</b>
-<b class="nc">&nbsp;        if(getModel().getShip().getShipMode() != ShipMode.NORMAL_MODE){</b>
-<b class="nc">&nbsp;            gui.drawText(new Position(55,5), String.valueOf(getModel().getShip().getShipMode()),&quot;#F8F8FF&quot;);</b>
+&nbsp;    private void drawGameHUD(GUI gui) {
+<b class="nc">&nbsp;        gui.drawText(new Position(5, 3), &quot;SCORE = &quot;, &quot;#F8F8FF&quot;);</b>
+<b class="nc">&nbsp;        gui.drawText(new Position(15, 3), String.valueOf(getModel().getScore()), &quot;#F8F8FF&quot;);</b>
+<b class="nc">&nbsp;        gui.drawText(new Position(55, 3), &quot;HEALTH = &quot;, &quot;#F8F8FF&quot;);</b>
+<b class="nc">&nbsp;        gui.drawText(new Position(65, 3), String.valueOf(getModel().getShip().getHealth()), &quot;#F8F8FF&quot;);</b>
+<b class="nc">&nbsp;        gui.drawText(new Position(5, 5), &quot;ROUND &quot;, &quot;#F8F8FF&quot;);</b>
+<b class="nc">&nbsp;        gui.drawText(new Position(11, 5), String.valueOf(getModel().getRound()), &quot;#F8F8FF&quot;);</b>
+<b class="nc">&nbsp;        if (getModel().getShip().getShipMode() != ShipMode.NORMAL_MODE) {</b>
+<b class="nc">&nbsp;            gui.drawText(new Position(55, 5), String.valueOf(getModel().getShip().getShipMode()), &quot;#F8F8FF&quot;);</b>
 &nbsp;        }
-<b class="nc">&nbsp;        if(!getModel().getAliens().isEmpty()){</b>
-<b class="nc">&nbsp;            if(getModel().getAliens().get(0).getAlienMode() != AlienMode.NORMAL_MODE){</b>
-<b class="nc">&nbsp;                gui.drawText(new Position(55,5), String.valueOf(getModel().getAliens().get(0).getAlienMode()),&quot;#F8F8FF&quot;);</b>
+<b class="nc">&nbsp;        if (!getModel().getAliens().isEmpty()) {</b>
+<b class="nc">&nbsp;            if (getModel().getAliens().get(0).getAlienMode() != AlienMode.NORMAL_MODE) {</b>
+<b class="nc">&nbsp;                gui.drawText(new Position(55, 5), String.valueOf(getModel().getAliens().get(0).getAlienMode()), &quot;#F8F8FF&quot;);</b>
 &nbsp;            }
 &nbsp;        }
 &nbsp;    }
@@ -163,13 +164,13 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    private &lt;T extends Element&gt; void drawElement(GUI gui, T element, ElementViewer&lt;T&gt; viewer) {
-<b class="nc">&nbsp;        if(element != null) {</b>
+<b class="nc">&nbsp;        if (element != null) {</b>
 <b class="nc">&nbsp;            viewer.draw(gui, element);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
-&nbsp;    private&lt;T extends Element&gt; void drawCollectable(GUI gui, T collectable){
-<b class="nc">&nbsp;        if(collectable != null) {</b>
+&nbsp;    private &lt;T extends Element&gt; void drawCollectable(GUI gui, T collectable) {
+<b class="nc">&nbsp;        if (collectable != null) {</b>
 <b class="nc">&nbsp;            if (collectable.getClass() == GodModeCollectable.class) {</b>
 <b class="nc">&nbsp;                new GodModeCollectableViewer().draw(gui, (GodModeCollectable) collectable);</b>
 &nbsp;
@@ -181,9 +182,8 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 <b class="nc">&nbsp;            } else if (collectable.getClass() == ScoreCollectable.class) {</b>
 <b class="nc">&nbsp;                new ScoreCollectableViewer().draw(gui, (ScoreCollectable) collectable);</b>
-&nbsp;            }
-<b class="nc">&nbsp;            else if(collectable.getClass() == DamageCollectable.class) {</b>
-<b class="nc">&nbsp;                new DamageCollectableViewer().draw(gui, (DamageCollectable)  collectable);</b>
+<b class="nc">&nbsp;            } else if (collectable.getClass() == DamageCollectable.class) {</b>
+<b class="nc">&nbsp;                new DamageCollectableViewer().draw(gui, (DamageCollectable) collectable);</b>
 &nbsp;            }
 &nbsp;        }
 &nbsp;    }
@@ -212,7 +212,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-01 21:56</div>
+    <div style="float:right;">generated on 2025-01-03 16:48</div>
 </div>
 </body>
 </html>

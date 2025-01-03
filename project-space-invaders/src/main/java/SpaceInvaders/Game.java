@@ -18,28 +18,34 @@ public class Game {
     private GUI gui;
 
 
-
     private Game() throws IOException, URISyntaxException, FontFormatException {
-        this.gui = new GUILanterna(74,32);
+        this.gui = new GUILanterna(74, 32);
         this.state = State.getInstance();
     }
 
-    public State getState() {return state;}
+    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+        Game game = new Game();
+        game.startGame();
+    }
 
+    public State getState() {
+        return state;
+    }
 
-    public void setState(GameStates gameStates) throws IOException, URISyntaxException {state.UpdateState(gameStates);}
+    public void setState(GameStates gameStates) throws IOException, URISyntaxException {
+        state.UpdateState(gameStates);
+    }
 
     public void setPrevState() throws IOException, URISyntaxException {
         state.UpdateToPrevious();
     }
 
-
     private void startGame() throws IOException, InterruptedException, URISyntaxException {
         int FPS = 30;
         int frameTime = 1000 / FPS;
-        while(this.state.getCurrentState() != GameStates.QUIT_GAME){
+        while (this.state.getCurrentState() != GameStates.QUIT_GAME) {
             long startTime = System.currentTimeMillis();
-            state.step(gui,this,startTime);
+            state.step(gui, this, startTime);
             long elapsedTime = System.currentTimeMillis() - startTime;
             long sleepTime = frameTime - elapsedTime;
             try {
@@ -49,11 +55,6 @@ public class Game {
             }
         }
         gui.close();
-    }
-
-    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
-        Game game = new Game();
-        game.startGame();
     }
 
 }

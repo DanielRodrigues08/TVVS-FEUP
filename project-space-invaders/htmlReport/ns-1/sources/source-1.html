@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > SoundManager</title>
+  <title>Coverage Report > Game</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Controller.Sound</a>
+    <a href="../index.html">SpaceInvaders</a>
 </div>
 
-<h1>Coverage Summary for Class: SoundManager (SpaceInvaders.Controller.Sound)</h1>
+<h1>Coverage Summary for Class: Game (SpaceInvaders)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -45,7 +45,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">SoundManager</td>
+  <td class="name">Game</td>
 <td class="coverageStat">
   <span class="percent">
     100%
@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    43.8%
+    83.3%
   </span>
   <span class="absValue">
-    (7/16)
+    (5/6)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    75%
   </span>
   <span class="absValue">
-    (0/18)
+    (3/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    15.2%
+    88.2%
   </span>
   <span class="absValue">
-    (7/46)
+    (15/17)
   </span>
 </td>
 </tr>
@@ -87,116 +87,66 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Controller.Sound;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders;
 &nbsp;
-&nbsp;import SpaceInvaders.Model.Sound.Sound;
-&nbsp;import SpaceInvaders.Model.Sound.Sound_Options;
 &nbsp;
-&nbsp;import javax.sound.sampled.FloatControl;
+&nbsp;import SpaceInvaders.GUI.GUI;
+&nbsp;import SpaceInvaders.GUI.GUILanterna;
+&nbsp;import SpaceInvaders.State.GameStates;
+&nbsp;import SpaceInvaders.State.State;
 &nbsp;
-<b class="nc">&nbsp;public class SoundManager {</b>
-&nbsp;    private Sound laser;
-&nbsp;    private Sound dyingSound;
-&nbsp;    private Sound switchOption;
-&nbsp;    private Sound backgroundMusic;
-&nbsp;    private Sound collectableSound;
-&nbsp;    private Sound alienShipLowPitch;
-&nbsp;    private Sound alienShipHighPitch;
-&nbsp;    private static SoundManager soundManager;
+&nbsp;import java.awt.*;
+&nbsp;import java.io.IOException;
+&nbsp;import java.net.URISyntaxException;
 &nbsp;
-<b class="nc">&nbsp;    private SoundManager(){</b>
-<b class="nc">&nbsp;            this.laser = new Sound(&quot;src/main/resources/sounds/shoot.wav&quot;);</b>
-<b class="nc">&nbsp;            this.dyingSound = new Sound(&quot;src/main/resources/sounds/invaderkilled.wav&quot;);</b>
-<b class="nc">&nbsp;            this.switchOption = new Sound(&quot;src/main/resources/sounds/Menu_option.wav&quot;);</b>
-<b class="nc">&nbsp;            this.backgroundMusic = new Sound(&quot;src/main/resources/sounds/spaceinvaders1.wav&quot;);</b>
-<b class="nc">&nbsp;            this.collectableSound = new Sound(&quot;src/main/resources/sounds/Collectable.wav&quot;);</b>
-<b class="nc">&nbsp;            this.alienShipHighPitch = new Sound(&quot;src/main/resources/sounds/ufo_highpitch.wav&quot;);</b>
-<b class="nc">&nbsp;            this.alienShipLowPitch = new Sound(&quot;src/main/resources/sounds/ufo_lowpitch.wav&quot;);</b>
+&nbsp;
+&nbsp;public class Game {
+&nbsp;
+&nbsp;    private State state;
+&nbsp;
+&nbsp;    private GUI gui;
+&nbsp;
+&nbsp;
+<b class="fc">&nbsp;    private Game() throws IOException, URISyntaxException, FontFormatException {</b>
+<b class="fc">&nbsp;        this.gui = new GUILanterna(74, 32);</b>
+<b class="fc">&nbsp;        this.state = State.getInstance();</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public static SoundManager getInstance(){
-<b class="nc">&nbsp;        if(soundManager == null){</b>
-<b class="nc">&nbsp;            soundManager = new SoundManager();</b>
+&nbsp;    public static void main(String[] args) throws IOException, URISyntaxException, FontFormatException, InterruptedException {
+<b class="nc">&nbsp;        Game game = new Game();</b>
+<b class="nc">&nbsp;        game.startGame();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public State getState() {
+<b class="fc">&nbsp;        return state;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setState(GameStates gameStates) throws IOException, URISyntaxException {
+<b class="fc">&nbsp;        state.UpdateState(gameStates);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setPrevState() throws IOException, URISyntaxException {
+<b class="fc">&nbsp;        state.UpdateToPrevious();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private void startGame() throws IOException, InterruptedException, URISyntaxException {
+<b class="fc">&nbsp;        int FPS = 30;</b>
+<b class="fc">&nbsp;        int frameTime = 1000 / FPS;</b>
+<b class="fc">&nbsp;        while (this.state.getCurrentState() != GameStates.QUIT_GAME) {</b>
+<b class="fc">&nbsp;            long startTime = System.currentTimeMillis();</b>
+<b class="fc">&nbsp;            state.step(gui, this, startTime);</b>
+<b class="fc">&nbsp;            long elapsedTime = System.currentTimeMillis() - startTime;</b>
+<b class="fc">&nbsp;            long sleepTime = frameTime - elapsedTime;</b>
+&nbsp;            try {
+<b class="pc">&nbsp;                if (sleepTime &gt; 0) Thread.sleep(sleepTime);</b>
+&nbsp;            } catch (InterruptedException e) {
+&nbsp;                throw e;
+&nbsp;            }
 &nbsp;        }
-<b class="nc">&nbsp;        return soundManager;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public static void setInstance(SoundManager soundManagerMock) {
-<b class="nc">&nbsp;        soundManager = soundManagerMock;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void playSound(Sound_Options option){
-<b class="nc">&nbsp;        switch (option){</b>
-<b class="nc">&nbsp;            case MUSIC -&gt; backgroundMusic.playContinuously();</b>
-<b class="nc">&nbsp;            case LASER -&gt; laser.play();</b>
-<b class="nc">&nbsp;            case MENU_SWITCH -&gt; switchOption.play();</b>
-<b class="nc">&nbsp;            case DESTRUCTION -&gt; dyingSound.play();</b>
-<b class="nc">&nbsp;            case COLLECTABLE -&gt; collectableSound.play();</b>
-<b class="nc">&nbsp;            case ALIEN_SHIP_LOW -&gt; alienShipLowPitch.playContinuously();</b>
-<b class="nc">&nbsp;            case ALIEN_SHIP_HIGH -&gt; alienShipHighPitch.playContinuously();</b>
-&nbsp;        }
-&nbsp;    }
-&nbsp;
-&nbsp;    public void stopSound(Sound_Options option){
-<b class="nc">&nbsp;        switch (option){</b>
-<b class="nc">&nbsp;            case MUSIC -&gt; backgroundMusic.stop();</b>
-<b class="nc">&nbsp;            case LASER -&gt; laser.stop();</b>
-<b class="nc">&nbsp;            case MENU_SWITCH -&gt; switchOption.stop();</b>
-<b class="nc">&nbsp;            case DESTRUCTION -&gt; dyingSound.stop();</b>
-<b class="nc">&nbsp;            case COLLECTABLE -&gt; collectableSound.stop();</b>
-<b class="nc">&nbsp;            case ALIEN_SHIP_HIGH -&gt; alienShipHighPitch.stop();</b>
-<b class="nc">&nbsp;            case ALIEN_SHIP_LOW -&gt; alienShipLowPitch.stop();</b>
-&nbsp;        }
-&nbsp;    }
-&nbsp;
-&nbsp;    public void resumePlayingMusic(){
-<b class="nc">&nbsp;        backgroundMusic.resumePlaying();</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void resumePlayingAlienShipSound(){
-<b class="nc">&nbsp;        alienShipLowPitch.resumePlaying();</b>
-<b class="nc">&nbsp;        alienShipHighPitch.resumePlaying();</b>
-&nbsp;    }
-&nbsp;    public void stopAllSounds(){
-<b class="nc">&nbsp;        backgroundMusic.stop();</b>
-<b class="nc">&nbsp;        laser.stop();</b>
-<b class="nc">&nbsp;        switchOption.stop();</b>
-<b class="nc">&nbsp;        dyingSound.stop();</b>
-<b class="nc">&nbsp;        collectableSound.stop();</b>
-<b class="nc">&nbsp;        alienShipHighPitch.stop();</b>
-<b class="nc">&nbsp;        alienShipLowPitch.stop();</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setLaser(Sound laser){
-<b class="fc">&nbsp;        this.laser = laser;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setDyingSound(Sound dyingSound) {
-<b class="fc">&nbsp;        this.dyingSound = dyingSound;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setSwitchOption(Sound switchOption) {
-<b class="fc">&nbsp;        this.switchOption = switchOption;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setBackgroundMusic(Sound backgroundMusic) {
-<b class="fc">&nbsp;        this.backgroundMusic = backgroundMusic;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setCollectableSound(Sound collectableSound) {
-<b class="fc">&nbsp;        this.collectableSound = collectableSound;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setAlienShipLowPitch(Sound alienShipLowPitch) {
-<b class="fc">&nbsp;        this.alienShipLowPitch = alienShipLowPitch;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setAlienShipHighPitch(Sound alienShipHighPitch) {
-<b class="fc">&nbsp;        this.alienShipHighPitch = alienShipHighPitch;</b>
+<b class="fc">&nbsp;        gui.close();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;}
-&nbsp;
 </code>
 </pre>
 </div>
@@ -220,7 +170,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-03 15:42</div>
+    <div style="float:right;">generated on 2025-01-03 16:48</div>
 </div>
 </body>
 </html>
