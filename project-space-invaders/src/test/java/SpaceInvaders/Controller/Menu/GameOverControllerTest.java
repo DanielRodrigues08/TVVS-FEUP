@@ -115,7 +115,7 @@ public class GameOverControllerTest {
     private static Stream<Arguments> testUpdateLeaderboardValues() {
         return Stream.of(
                 Arguments.of("test", 0, "test 0\n"),
-                Arguments.of("", 100, "Unknow 100\n")
+                Arguments.of("", 100, "Unknown 100\n")
         );
     }
 
