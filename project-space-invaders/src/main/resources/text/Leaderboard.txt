@@ -6,3 +6,17 @@ Frank 28980
 noob 1000
 Franc 18620
 Player1 100
+test 0
+test 0
+test 0
+test 0
+test 0
+test 0
+test 0
+test 0
+test 0
+test 0
+test 0
+test 0
+test 0
+test 0

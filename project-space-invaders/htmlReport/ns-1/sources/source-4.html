@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">StartMenuController</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (3/3)
+    (0/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    93.3%
+    0%
   </span>
   <span class="absValue">
-    (14/15)
+    (0/15)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (16/16)
+    (0/16)
   </span>
 </td>
 </tr>
@@ -101,38 +101,38 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;import java.net.URISyntaxException;
 &nbsp;
 &nbsp;
-<b class="fc">&nbsp;public class StartMenuController extends Controller&lt;StartMenu&gt; {</b>
+<b class="nc">&nbsp;public class StartMenuController extends Controller&lt;StartMenu&gt; {</b>
 &nbsp;
 &nbsp;    public StartMenuController(StartMenu menu){
-<b class="fc">&nbsp;        super(menu);</b>
+<b class="nc">&nbsp;        super(menu);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public void step(Game game, KeyStroke key, long time) throws IOException, URISyntaxException {
-<b class="fc">&nbsp;        if(key == null){</b>
+<b class="nc">&nbsp;        if(key == null){</b>
 &nbsp;            return;
 &nbsp;        }
-<b class="fc">&nbsp;        switch(key.getKeyType()){</b>
+<b class="nc">&nbsp;        switch(key.getKeyType()){</b>
 &nbsp;            case ArrowUp:
-<b class="fc">&nbsp;                SoundManager.getInstance().playSound(Sound_Options.MENU_SWITCH);</b>
-<b class="fc">&nbsp;                getModel().previousOption();</b>
+<b class="nc">&nbsp;                SoundManager.getInstance().playSound(Sound_Options.MENU_SWITCH);</b>
+<b class="nc">&nbsp;                getModel().previousOption();</b>
 &nbsp;                break;
 &nbsp;            case ArrowDown:
-<b class="fc">&nbsp;                SoundManager.getInstance().playSound(Sound_Options.MENU_SWITCH);</b>
-<b class="fc">&nbsp;                getModel().nextOption();</b>
+<b class="nc">&nbsp;                SoundManager.getInstance().playSound(Sound_Options.MENU_SWITCH);</b>
+<b class="nc">&nbsp;                getModel().nextOption();</b>
 &nbsp;                break;
 &nbsp;            case Enter:
-<b class="fc">&nbsp;                if(getModel().isSelectedPlay()){</b>
-<b class="fc">&nbsp;                    game.setState(GameStates.NEW_GAME);</b>
+<b class="nc">&nbsp;                if(getModel().isSelectedPlay()){</b>
+<b class="nc">&nbsp;                    game.setState(GameStates.NEW_GAME);</b>
 &nbsp;                }
-<b class="fc">&nbsp;                else if(getModel().isSelectedLeaderboard()){</b>
-<b class="fc">&nbsp;                    game.setState(GameStates.LEADERBOARD);</b>
+<b class="nc">&nbsp;                else if(getModel().isSelectedLeaderboard()){</b>
+<b class="nc">&nbsp;                    game.setState(GameStates.LEADERBOARD);</b>
 &nbsp;                }
-<b class="fc">&nbsp;                else if(getModel().isSelectedInstructions()){</b>
-<b class="fc">&nbsp;                    game.setState(GameStates.INSTRUCTIONS);</b>
+<b class="nc">&nbsp;                else if(getModel().isSelectedInstructions()){</b>
+<b class="nc">&nbsp;                    game.setState(GameStates.INSTRUCTIONS);</b>
 &nbsp;                }
-<b class="pc">&nbsp;                else if(getModel().isSelectedExit()){</b>
-<b class="fc">&nbsp;                    game.setState(GameStates.QUIT_GAME);</b>
+<b class="nc">&nbsp;                else if(getModel().isSelectedExit()){</b>
+<b class="nc">&nbsp;                    game.setState(GameStates.QUIT_GAME);</b>
 &nbsp;                }
 &nbsp;                break;
 &nbsp;            default: //other keys don´t have effect
@@ -162,7 +162,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-02 23:00</div>
+    <div style="float:right;">generated on 2025-01-03 00:44</div>
 </div>
 </body>
 </html>
