@@ -5,3 +5,4 @@ lucas 26220
 Frank 28980
 noob 1000
 Franc 18620
+Player1 100

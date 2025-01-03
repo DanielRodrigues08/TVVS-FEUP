@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > Projectile</title>
+  <title>Coverage Report > ShipController</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Model.Game.RegularGameElements</a>
+    <a href="../index.html">SpaceInvaders.Controller.Game</a>
 </div>
 
-<h1>Coverage Summary for Class: Projectile (SpaceInvaders.Model.Game.RegularGameElements)</h1>
+<h1>Coverage Summary for Class: ShipController (SpaceInvaders.Controller.Game)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -37,11 +37,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 <th class="coverageStat 
 ">
+  Branch, %
+</th>
+<th class="coverageStat 
+">
   Line, %
 </th>
 </tr>
 <tr>
-  <td class="name">Projectile</td>
+  <td class="name">ShipController</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -55,7 +59,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/3)
+    (0/11)
   </span>
 </td>
 <td class="coverageStat">
@@ -63,7 +67,15 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/4)
+    (0/32)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/35)
   </span>
 </td>
 </tr>
@@ -75,29 +87,99 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Model.Game.RegularGameElements;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Controller.Game;
 &nbsp;
-&nbsp;import SpaceInvaders.Model.Game.Element;
+&nbsp;
+&nbsp;import SpaceInvaders.Controller.Sound.SoundManager;
+&nbsp;import SpaceInvaders.Game;
+&nbsp;import SpaceInvaders.Model.Game.ArenaModifier;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Projectile;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Ship;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.ShipMode;
 &nbsp;import SpaceInvaders.Model.Position;
+&nbsp;import SpaceInvaders.Model.Game.Arena;
 &nbsp;
-&nbsp;public class Projectile extends Element {
+&nbsp;import SpaceInvaders.Model.Sound.Sound_Options;
+&nbsp;import com.googlecode.lanterna.input.KeyStroke;
+&nbsp;import com.googlecode.lanterna.input.KeyType;
+&nbsp;
+&nbsp;import java.io.IOException;
 &nbsp;
 &nbsp;
-&nbsp;    private final AttackingElement attackingElement;
+&nbsp;public class ShipController extends GameController {
 &nbsp;
+&nbsp;    private long movementTime;
 &nbsp;
-&nbsp;    public Projectile(Position position, AttackingElement attackingElement) {
-<b class="nc">&nbsp;        super(position);</b>
-<b class="nc">&nbsp;        this.attackingElement = attackingElement;</b>
+&nbsp;    private long shootingTime;
+&nbsp;
+&nbsp;    public ShipController(Arena arena) {
+<b class="nc">&nbsp;        super(arena);</b>
+<b class="nc">&nbsp;        this.movementTime = 0;</b>
+<b class="nc">&nbsp;        this.shootingTime = 0;</b>
 &nbsp;    }
 &nbsp;
+<b class="nc">&nbsp;    public long getMovementTime() {return movementTime;}</b>
 &nbsp;
-<b class="nc">&nbsp;    public AttackingElement getElement(){ return attackingElement;}</b>
+<b class="nc">&nbsp;    public void setMovementTime(long movementTime) {this.movementTime = movementTime;}</b>
 &nbsp;
+<b class="nc">&nbsp;    public long getShootingTime() {return shootingTime;}</b>
+&nbsp;
+<b class="nc">&nbsp;    public void setShootingTime(long shootingTime) {this.shootingTime = shootingTime;}</b>
+&nbsp;
+&nbsp;    public boolean canMoveShip(Position position){
+<b class="nc">&nbsp;        return position.getX() &gt; 0 &amp;&amp; position.getX() &lt; getModel().getWidth() - 1 &amp;&amp; position.getY() &gt; 0 &amp;&amp; position.getY() &lt; getModel().getHeight() - 1;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void moveLeft(){
+<b class="nc">&nbsp;        Ship ship = getModel().getShip();</b>
+<b class="nc">&nbsp;        Position shipPosition = ship.getPosition();</b>
+<b class="nc">&nbsp;        if(canMoveShip(new Position(ship.getPosition().getX() - 1, shipPosition.getY()))){</b>
+<b class="nc">&nbsp;            ship.setPosition(new Position(shipPosition.getX() - 1, shipPosition.getY()));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void moveRight(){
+<b class="nc">&nbsp;        Ship ship = getModel().getShip();</b>
+<b class="nc">&nbsp;        Position shipPosition = ship.getPosition();</b>
+<b class="nc">&nbsp;        if(canMoveShip(new Position(shipPosition.getX() + 1, shipPosition.getY()))){</b>
+<b class="nc">&nbsp;            ship.setPosition(new Position(shipPosition.getX() + 1, shipPosition.getY()));</b>
+&nbsp;        }
+&nbsp;    }
+&nbsp;
+&nbsp;    public void shootProjectile(){
+<b class="nc">&nbsp;        Ship ship = getModel().getShip();</b>
+<b class="nc">&nbsp;        Position projectilePosition = new Position(ship.getPosition().getX(),ship.getPosition().getY());</b>
+<b class="nc">&nbsp;        Projectile projectile = new Projectile(projectilePosition, ship);</b>
+<b class="nc">&nbsp;        getArenaModifier().addProjectile(projectile);</b>
+<b class="nc">&nbsp;        SoundManager.getInstance().playSound(Sound_Options.LASER);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void hitByProjectile(Projectile projectile){
+<b class="nc">&nbsp;        getModel().getShip().decreaseHealth(projectile.getElement().getDamagePerShot());</b>
+&nbsp;    }
 &nbsp;
 &nbsp;    @Override
-&nbsp;    public Position getPosition() {
-<b class="nc">&nbsp;        return super.getPosition();</b>
+&nbsp;    public void step(Game game, KeyStroke key, long time) throws IOException {
+<b class="nc">&nbsp;        if(key == null){</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        if(key.getKeyType() == KeyType.ArrowLeft &amp;&amp; time - movementTime &gt; 50){</b>
+<b class="nc">&nbsp;            moveLeft();</b>
+<b class="nc">&nbsp;            movementTime = time;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(key.getKeyType() == KeyType.ArrowRight &amp;&amp; time - movementTime &gt; 50){</b>
+<b class="nc">&nbsp;            moveRight();</b>
+<b class="nc">&nbsp;            movementTime = time;</b>
+&nbsp;        }
+<b class="nc">&nbsp;        if(key.getKeyType() == KeyType.ArrowUp &amp;&amp; getModel().getShip().getShipMode() == ShipMode.MACHINE_GUN_MODE &amp;&amp; time - shootingTime &gt; 75){</b>
+<b class="nc">&nbsp;            shootProjectile();</b>
+<b class="nc">&nbsp;            shootingTime = time;</b>
+&nbsp;            return;
+&nbsp;        }
+<b class="nc">&nbsp;        if(key.getKeyType() == KeyType.ArrowUp &amp;&amp; time - shootingTime &gt; 300){</b>
+<b class="nc">&nbsp;            shootProjectile();</b>
+<b class="nc">&nbsp;            shootingTime = time;</b>
+&nbsp;        }
 &nbsp;    }
 &nbsp;}
 </code>
@@ -123,7 +205,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-01 15:05</div>
+    <div style="float:right;">generated on 2025-01-01 21:55</div>
 </div>
 </body>
 </html>

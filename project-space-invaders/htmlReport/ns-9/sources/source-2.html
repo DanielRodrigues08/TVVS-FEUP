@@ -25,9 +25,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 <h1>Coverage Summary for Class: CollectableFactory (SpaceInvaders.Model.Game.Collectables)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -45,75 +48,38 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">CollectableFactory</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (2/2)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (5/5)
+    (0/3)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (11/11)
+    (0/7)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/12)
   </span>
 </td>
 </tr>
-  <tr>
-    <td class="name">CollectableFactory$1</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-  </tr>
-<tr>
-  <td class="name"><strong>Total</strong></td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (3/3)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (5/5)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (12/12)
-  </span>
-</td>
-</tr>
+
 </table>
 
 <br/>
@@ -130,7 +96,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import java.util.List;
 &nbsp;
-&nbsp;public class CollectableFactory&lt;T&gt; {
+<b class="nc">&nbsp;public class CollectableFactory&lt;T&gt; {</b>
 &nbsp;
 &nbsp;    private Position position;
 &nbsp;
@@ -141,20 +107,20 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private T attackingElement;
 &nbsp;
 &nbsp;
-<b class="fc">&nbsp;    public CollectableFactory(Position position, CollectableType type, int multiplier, T attackingElement){</b>
-<b class="fc">&nbsp;        this.position = position;</b>
-<b class="fc">&nbsp;        this.type = type;</b>
-<b class="fc">&nbsp;        this.multiplier = multiplier;</b>
-<b class="fc">&nbsp;        this.attackingElement = attackingElement;</b>
+<b class="nc">&nbsp;    public CollectableFactory(Position position, CollectableType type, int multiplier, T attackingElement){</b>
+<b class="nc">&nbsp;        this.position = position;</b>
+<b class="nc">&nbsp;        this.type = type;</b>
+<b class="nc">&nbsp;        this.multiplier = multiplier;</b>
+<b class="nc">&nbsp;        this.attackingElement = attackingElement;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public Collectable createCollectable(){
-<b class="pc">&nbsp;        return switch (type) {</b>
-<b class="fc">&nbsp;            case HEALTH -&gt; new HealthCollectable(position, (Ship) attackingElement);</b>
-<b class="fc">&nbsp;            case DAMAGE -&gt; new DamageCollectable(position, (Ship) attackingElement, multiplier);</b>
-<b class="fc">&nbsp;            case SCORE -&gt; new ScoreCollectable(position, (List&lt;Alien&gt;) attackingElement, multiplier);</b>
-<b class="fc">&nbsp;            case MACHINE_GUN_MODE -&gt; new MachineGunModeCollectable(position, (Ship) attackingElement);</b>
-<b class="fc">&nbsp;            case GOD_MODE -&gt; new GodModeCollectable(position,(Ship) attackingElement);</b>
+<b class="nc">&nbsp;        return switch (type) {</b>
+<b class="nc">&nbsp;            case HEALTH -&gt; new HealthCollectable(position, (Ship) attackingElement);</b>
+<b class="nc">&nbsp;            case DAMAGE -&gt; new DamageCollectable(position, (Ship) attackingElement, multiplier);</b>
+<b class="nc">&nbsp;            case SCORE -&gt; new ScoreCollectable(position, (List&lt;Alien&gt;) attackingElement, multiplier);</b>
+<b class="nc">&nbsp;            case MACHINE_GUN_MODE -&gt; new MachineGunModeCollectable(position, (Ship) attackingElement);</b>
+<b class="nc">&nbsp;            case GOD_MODE -&gt; new GodModeCollectable(position,(Ship) attackingElement);</b>
 &nbsp;        };
 &nbsp;    }
 &nbsp;
@@ -182,7 +148,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-01 14:20</div>
+    <div style="float:right;">generated on 2025-01-01 21:56</div>
 </div>
 </body>
 </html>

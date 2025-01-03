@@ -25,9 +25,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 <h1>Coverage Summary for Class: Ship (SpaceInvaders.Model.Game.RegularGameElements)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -45,75 +48,38 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">Ship</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (8/8)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (8/8)
+    (0/9)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (18/18)
+    (0/10)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/19)
   </span>
 </td>
 </tr>
-  <tr>
-    <td class="name">Ship$1</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-  </tr>
-<tr>
-  <td class="name"><strong>Total</strong></td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (9/9)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (8/8)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (19/19)
-  </span>
-</td>
-</tr>
+
 </table>
 
 <br/>
@@ -125,50 +91,50 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import SpaceInvaders.Model.Position;
 &nbsp;
-&nbsp;public class Ship extends AttackingElement {
+<b class="nc">&nbsp;public class Ship extends AttackingElement {</b>
 &nbsp;
 &nbsp;    private final int maxHealth;
 &nbsp;    private ShipMode shipMode;
 &nbsp;
 &nbsp;    public Ship(Position position, int health, int damagePerShot){
-<b class="fc">&nbsp;        super(position,health,damagePerShot);</b>
-<b class="fc">&nbsp;        this.maxHealth = 100;</b>
-<b class="fc">&nbsp;        this.shipMode = ShipMode.NORMAL_MODE;</b>
+<b class="nc">&nbsp;        super(position,health,damagePerShot);</b>
+<b class="nc">&nbsp;        this.maxHealth = 100;</b>
+<b class="nc">&nbsp;        this.shipMode = ShipMode.NORMAL_MODE;</b>
 &nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    public ShipMode getShipMode() {return shipMode;}</b>
+<b class="nc">&nbsp;    public ShipMode getShipMode() {return shipMode;}</b>
 &nbsp;
-<b class="fc">&nbsp;    public int getMaxHealth() {return maxHealth;}</b>
+<b class="nc">&nbsp;    public int getMaxHealth() {return maxHealth;}</b>
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public int getDamagePerShot(){
-<b class="fc">&nbsp;        return switch (shipMode) {</b>
-<b class="fc">&nbsp;            case NORMAL_MODE -&gt; super.getDamagePerShot();</b>
-<b class="fc">&nbsp;            case DAMAGE_2X -&gt; super.getDamagePerShot() * 2;</b>
-<b class="fc">&nbsp;            case DAMAGE_3X -&gt; super.getDamagePerShot() * 3;</b>
-<b class="fc">&nbsp;            case DAMAGE_4X -&gt; super.getDamagePerShot() * 4;</b>
-<b class="fc">&nbsp;            case DAMAGE_5X -&gt; super.getDamagePerShot() * 5;</b>
-<b class="fc">&nbsp;            case DAMAGE_10X -&gt; super.getDamagePerShot() * 10;</b>
-<b class="fc">&nbsp;            default -&gt; super.getDamagePerShot();</b>
+<b class="nc">&nbsp;        return switch (shipMode) {</b>
+<b class="nc">&nbsp;            case NORMAL_MODE -&gt; super.getDamagePerShot();</b>
+<b class="nc">&nbsp;            case DAMAGE_2X -&gt; super.getDamagePerShot() * 2;</b>
+<b class="nc">&nbsp;            case DAMAGE_3X -&gt; super.getDamagePerShot() * 3;</b>
+<b class="nc">&nbsp;            case DAMAGE_4X -&gt; super.getDamagePerShot() * 4;</b>
+<b class="nc">&nbsp;            case DAMAGE_5X -&gt; super.getDamagePerShot() * 5;</b>
+<b class="nc">&nbsp;            case DAMAGE_10X -&gt; super.getDamagePerShot() * 10;</b>
+<b class="nc">&nbsp;            default -&gt; super.getDamagePerShot();</b>
 &nbsp;        };
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public void decreaseHealth(int damage){
-<b class="fc">&nbsp;        if(shipMode != ShipMode.GOD_MODE){</b>
-<b class="fc">&nbsp;            this.setHealth(getHealth() - damage);</b>
+<b class="nc">&nbsp;        if(shipMode != ShipMode.GOD_MODE){</b>
+<b class="nc">&nbsp;            this.setHealth(getHealth() - damage);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;    public void increaseDamage(int increaseRatio){
-<b class="fc">&nbsp;        this.setDamagePerShot(getDamagePerShot() * increaseRatio);</b>
+<b class="nc">&nbsp;        this.setDamagePerShot(getDamagePerShot() * increaseRatio);</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void restoreHealth(){
-<b class="fc">&nbsp;        this.setHealth(maxHealth);</b>
+<b class="nc">&nbsp;        this.setHealth(maxHealth);</b>
 &nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    public void setShipMode(ShipMode shipMode) {this.shipMode = shipMode;}</b>
+<b class="nc">&nbsp;    public void setShipMode(ShipMode shipMode) {this.shipMode = shipMode;}</b>
 &nbsp;}
 </code>
 </pre>
@@ -193,7 +159,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-01 14:20</div>
+    <div style="float:right;">generated on 2025-01-01 21:56</div>
 </div>
 </body>
 </html>

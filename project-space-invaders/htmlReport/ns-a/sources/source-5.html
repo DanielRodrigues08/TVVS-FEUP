@@ -48,34 +48,34 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">AttackingElement</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (5/5)
+    (0/5)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (10/10)
+    (0/10)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (14/14)
+    (0/14)
   </span>
 </td>
 </tr>
@@ -96,32 +96,32 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private int damagePerShot;
 &nbsp;
 &nbsp;    public AttackingElement(Position position, int health, int damagePerShot) {
-<b class="fc">&nbsp;        super(position, health);</b>
-<b class="fc">&nbsp;        this.damagePerShot = damagePerShot;</b>
+<b class="nc">&nbsp;        super(position, health);</b>
+<b class="nc">&nbsp;        this.damagePerShot = damagePerShot;</b>
 &nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    public int getDamagePerShot() {return damagePerShot;}</b>
+<b class="nc">&nbsp;    public int getDamagePerShot() {return damagePerShot;}</b>
 &nbsp;
-<b class="fc">&nbsp;    public void setDamagePerShot(int damagePerShot){this.damagePerShot = damagePerShot;}</b>
+<b class="nc">&nbsp;    public void setDamagePerShot(int damagePerShot){this.damagePerShot = damagePerShot;}</b>
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public boolean equals(Object o){
-<b class="fc">&nbsp;        if(this == o){</b>
-<b class="fc">&nbsp;            return true;</b>
+<b class="nc">&nbsp;        if(this == o){</b>
+<b class="nc">&nbsp;            return true;</b>
 &nbsp;        }
-<b class="fc">&nbsp;        if(!(o instanceof AttackingElement)){</b>
-<b class="fc">&nbsp;            return false;</b>
+<b class="nc">&nbsp;        if(!(o instanceof AttackingElement)){</b>
+<b class="nc">&nbsp;            return false;</b>
 &nbsp;        }
-<b class="fc">&nbsp;        return this.getPosition().equals(((AttackingElement) o).getPosition()) &amp;&amp; this.getHealth() == ((AttackingElement) o).getHealth() &amp;&amp; this.getDamagePerShot() == ((AttackingElement) o).getDamagePerShot();</b>
+<b class="nc">&nbsp;        return this.getPosition().equals(((AttackingElement) o).getPosition()) &amp;&amp; this.getHealth() == ((AttackingElement) o).getHealth() &amp;&amp; this.getDamagePerShot() == ((AttackingElement) o).getDamagePerShot();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public int hashCode() {
-<b class="fc">&nbsp;        int prime = 31;</b>
-<b class="fc">&nbsp;        int result = prime + damagePerShot;</b>
-<b class="fc">&nbsp;        result = prime * result + getHealth();</b>
-<b class="fc">&nbsp;        result = prime * result + getPosition().hashCode();</b>
-<b class="fc">&nbsp;        return result;</b>
+<b class="nc">&nbsp;        int prime = 31;</b>
+<b class="nc">&nbsp;        int result = prime + damagePerShot;</b>
+<b class="nc">&nbsp;        result = prime * result + getHealth();</b>
+<b class="nc">&nbsp;        result = prime * result + getPosition().hashCode();</b>
+<b class="nc">&nbsp;        return result;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -147,7 +147,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-01 14:20</div>
+    <div style="float:right;">generated on 2025-01-01 21:56</div>
 </div>
 </body>
 </html>

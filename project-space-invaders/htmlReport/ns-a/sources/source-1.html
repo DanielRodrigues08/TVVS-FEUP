@@ -25,9 +25,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 <h1>Coverage Summary for Class: Alien (SpaceInvaders.Model.Game.RegularGameElements)</h1>
 
 <table class="coverageStats">
-
 <tr>
   <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
 <th class="coverageStat 
 ">
   Method, %
@@ -45,75 +48,38 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">Alien</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (9/9)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (7/7)
+    (0/10)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (21/21)
+    (0/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    0%
+  </span>
+  <span class="absValue">
+    (0/22)
   </span>
 </td>
 </tr>
-  <tr>
-    <td class="name">Alien$1</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (1/1)
-  </span>
-</td>
-  </tr>
-<tr>
-  <td class="name"><strong>Total</strong></td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (10/10)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (7/7)
-  </span>
-</td>
-<td class="coverageStat">
-  <span class="percent">
-    100%
-  </span>
-  <span class="absValue">
-    (22/22)
-  </span>
-</td>
-</tr>
+
 </table>
 
 <br/>
@@ -125,7 +91,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;import SpaceInvaders.Model.Position;
 &nbsp;
-&nbsp;public class Alien extends AttackingElement {
+<b class="nc">&nbsp;public class Alien extends AttackingElement {</b>
 &nbsp;
 &nbsp;    private int score;
 &nbsp;
@@ -139,50 +105,50 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    private AlienState alienState;
 &nbsp;
 &nbsp;    public Alien(Position position,int health, int damagePerShot, int score, AlienState alienState, int Type) {
-<b class="fc">&nbsp;        super(position,health,damagePerShot);</b>
-<b class="fc">&nbsp;        this.score = score;</b>
-<b class="fc">&nbsp;        this.alienState = alienState;</b>
-<b class="fc">&nbsp;        if(Type &gt;= 3){</b>
-<b class="fc">&nbsp;            this.Type = 0;</b>
+<b class="nc">&nbsp;        super(position,health,damagePerShot);</b>
+<b class="nc">&nbsp;        this.score = score;</b>
+<b class="nc">&nbsp;        this.alienState = alienState;</b>
+<b class="nc">&nbsp;        if(Type &gt;= 3){</b>
+<b class="nc">&nbsp;            this.Type = 0;</b>
 &nbsp;        }
 &nbsp;        else {
-<b class="fc">&nbsp;            this.Type = Type;</b>
+<b class="nc">&nbsp;            this.Type = Type;</b>
 &nbsp;        }
-<b class="fc">&nbsp;        this.alienMode = AlienMode.NORMAL_MODE;</b>
+<b class="nc">&nbsp;        this.alienMode = AlienMode.NORMAL_MODE;</b>
 &nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    public AlienMode getAlienMode() {return alienMode;}</b>
+<b class="nc">&nbsp;    public AlienMode getAlienMode() {return alienMode;}</b>
 &nbsp;
-<b class="fc">&nbsp;    public void setAlienMode(AlienMode alienMode) {this.alienMode = alienMode;}</b>
+<b class="nc">&nbsp;    public void setAlienMode(AlienMode alienMode) {this.alienMode = alienMode;}</b>
 &nbsp;
 &nbsp;    public int getScore() {
-<b class="fc">&nbsp;        switch (alienMode){</b>
+<b class="nc">&nbsp;        switch (alienMode){</b>
 &nbsp;            case SCORE_2X:
-<b class="fc">&nbsp;                return score * 2;</b>
+<b class="nc">&nbsp;                return score * 2;</b>
 &nbsp;            case SCORE_3X:
-<b class="fc">&nbsp;                return score * 3;</b>
+<b class="nc">&nbsp;                return score * 3;</b>
 &nbsp;            case SCORE_4X:
-<b class="fc">&nbsp;                return score * 4;</b>
+<b class="nc">&nbsp;                return score * 4;</b>
 &nbsp;            case SCORE_5X:
-<b class="fc">&nbsp;                return score * 5;</b>
+<b class="nc">&nbsp;                return score * 5;</b>
 &nbsp;            case SCORE_10X:
-<b class="fc">&nbsp;                return score * 10;</b>
+<b class="nc">&nbsp;                return score * 10;</b>
 &nbsp;            default: //no score collectable active
-<b class="fc">&nbsp;                return score;</b>
+<b class="nc">&nbsp;                return score;</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    public void setScore(int score) {this.score = score;}</b>
+<b class="nc">&nbsp;    public void setScore(int score) {this.score = score;}</b>
 &nbsp;
-<b class="fc">&nbsp;    public AlienState getAlienState() {return alienState;}</b>
+<b class="nc">&nbsp;    public AlienState getAlienState() {return alienState;}</b>
 &nbsp;
-<b class="fc">&nbsp;    public void setAlienState(AlienState alienState) {this.alienState = alienState;}</b>
+<b class="nc">&nbsp;    public void setAlienState(AlienState alienState) {this.alienState = alienState;}</b>
 &nbsp;
 &nbsp;    public void increaseScore(int increaseRatio){
-<b class="fc">&nbsp;        score*=increaseRatio;</b>
+<b class="nc">&nbsp;        score*=increaseRatio;</b>
 &nbsp;    }
 &nbsp;    public int getType(){
-<b class="fc">&nbsp;        return Type;</b>
+<b class="nc">&nbsp;        return Type;</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -208,7 +174,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-01 14:20</div>
+    <div style="float:right;">generated on 2025-01-01 21:56</div>
 </div>
 </body>
 </html>
