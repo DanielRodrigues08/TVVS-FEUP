@@ -28,4 +28,5 @@ public class HealthCollectableViewerTest {
 
         Mockito.verify(gui).drawElement(position, '\u00c1', "#ff0000");
     }
+
 }

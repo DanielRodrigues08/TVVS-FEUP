@@ -28,4 +28,5 @@ public class GodModeCollectableViewerTest {
 
         Mockito.verify(gui).drawElement(position, '\u00C7', "#FFFF00");
     }
+
 }

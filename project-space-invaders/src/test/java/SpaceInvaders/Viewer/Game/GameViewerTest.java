@@ -161,6 +161,7 @@ public class GameViewerTest {
         assertEquals(expectedConstructors, mockedViewer.constructed().size());
         ElementViewer constructedViewer = mockedViewer.constructed().getFirst();
         verify(constructedViewer).draw(gui, collectableClass.cast(collectable));
+        mockedViewer.close();
     }
 
     @Test
@@ -173,6 +174,7 @@ public class GameViewerTest {
                 mockConstruction(UnknownCollectableViewer.class);
         assertDoesNotThrow(() -> viewer.draw(gui, 1000));
         assertEquals(0, mockedViewer.constructed().size());
+        mockedViewer.close();
     }
 
 

@@ -4,6 +4,7 @@ import SpaceInvaders.GUI.GUI;
 import SpaceInvaders.GUI.GUILanterna;
 import SpaceInvaders.State.GameStates;
 import SpaceInvaders.State.State;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,6 +30,8 @@ public class GameTest {
     private GUI mockGui;
     private Game game;
     private Method startGameMethod;
+    private MockedStatic<State> mockedState;
+    private MockedConstruction<GUILanterna> mockedGui;
 
     @BeforeEach
     void setUp() throws Exception {
@@ -40,11 +43,18 @@ public class GameTest {
         Field guiField = Game.class.getDeclaredField("gui");
         guiField.setAccessible(true);
 
-        MockedConstruction<GUILanterna> mockedGui = mockConstruction(GUILanterna.class);
-        MockedStatic<State> mockedState = mockStatic(State.class);
+        mockedGui = mockConstruction(GUILanterna.class);
+        mockedState = mockStatic(State.class);
         mockedState.when(State::getInstance).thenReturn(mockState);
         game = constructor.newInstance();
         guiField.set(game, mockGui);
+    }
+
+    @AfterEach
+    public void cleanup() {
+        mockedGui.close();
+        mockedState.close();
+
     }
 
     @Test
@@ -144,9 +154,6 @@ public class GameTest {
 
         Field guiField = Game.class.getDeclaredField("gui");
         guiField.setAccessible(true);
-
-        MockedConstruction<GUILanterna> mockedGui = mockConstruction(GUILanterna.class);
-        MockedStatic<State> mockedState = mockStatic(State.class);
 
         mockedState.when(State::getInstance).thenReturn(mockState);
         when(mockState.getCurrentState()).thenReturn(GameStates.QUIT_GAME);

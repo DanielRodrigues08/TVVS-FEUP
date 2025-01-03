@@ -28,4 +28,5 @@ public class MachineGunCollectableViewerTest {
 
         Mockito.verify(gui).drawElement(position, '\u00c9', "#B0E0E6");
     }
+
 }
