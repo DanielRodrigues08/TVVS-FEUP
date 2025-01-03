@@ -2,19 +2,25 @@ package SpaceInvaders.Viewer.Game;
 
 import SpaceInvaders.GUI.GUI;
 import SpaceInvaders.Model.Game.Arena;
-import SpaceInvaders.Model.Game.Collectables.GodModeCollectable;
+import SpaceInvaders.Model.Game.Collectables.*;
 import SpaceInvaders.Model.Game.RegularGameElements.*;
 import SpaceInvaders.Model.Position;
+import SpaceInvaders.Viewer.Game.Collectables.*;
+import SpaceInvaders.Viewer.Game.RegularElements.ElementViewer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.Mock;
+import org.mockito.MockedConstruction;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Collections;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -27,6 +33,41 @@ public class GameViewerTest {
     private GUI gui;
     @Mock
     private Arena arena;
+
+    private static Stream<Arguments> collectableViewerTestValues() {
+        return Stream.of(
+                Arguments.of(
+                        mock(DamageCollectable.class),
+                        DamageCollectableViewer.class,
+                        DamageCollectable.class,
+                        1
+                ),
+                Arguments.of(
+                        mock(GodModeCollectable.class),
+                        GodModeCollectableViewer.class,
+                        GodModeCollectable.class,
+                        1
+                ),
+                Arguments.of(
+                        mock(HealthCollectable.class),
+                        HealthCollectableViewer.class,
+                        HealthCollectable.class,
+                        1
+                ),
+                Arguments.of(
+                        mock(ScoreCollectable.class),
+                        ScoreCollectableViewer.class,
+                        ScoreCollectable.class,
+                        1
+                ),
+                Arguments.of(
+                        mock(MachineGunModeCollectable.class),
+                        MachineGunCollectableViewer.class,
+                        MachineGunModeCollectable.class,
+                        1
+                )
+        );
+    }
 
     @BeforeEach
     void setUp() {
@@ -67,7 +108,6 @@ public class GameViewerTest {
         verify(gui, times(3)).refresh();
     }
 
-
     @ParameterizedTest
     @CsvSource({
             "NORMAL_MODE, 0, NORMAL_MODE, 0",
@@ -100,26 +140,57 @@ public class GameViewerTest {
         verify(gui, times(expectedAlien)).drawText(new Position(55, 5), String.valueOf(arena.getAliens().get(0).getAlienMode()), "#F8F8FF");
     }
 
+    @ParameterizedTest
+    @MethodSource("collectableViewerTestValues")
+    void testCollectableViewerCreation(
+            Collectable collectable,
+            Class<? extends ElementViewer> viewerClass,
+            Class<? extends Collectable> collectableClass,
+            int expectedConstructors
+    ) {
 
-    /*@Test
-    public void testDrawCollectableNull() {
-        when(arena.getActiveCollectable()).thenReturn(null);
+        Ship ship = Mockito.mock(Ship.class);
+        when(ship.getHealth()).thenReturn(100);
+        when(arena.getShip()).thenReturn(ship);
+        when(arena.getActiveCollectable()).thenReturn(collectable);
+
+        MockedConstruction<? extends ElementViewer> mockedViewer =
+                mockConstruction(viewerClass);
         assertDoesNotThrow(() -> viewer.draw(gui, 1000));
+
+        assertEquals(expectedConstructors, mockedViewer.constructed().size());
+        ElementViewer constructedViewer = mockedViewer.constructed().getFirst();
+        verify(constructedViewer).draw(gui, collectableClass.cast(collectable));
     }
 
     @Test
-    public void testDrawCollectableGodMode() throws Exception {
-        GodModeCollectable collectable = Mockito.mock(GodModeCollectable.class);
-        var ship = Mockito.mock(Ship.class);
-        when(arena.getShip()).thenReturn(ship);
+    void testDrawCollectableUnknown() {
+        Ship ship = Mockito.mock(Ship.class);
         when(ship.getHealth()).thenReturn(100);
-
-        // Ensure the viewer is correctly set up with the mock
-        when(arena.getActiveCollectable()).thenReturn(collectable);
-
-        whenNew(GodModeCollectableViewer.class).withNoArguments().thenReturn(godModeCollectableViewer);
-
+        when(arena.getShip()).thenReturn(ship);
+        when(arena.getActiveCollectable()).thenReturn(new UnknownCollectable());
+        MockedConstruction<UnknownCollectableViewer> mockedViewer =
+                mockConstruction(UnknownCollectableViewer.class);
         assertDoesNotThrow(() -> viewer.draw(gui, 1000));
-        verify(godModeCollectableViewer).draw(gui, collectable);
-    }*/
+        assertEquals(0, mockedViewer.constructed().size());
+    }
+
+
+    private static class UnknownCollectable extends Collectable {
+        public UnknownCollectable() {
+            super(new Position(0, 0), null);
+        }
+
+        @Override
+        public void execute() {
+
+        }
+    }
+
+    private static class UnknownCollectableViewer implements ElementViewer<UnknownCollectable> {
+        @Override
+        public void draw(GUI gui, UnknownCollectable collectable) {
+
+        }
+    }
 }

@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > AlienShipController</title>
+  <title>Coverage Report > AlienViewer</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Controller.Game</a>
+    <a href="../index.html">SpaceInvaders.Viewer.Game.RegularElements</a>
 </div>
 
-<h1>Coverage Summary for Class: AlienShipController (SpaceInvaders.Controller.Game)</h1>
+<h1>Coverage Summary for Class: AlienViewer (SpaceInvaders.Viewer.Game.RegularElements)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -45,37 +45,37 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">AlienShipController</td>
+  <td class="name">AlienViewer</td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/1)
+    (1/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/11)
+    (2/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    75%
   </span>
   <span class="absValue">
-    (0/18)
+    (3/4)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    100%
   </span>
   <span class="absValue">
-    (0/34)
+    (10/10)
   </span>
 </td>
 </tr>
@@ -87,95 +87,32 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Controller.Game;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Viewer.Game.RegularElements;
 &nbsp;
-&nbsp;import SpaceInvaders.Controller.Sound.SoundManager;
-&nbsp;import SpaceInvaders.Game;
-&nbsp;import SpaceInvaders.Model.Game.Arena;
-&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.AlienShip;
-&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Projectile;
-&nbsp;import SpaceInvaders.Model.Position;
-&nbsp;import SpaceInvaders.Model.Sound.Sound_Options;
-&nbsp;import com.googlecode.lanterna.input.KeyStroke;
+&nbsp;import SpaceInvaders.GUI.GUI;
+&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Alien;
 &nbsp;
-&nbsp;import java.io.IOException;
+&nbsp;public class AlienViewer implements ElementViewer&lt;Alien&gt; {
+<b class="fc">&nbsp;    final private  char[] AlienChars = {&#39;\u00ca&#39;,&#39;\u00cc&#39;,&#39;\u00ce&#39;};</b>
 &nbsp;
+<b class="fc">&nbsp;    final private char[] AlienChars2 = {&#39;\u00cb&#39;,&#39;\u00cd&#39;,&#39;\u00cf&#39;};</b>
 &nbsp;
-&nbsp;
-&nbsp;public class AlienShipController extends GameController{
-&nbsp;    long lastAppearance;
-&nbsp;    long lastMovementTime;
-&nbsp;    public AlienShipController(Arena arena){
-<b class="nc">&nbsp;        super(arena);</b>
-<b class="nc">&nbsp;        this.lastAppearance = 0;</b>
-<b class="nc">&nbsp;        this.lastMovementTime = 0;</b>
-&nbsp;    }
-&nbsp;
-<b class="nc">&nbsp;    public long getLastMovementTime() {return lastMovementTime;}</b>
-&nbsp;
-<b class="nc">&nbsp;    public long getLastAppearance() {return lastAppearance;}</b>
-&nbsp;
-<b class="nc">&nbsp;    public void setLastMovementTime(long lastMovementTime) {this.lastMovementTime = lastMovementTime;}</b>
-&nbsp;
-<b class="nc">&nbsp;    public void setLastAppearance(long lastAppearance) {this.lastAppearance = lastAppearance;}</b>
-&nbsp;
-&nbsp;
-&nbsp;    public void generateAlienShip(){
-&nbsp;
-<b class="nc">&nbsp;        getArenaModifier().createAlienShip();</b>
-<b class="nc">&nbsp;        SoundManager.getInstance().playSound(Sound_Options.ALIEN_SHIP_HIGH);</b>
-<b class="nc">&nbsp;        SoundManager.getInstance().playSound(Sound_Options.ALIEN_SHIP_LOW);</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void moveAlienShip(){
-<b class="nc">&nbsp;        AlienShip alienShip = getModel().getAlienShip();</b>
-<b class="nc">&nbsp;        if(canMoveAlienShip()) {</b>
-<b class="nc">&nbsp;            alienShip.setPosition(new Position(alienShip.getPosition().getX() + alienShip.getMovementDirection(), alienShip.getPosition().getY()));</b>
-&nbsp;        }
-&nbsp;        else{
-<b class="nc">&nbsp;            getArenaModifier().removeAlienShip();</b>
-<b class="nc">&nbsp;            SoundManager.getInstance().stopSound(Sound_Options.ALIEN_SHIP_HIGH);</b>
-<b class="nc">&nbsp;            SoundManager.getInstance().stopSound(Sound_Options.ALIEN_SHIP_LOW);</b>
-&nbsp;        }
-&nbsp;    }
-&nbsp;
-&nbsp;    public boolean canMoveAlienShip(){
-<b class="nc">&nbsp;        AlienShip alienShip = getModel().getAlienShip();</b>
-<b class="nc">&nbsp;        return (alienShip.getPosition().getX() - 1 &gt; 0) &amp;&amp; (alienShip.getPosition().getX() + 2 &lt; getModel().getWidth());</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void removeAlienShip(){
-<b class="nc">&nbsp;        if(getModel().getAlienShip() != null) {</b>
-<b class="nc">&nbsp;            if (getModel().getAlienShip().isDestroyed()) {</b>
-<b class="nc">&nbsp;                getArenaModifier().removeAlienShip();</b>
-<b class="nc">&nbsp;                SoundManager.getInstance().playSound(Sound_Options.DESTRUCTION);</b>
-<b class="nc">&nbsp;                SoundManager.getInstance().stopSound(Sound_Options.ALIEN_SHIP_HIGH);</b>
-<b class="nc">&nbsp;                SoundManager.getInstance().stopSound(Sound_Options.ALIEN_SHIP_LOW);</b>
-&nbsp;            }
-&nbsp;        }
-&nbsp;    }
-&nbsp;
-&nbsp;    public void hitByProjectile(AlienShip alienShip, Projectile projectile){
-<b class="nc">&nbsp;        alienShip.decreaseHealth(projectile.getElement().getDamagePerShot());</b>
-<b class="nc">&nbsp;        if(getModel().getAlienShip().isDestroyed()) {</b>
-<b class="nc">&nbsp;            getModel().increaseScore(alienShip.getScore());</b>
-&nbsp;        }
+<b class="fc">&nbsp;    final private String [] AlienColors = {&quot;#DB55DD&quot;, &quot;#EBDF64&quot;, &quot;#62DE6D&quot;};</b>
+&nbsp;    private final int charChoice;
+<b class="fc">&nbsp;    public AlienViewer(int charChoice){</b>
+<b class="fc">&nbsp;        this.charChoice = charChoice;</b>
 &nbsp;    }
 &nbsp;    @Override
-&nbsp;    public void step(Game game, KeyStroke key, long time) throws IOException {
-<b class="nc">&nbsp;        if(time - lastAppearance &gt; 50000){</b>
-<b class="nc">&nbsp;            generateAlienShip();</b>
-<b class="nc">&nbsp;            lastAppearance = time;</b>
+&nbsp;    public void draw(GUI gui, Alien alien){
+<b class="fc">&nbsp;        int AlienType = alien.getType();</b>
+<b class="fc">&nbsp;        if(charChoice == 0) {</b>
+<b class="fc">&nbsp;            gui.drawElement(alien.getPosition(), AlienChars[AlienType], AlienColors[AlienType]);</b>
 &nbsp;        }
-<b class="nc">&nbsp;        else if(getModel().getAlienShip() != null){</b>
-<b class="nc">&nbsp;            if(time - lastMovementTime &gt; 100) {</b>
-<b class="nc">&nbsp;                    moveAlienShip();</b>
-<b class="nc">&nbsp;                lastMovementTime = time;</b>
-&nbsp;            }
+<b class="pc">&nbsp;        else if(charChoice == 1){</b>
+<b class="fc">&nbsp;            gui.drawElement(alien.getPosition(),AlienChars2[AlienType], AlienColors[AlienType]);</b>
+&nbsp;
 &nbsp;        }
 &nbsp;    }
-&nbsp;
-&nbsp;
 &nbsp;}
 </code>
 </pre>
@@ -200,7 +137,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-01 21:55</div>
+    <div style="float:right;">generated on 2025-01-03 12:27</div>
 </div>
 </body>
 </html>

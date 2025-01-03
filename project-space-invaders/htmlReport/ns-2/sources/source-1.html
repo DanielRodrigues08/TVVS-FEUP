@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > Controller</title>
+  <title>Coverage Report > DamageCollectableViewer</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Controller</a>
+    <a href="../index.html">SpaceInvaders.Viewer.Game.Collectables</a>
 </div>
 
-<h1>Coverage Summary for Class: Controller (SpaceInvaders.Controller)</h1>
+<h1>Coverage Summary for Class: DamageCollectableViewer (SpaceInvaders.Viewer.Game.Collectables)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,7 +41,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">Controller</td>
+  <td class="name">DamageCollectableViewer</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -63,7 +63,7 @@ Current scope:     <a href="../../index.html">all classes</a>
     0%
   </span>
   <span class="absValue">
-    (0/3)
+    (0/2)
   </span>
 </td>
 </tr>
@@ -75,26 +75,17 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Controller;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Viewer.Game.Collectables;
 &nbsp;
-&nbsp;import SpaceInvaders.Game;
-&nbsp;import com.googlecode.lanterna.input.KeyStroke;
+&nbsp;import SpaceInvaders.GUI.GUI;
+&nbsp;import SpaceInvaders.Model.Game.Collectables.DamageCollectable;
+&nbsp;import SpaceInvaders.Viewer.Game.RegularElements.ElementViewer;
 &nbsp;
-&nbsp;import java.io.IOException;
-&nbsp;import java.net.URISyntaxException;
-&nbsp;
-&nbsp;public abstract class Controller&lt;T&gt; {
-&nbsp;    private final T model;
-&nbsp;
-<b class="nc">&nbsp;    public Controller(T model) {</b>
-<b class="nc">&nbsp;        this.model = model;</b>
+<b class="nc">&nbsp;public class DamageCollectableViewer implements ElementViewer&lt;DamageCollectable&gt; {</b>
+&nbsp;    @Override
+&nbsp;    public void draw(GUI gui, DamageCollectable collectable) {
+<b class="nc">&nbsp;        gui.drawElement(collectable.getPosition(), &#39;\u00C8&#39;, &quot;#FF4500&quot;);</b>
 &nbsp;    }
-&nbsp;
-&nbsp;    public T getModel() {
-<b class="nc">&nbsp;        return model;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public abstract void step(Game game, KeyStroke key, long time) throws IOException, URISyntaxException;
 &nbsp;}
 </code>
 </pre>
@@ -119,7 +110,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-01 21:55</div>
+    <div style="float:right;">generated on 2025-01-03 12:27</div>
 </div>
 </body>
 </html>

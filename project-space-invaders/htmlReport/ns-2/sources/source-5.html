@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > AlienShipViewer</title>
+  <title>Coverage Report > ScoreCollectableViewer</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Viewer.Game.RegularElements</a>
+    <a href="../index.html">SpaceInvaders.Viewer.Game.Collectables</a>
 </div>
 
-<h1>Coverage Summary for Class: AlienShipViewer (SpaceInvaders.Viewer.Game.RegularElements)</h1>
+<h1>Coverage Summary for Class: ScoreCollectableViewer (SpaceInvaders.Viewer.Game.Collectables)</h1>
 
 <table class="coverageStats">
 <tr>
@@ -41,29 +41,29 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">AlienShipViewer</td>
+  <td class="name">ScoreCollectableViewer</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (2/2)
+    (0/2)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (2/2)
+    (0/2)
   </span>
 </td>
 </tr>
@@ -75,16 +75,16 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Viewer.Game.RegularElements;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Viewer.Game.Collectables;
 &nbsp;
 &nbsp;import SpaceInvaders.GUI.GUI;
-&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.AlienShip;
+&nbsp;import SpaceInvaders.Model.Game.Collectables.ScoreCollectable;
+&nbsp;import SpaceInvaders.Viewer.Game.RegularElements.ElementViewer;
 &nbsp;
-<b class="fc">&nbsp;public class AlienShipViewer implements ElementViewer&lt;AlienShip&gt; {</b>
-&nbsp;
+<b class="nc">&nbsp;public class ScoreCollectableViewer implements ElementViewer&lt;ScoreCollectable&gt; {</b>
 &nbsp;    @Override
-&nbsp;    public void draw(GUI gui, AlienShip element) {
-<b class="fc">&nbsp;        gui.drawElement(element.getPosition(), &#39;\u00e0&#39;, &quot;#DC143C&quot;);</b>
+&nbsp;    public void draw(GUI gui, ScoreCollectable collectable) {
+<b class="nc">&nbsp;        gui.drawElement(collectable.getPosition(), &#39;$&#39;, &quot;#009000&quot;);</b>
 &nbsp;    }
 &nbsp;}
 </code>

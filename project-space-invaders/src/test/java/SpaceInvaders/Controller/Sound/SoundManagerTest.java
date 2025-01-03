@@ -9,10 +9,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -150,6 +158,48 @@ public class SoundManagerTest {
         verify(collectableSound).stop();
         verify(alienShipLowPitch).stop();
         verify(alienShipHighPitch).stop();
+    }
+
+    @Test
+    void testSoundManagerConstructor() throws Exception {
+        Constructor<SoundManager> constructor = SoundManager.class.getDeclaredConstructor();
+        constructor.setAccessible(true);
+
+        List<String> expectedPaths = Arrays.asList(
+                "src/main/resources/sounds/shoot.wav",
+                "src/main/resources/sounds/invaderkilled.wav",
+                "src/main/resources/sounds/Menu_option.wav",
+                "src/main/resources/sounds/spaceinvaders1.wav",
+                "src/main/resources/sounds/Collectable.wav",
+                "src/main/resources/sounds/ufo_highpitch.wav",
+                "src/main/resources/sounds/ufo_lowpitch.wav"
+        );
+
+        //ArgumentCaptor<String> pathCaptor = ArgumentCaptor.forClass(String.class);
+        MockedConstruction<Sound> mockedSound = mockConstruction(Sound.class,
+                (mock, context) -> {
+                    assertTrue(expectedPaths.contains(context.arguments().getFirst()));
+                });
+
+        constructor.newInstance();
+
+        assertEquals(7, mockedSound.constructed().size());
+        List<Sound> constructedSounds = mockedSound.constructed();
+        assertTrue(constructedSounds.stream().allMatch(sound -> sound instanceof Sound));
+
+    }
+
+    @Test
+    void testGetInstance() {
+        Field instance = assertDoesNotThrow(() -> SoundManager.class.getDeclaredField("soundManager"));
+        instance.setAccessible(true);
+        assertDoesNotThrow(() -> instance.set(null, null));
+
+        SoundManager firstCall = SoundManager.getInstance();
+        assertNotNull(firstCall);
+
+        SoundManager secondCall = SoundManager.getInstance();
+        assertSame(firstCall, secondCall);
     }
 
     @AfterEach
