@@ -45,26 +45,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name">AlienController</td>
 <td class="coverageStat">
   <span class="percent">
-    77.8%
+    27.8%
   </span>
   <span class="absValue">
-    (14/18)
+    (5/18)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (37/37)
+    (0/37)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    93.4%
+    13.1%
   </span>
   <span class="absValue">
-    (57/61)
+    (8/61)
   </span>
 </td>
 </tr>
@@ -72,18 +72,18 @@ Current scope:     <a href="../../index.html">all classes</a>
     <td class="name">AlienController$1</td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (1/1)
+    (0/1)
   </span>
 </td>
   </tr>
@@ -91,26 +91,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    78.9%
+    26.3%
   </span>
   <span class="absValue">
-    (15/19)
+    (5/19)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    100%
+    0%
   </span>
   <span class="absValue">
-    (37/37)
+    (0/37)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    93.5%
+    12.9%
   </span>
   <span class="absValue">
-    (58/62)
+    (8/62)
   </span>
 </td>
 </tr>
@@ -154,91 +154,91 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;
 &nbsp;    public long getLastMovementTime() {
-<b class="nc">&nbsp;        return lastMovementTime;</b>
+<b class="fc">&nbsp;        return lastMovementTime;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public long getLastShotTime() {
-<b class="nc">&nbsp;        return lastShotTime;</b>
+<b class="fc">&nbsp;        return lastShotTime;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setLastMovementTime(long lastMovementTime) {
-<b class="nc">&nbsp;        this.lastMovementTime = lastMovementTime;</b>
+<b class="fc">&nbsp;        this.lastMovementTime = lastMovementTime;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setLastShotTime(long lastShotTime) {
-<b class="nc">&nbsp;        this.lastShotTime = lastShotTime;</b>
+<b class="fc">&nbsp;        this.lastShotTime = lastShotTime;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setMovementDirection(MovementDirection direction){
-<b class="fc">&nbsp;        movementDirection = direction;</b>
+<b class="nc">&nbsp;        movementDirection = direction;</b>
 &nbsp;    }
 &nbsp;
-<b class="fc">&nbsp;    public MovementDirection getMovementDirection() {return movementDirection;}</b>
+<b class="nc">&nbsp;    public MovementDirection getMovementDirection() {return movementDirection;}</b>
 &nbsp;
 &nbsp;    public boolean canMoveAlien(Alien alien) {
-<b class="pc">&nbsp;       return switch (this.getMovementDirection()) {</b>
+<b class="nc">&nbsp;       return switch (this.getMovementDirection()) {</b>
 &nbsp;            case LEFT:
-<b class="fc">&nbsp;                yield alien.getPosition().getX() - 3 &gt; 0;</b>
+<b class="nc">&nbsp;                yield alien.getPosition().getX() - 3 &gt; 0;</b>
 &nbsp;            case RIGHT:
-<b class="fc">&nbsp;                yield alien.getPosition().getX() + 3 &lt; getModel().getWidth() - 1;</b>
+<b class="nc">&nbsp;                yield alien.getPosition().getX() + 3 &lt; getModel().getWidth() - 1;</b>
 &nbsp;            case DOWN:
-<b class="fc">&nbsp;                yield true;</b>
+<b class="nc">&nbsp;                yield true;</b>
 &nbsp;        };
 &nbsp;    }
 &nbsp;
 &nbsp;    public boolean canMoveAliens(){
-<b class="fc">&nbsp;        List&lt;Alien&gt; aliens = getModel().getAliens();</b>
-<b class="fc">&nbsp;        for(Alien alien : aliens){</b>
-<b class="fc">&nbsp;            if(!canMoveAlien(alien)){</b>
-<b class="fc">&nbsp;                return false;</b>
+<b class="nc">&nbsp;        List&lt;Alien&gt; aliens = getModel().getAliens();</b>
+<b class="nc">&nbsp;        for(Alien alien : aliens){</b>
+<b class="nc">&nbsp;            if(!canMoveAlien(alien)){</b>
+<b class="nc">&nbsp;                return false;</b>
 &nbsp;            }
 &nbsp;        }
-<b class="fc">&nbsp;        return true;</b>
+<b class="nc">&nbsp;        return true;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void moveAlien(Alien alien){
-<b class="fc">&nbsp;        Position alienPosition = new Position(alien.getPosition().getX(),alien.getPosition().getY());</b>
-<b class="pc">&nbsp;        switch(this.getMovementDirection()){</b>
+<b class="nc">&nbsp;        Position alienPosition = new Position(alien.getPosition().getX(),alien.getPosition().getY());</b>
+<b class="nc">&nbsp;        switch(this.getMovementDirection()){</b>
 &nbsp;            case LEFT:
-<b class="fc">&nbsp;                alien.setPosition(new Position(alienPosition.getX() - 1,alienPosition.getY()));</b>
+<b class="nc">&nbsp;                alien.setPosition(new Position(alienPosition.getX() - 1,alienPosition.getY()));</b>
 &nbsp;                break;
 &nbsp;            case RIGHT:
-<b class="fc">&nbsp;                alien.setPosition(new Position(alienPosition.getX() + 1,alienPosition.getY()));</b>
+<b class="nc">&nbsp;                alien.setPosition(new Position(alienPosition.getX() + 1,alienPosition.getY()));</b>
 &nbsp;                break;
 &nbsp;            case DOWN:
-<b class="fc">&nbsp;                alien.setPosition(new Position(alienPosition.getX(),alienPosition.getY() + 1));</b>
+<b class="nc">&nbsp;                alien.setPosition(new Position(alienPosition.getX(),alienPosition.getY() + 1));</b>
 &nbsp;                break;
 &nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;    public void moveAliens(){
-<b class="fc">&nbsp;        List&lt;Alien&gt; aliens = getModel().getAliens();</b>
-<b class="fc">&nbsp;        for(Alien alien : aliens){</b>
-<b class="fc">&nbsp;            moveAlien(alien);</b>
+<b class="nc">&nbsp;        List&lt;Alien&gt; aliens = getModel().getAliens();</b>
+<b class="nc">&nbsp;        for(Alien alien : aliens){</b>
+<b class="nc">&nbsp;            moveAlien(alien);</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;    public void shootProjectile(){
-<b class="fc">&nbsp;        List&lt;Alien&gt; attackingAliens = getModel().getAttackingAliens();</b>
-<b class="fc">&nbsp;        if(!getModel().getAttackingAliens().isEmpty()){</b>
-<b class="fc">&nbsp;            Random random = new Random();</b>
-<b class="fc">&nbsp;            int randomIndex = random.nextInt(attackingAliens.size());</b>
-<b class="fc">&nbsp;            Alien randomAlien = attackingAliens.get(randomIndex);</b>
-<b class="fc">&nbsp;            getArenaModifier().addProjectile(new Projectile(randomAlien.getPosition(),randomAlien));</b>
+<b class="nc">&nbsp;        List&lt;Alien&gt; attackingAliens = getModel().getAttackingAliens();</b>
+<b class="nc">&nbsp;        if(!getModel().getAttackingAliens().isEmpty()){</b>
+<b class="nc">&nbsp;            Random random = new Random();</b>
+<b class="nc">&nbsp;            int randomIndex = random.nextInt(attackingAliens.size());</b>
+<b class="nc">&nbsp;            Alien randomAlien = attackingAliens.get(randomIndex);</b>
+<b class="nc">&nbsp;            getArenaModifier().addProjectile(new Projectile(randomAlien.getPosition(),randomAlien));</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;    public void hitByProjectile(Alien alien, Projectile projectile){
-<b class="fc">&nbsp;        alien.decreaseHealth(projectile.getElement().getDamagePerShot());</b>
-<b class="fc">&nbsp;        getModel().increaseScore(alien.getScore());</b>
+<b class="nc">&nbsp;        alien.decreaseHealth(projectile.getElement().getDamagePerShot());</b>
+<b class="nc">&nbsp;        getModel().increaseScore(alien.getScore());</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void removeDestroyedAliens(){
-<b class="fc">&nbsp;        List&lt;Alien&gt; aliens = getModel().getAliens();</b>
-<b class="fc">&nbsp;        for(int i = 0; i &lt; aliens.size(); i++){</b>
-<b class="fc">&nbsp;            if(aliens.get(i).isDestroyed()){</b>
-<b class="fc">&nbsp;               getArenaModifier().removeAlien(aliens.get(i));</b>
-<b class="fc">&nbsp;               SoundManager.getInstance().playSound(Sound_Options.DESTRUCTION);</b>
+<b class="nc">&nbsp;        List&lt;Alien&gt; aliens = getModel().getAliens();</b>
+<b class="nc">&nbsp;        for(int i = 0; i &lt; aliens.size(); i++){</b>
+<b class="nc">&nbsp;            if(aliens.get(i).isDestroyed()){</b>
+<b class="nc">&nbsp;               getArenaModifier().removeAlien(aliens.get(i));</b>
+<b class="nc">&nbsp;               SoundManager.getInstance().playSound(Sound_Options.DESTRUCTION);</b>
 &nbsp;            }
 &nbsp;        }
 &nbsp;    }
@@ -246,49 +246,49 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;
 &nbsp;
 &nbsp;    public void updateMovementDirection(){
-<b class="pc">&nbsp;        switch (this.getMovementDirection()){</b>
+<b class="nc">&nbsp;        switch (this.getMovementDirection()){</b>
 &nbsp;            case LEFT:
-<b class="fc">&nbsp;                if(!canMoveAliens()){</b>
-<b class="fc">&nbsp;                    this.movementDirection = MovementDirection.DOWN;</b>
+<b class="nc">&nbsp;                if(!canMoveAliens()){</b>
+<b class="nc">&nbsp;                    this.movementDirection = MovementDirection.DOWN;</b>
 &nbsp;                }
 &nbsp;                break;
 &nbsp;            case RIGHT:
-<b class="fc">&nbsp;                if(!canMoveAliens()){</b>
-<b class="fc">&nbsp;                    this.movementDirection = MovementDirection.LEFT;</b>
+<b class="nc">&nbsp;                if(!canMoveAliens()){</b>
+<b class="nc">&nbsp;                    this.movementDirection = MovementDirection.LEFT;</b>
 &nbsp;                }
 &nbsp;                break;
 &nbsp;            case DOWN:
-<b class="fc">&nbsp;                this.movementDirection = MovementDirection.RIGHT;</b>
+<b class="nc">&nbsp;                this.movementDirection = MovementDirection.RIGHT;</b>
 &nbsp;                break;
 &nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;    public long movementCoolDown(){
-<b class="fc">&nbsp;        long movementCoolDown = 300 - (getModel().getRound() - 1) * 50L;</b>
-<b class="fc">&nbsp;        if(movementCoolDown &lt; 100){</b>
-<b class="fc">&nbsp;            return 50;</b>
+<b class="nc">&nbsp;        long movementCoolDown = 300 - (getModel().getRound() - 1) * 50L;</b>
+<b class="nc">&nbsp;        if(movementCoolDown &lt; 100){</b>
+<b class="nc">&nbsp;            return 50;</b>
 &nbsp;        }
-<b class="fc">&nbsp;        return movementCoolDown;</b>
+<b class="nc">&nbsp;        return movementCoolDown;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public long shootingCoolDown(){
-<b class="fc">&nbsp;        long shootingCoolDown = 800 - (getModel().getRound() - 1) * 100L;</b>
-<b class="fc">&nbsp;        if(shootingCoolDown &lt; 200){</b>
-<b class="fc">&nbsp;            return 100;</b>
+<b class="nc">&nbsp;        long shootingCoolDown = 800 - (getModel().getRound() - 1) * 100L;</b>
+<b class="nc">&nbsp;        if(shootingCoolDown &lt; 200){</b>
+<b class="nc">&nbsp;            return 100;</b>
 &nbsp;        }
-<b class="fc">&nbsp;        return shootingCoolDown;</b>
+<b class="nc">&nbsp;        return shootingCoolDown;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public void step(Game game, KeyStroke key, long time) {
-<b class="fc">&nbsp;        if(time - lastShotTime &gt; shootingCoolDown()){ // 800</b>
-<b class="fc">&nbsp;            shootProjectile();</b>
-<b class="fc">&nbsp;            lastShotTime = time;</b>
+<b class="nc">&nbsp;        if(time - lastShotTime &gt; shootingCoolDown()){ // 800</b>
+<b class="nc">&nbsp;            shootProjectile();</b>
+<b class="nc">&nbsp;            lastShotTime = time;</b>
 &nbsp;        }
-<b class="fc">&nbsp;        if(time - lastMovementTime &gt; movementCoolDown()){ // 300</b>
-<b class="fc">&nbsp;            updateMovementDirection();</b>
-<b class="fc">&nbsp;            moveAliens();</b>
-<b class="fc">&nbsp;            lastMovementTime = time;</b>
+<b class="nc">&nbsp;        if(time - lastMovementTime &gt; movementCoolDown()){ // 300</b>
+<b class="nc">&nbsp;            updateMovementDirection();</b>
+<b class="nc">&nbsp;            moveAliens();</b>
+<b class="nc">&nbsp;            lastMovementTime = time;</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;}
@@ -315,7 +315,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-04 16:15</div>
+    <div style="float:right;">generated on 2025-01-04 18:24</div>
 </div>
 </body>
 </html>
