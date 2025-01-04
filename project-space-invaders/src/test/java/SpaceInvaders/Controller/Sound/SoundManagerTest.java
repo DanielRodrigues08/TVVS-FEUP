@@ -187,6 +187,7 @@ public class SoundManagerTest {
         List<Sound> constructedSounds = mockedSound.constructed();
         assertTrue(constructedSounds.stream().allMatch(sound -> sound instanceof Sound));
 
+        mockedSound.close();
     }
 
     @Test
