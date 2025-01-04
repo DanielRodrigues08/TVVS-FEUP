@@ -1,6 +1,7 @@
 package SpaceInvaders.Controller.Game;
 
 import SpaceInvaders.Controller.Sound.SoundManager;
+import SpaceInvaders.Game;
 import SpaceInvaders.Model.Game.Arena;
 import SpaceInvaders.Model.Game.ArenaModifier;
 import SpaceInvaders.Model.Game.Collectables.Collectable;
@@ -8,6 +9,9 @@ import SpaceInvaders.Model.Game.Element;
 import SpaceInvaders.Model.Game.RegularGameElements.*;
 import SpaceInvaders.Model.Position;
 import SpaceInvaders.Model.Sound.Sound_Options;
+import SpaceInvaders.State.GameStates;
+import com.googlecode.lanterna.input.KeyStroke;
+import com.googlecode.lanterna.input.KeyType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -25,8 +29,7 @@ import java.lang.reflect.Field;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -125,20 +128,20 @@ class ArenaControllerTest {
 
         return Stream.of(
                 Arguments.of(new ArrayList<>(), new ArrayList<>(), new ArrayList<>()),
-                Arguments.of(new ArrayList<>(Arrays.asList(wall1)),
-                        new ArrayList<>(Arrays.asList(proj1)),
-                        new ArrayList<>(Arrays.asList(proj1))),
-                Arguments.of(new ArrayList<>(Arrays.asList(wall1)),
+                Arguments.of(new ArrayList<>(List.of(wall1)),
+                        new ArrayList<>(List.of(proj1)),
+                        new ArrayList<>(List.of(proj1))),
+                Arguments.of(new ArrayList<>(List.of(wall1)),
                         new ArrayList<>(Arrays.asList(proj1, proj3)),
-                        new ArrayList<>(Arrays.asList(proj1))),
+                        new ArrayList<>(List.of(proj1))),
                 Arguments.of(new ArrayList<>(Arrays.asList(wall1, wall2)),
-                        new ArrayList<>(Arrays.asList(proj1)),
-                        new ArrayList<>(Arrays.asList(proj1))),
+                        new ArrayList<>(List.of(proj1)),
+                        new ArrayList<>(List.of(proj1))),
                 Arguments.of(new ArrayList<>(Arrays.asList(wall1, wall2)),
                         new ArrayList<>(Arrays.asList(proj1, proj2)),
                         new ArrayList<>(Arrays.asList(proj1, proj2))),
-                Arguments.of(new ArrayList<>(Arrays.asList(wall1)),
-                        new ArrayList<>(Arrays.asList(proj3)),
+                Arguments.of(new ArrayList<>(List.of(wall1)),
+                        new ArrayList<>(List.of(proj3)),
                         new ArrayList<>())
         );
     }
@@ -327,19 +330,114 @@ class ArenaControllerTest {
 
         return Stream.of(
                 // Null collectable
-                Arguments.of(ship, null, false),
+                Arguments.of(ship, null, 0),
 
                 // No collision
-                Arguments.of(ship, nonCollidingCollectable, false),
+                Arguments.of(ship, nonCollidingCollectable, 0),
 
                 // Collision occurs
-                Arguments.of(ship, collidingCollectable, true)
+                Arguments.of(ship, collidingCollectable, 1)
+        );
+    }
+
+    private static Stream<Arguments> collectableWallCollisionTestCases() {
+        Wall wall = mock(Wall.class);
+        when(wall.getPosition()).thenReturn(new Position(5, 5));
+        Wall wall2 = mock(Wall.class);
+        when(wall2.getPosition()).thenReturn(new Position(10, 10));
+        Collectable collectable = mock(Collectable.class);
+        when(collectable.getPosition()).thenReturn(new Position(5, 5));
+
+        return Stream.of(
+                Arguments.of(new ArrayList<>(List.of(wall)), collectable, 1),
+                Arguments.of(new ArrayList<>(List.of(wall2)), collectable, 0),
+                Arguments.of(new ArrayList<>(List.of()), collectable, 0)
+        );
+    }
+
+    private static Stream<Arguments> removeDestroyedCoverWalls() {
+        CoverWall c1 = mock(CoverWall.class);
+        CoverWall c2 = mock(CoverWall.class);
+        CoverWall c3 = mock(CoverWall.class);
+
+        when(c1.isDestroyed()).thenReturn(true);
+        when(c2.isDestroyed()).thenReturn(false);
+        when(c3.isDestroyed()).thenReturn(true);
+
+        return Stream.of(
+                Arguments.of(new ArrayList<>(List.of(c1, c2, c3)), new ArrayList<>(List.of(c1, c3))),
+                Arguments.of(new ArrayList<>(List.of(c2)), new ArrayList<>(List.of())),
+                Arguments.of(new ArrayList<>(List.of()), new ArrayList<>(List.of()))
+        );
+    }
+
+    private static Stream<Arguments> stepMethodTestCases() {
+        KeyStroke escapeKey = mock(KeyStroke.class);
+        when(escapeKey.getKeyType()).thenReturn(KeyType.Escape);
+
+        KeyStroke normalKey = mock(KeyStroke.class);
+        when(normalKey.getKeyType()).thenReturn(KeyType.Character);
+
+        return Stream.of(
+                // Format: time, needToUpdateTimers, expectedNeedToUpdateTimers, key,
+                //         isShipDestroyed, shipCollidesWithAlien, alienCollidesWithCoverWall,
+                //         alienReachesBottomArenaWall, aliensEmpty, expectedState, numSetTimers
+
+                // Initial timer setup
+                Arguments.of(1000L, true, false, null,
+                        false, false, false, false, false,
+                        null, 1, 0),
+
+                // Escape key pressed
+                Arguments.of(1000L, false, true, escapeKey,
+                        false, false, false, false, false,
+                        GameStates.PAUSE, 0, 1),
+
+                // Game over - ship destroyed
+                Arguments.of(1000L, false, false, normalKey,
+                        true, false, false, false, false,
+                        GameStates.GAME_OVER, 0, 1),
+
+                // Game over - ship collides with alien
+                Arguments.of(1000L, false, false, normalKey,
+                        false, true, false, false, false,
+                        GameStates.GAME_OVER, 0, 1),
+
+                // Game over - alien hits cover wall
+                Arguments.of(1000L, false, false, normalKey,
+                        false, false, true, false, false,
+                        GameStates.GAME_OVER, 0, 1),
+
+                // Game over - alien reaches bottom
+                Arguments.of(1000L, false, false, normalKey,
+                        false, false, false, true, false,
+                        GameStates.GAME_OVER, 0, 1),
+
+                // New round - all aliens destroyed
+                Arguments.of(1000L, false, false, normalKey,
+                        false, false, false, false, true,
+                        GameStates.NEW_GAME_ROUND, 0, 1),
+
+                // Normal gameplay
+                Arguments.of(1000L, false, false, normalKey,
+                        false, false, false, false, false,
+                        null, 0, 0)
         );
     }
 
     @BeforeEach
     void setUp() {
         controller = new ArenaController(arena);
+        Field arenaModifierField = assertDoesNotThrow(() -> GameController.class.getDeclaredField("arenaModifier"));
+        arenaModifierField.setAccessible(true);
+        assertDoesNotThrow(() -> arenaModifierField.set(controller, arenaModifier));
+
+        controller.setShipController(shipController);
+        controller.setAlienController(alienController);
+        controller.setProjectileController(projectileController);
+        controller.setCollectableController(collectableController);
+        controller.setAlienShipController(alienShipController);
+        controller.setArenaModifier(arenaModifier);
     }
 
     @Test
@@ -442,19 +540,9 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("projectileCollisionsWithShipTestCases")
-    void testProjectileCollisionsWithShip(Ship ship, List<Projectile> projectiles, List<Projectile> expectedCollisions) throws NoSuchFieldException, IllegalAccessException {
+    void testProjectileCollisionsWithShip(Ship ship, List<Projectile> projectiles, List<Projectile> expectedCollisions) {
         when(arena.getProjectiles()).thenReturn(projectiles);
         when(arena.getShip()).thenReturn(ship);
-
-        ArenaModifier arenaModifier = mock(ArenaModifier.class);
-        Field arenaModifierField = GameController.class.getDeclaredField("arenaModifier");
-        arenaModifierField.setAccessible(true);
-        arenaModifierField.set(controller, arenaModifier);
-
-        ShipController shipController = mock(ShipController.class);
-        Field shipControllerField = ArenaController.class.getDeclaredField("shipController");
-        shipControllerField.setAccessible(true);
-        shipControllerField.set(controller, shipController);
 
         controller.projectileCollisionsWithShip();
 
@@ -471,49 +559,32 @@ class ArenaControllerTest {
     void testProjectileCollisionsWithAliens(List<Alien> aliens,
                                             List<Projectile> projectiles,
                                             Map<Alien, List<Projectile>> expectedCollisions) {
-        // Mock Arena
         List<Projectile> mutableProjectiles = new ArrayList<>(projectiles);
         List<Alien> mutableAliens = new ArrayList<>(aliens);
         when(arena.getProjectiles()).thenReturn(mutableProjectiles);
         when(arena.getAliens()).thenReturn(mutableAliens);
 
 
-        controller.setAlienController(alienController);
-        controller.setArenaModifier(arenaModifier);
-
-        // Execute
         controller.projectileCollisionsWithAliens();
 
-        // Verify
-        expectedCollisions.forEach((alien, hitProjectiles) -> {
-            hitProjectiles.forEach(projectile -> {
-                verify(alienController).hitByProjectile(alien, projectile);
-                verify(arenaModifier).removeProjectile(projectile);
-            });
-        });
+        expectedCollisions.forEach((alien, hitProjectiles) -> hitProjectiles.forEach(projectile -> {
+            verify(alienController).hitByProjectile(alien, projectile);
+            verify(arenaModifier).removeProjectile(projectile);
+        }));
     }
 
     @ParameterizedTest
     @MethodSource("projectileCoverWallCollisionTestCases")
     void testProjectileCollisionsWithCoverWalls(List<CoverWall> walls,
                                                 List<Projectile> projectiles,
-                                                Map<CoverWall, List<Projectile>> expectedCollisions) throws NoSuchFieldException, IllegalAccessException {
+                                                Map<CoverWall, List<Projectile>> expectedCollisions) {
         when(arena.getProjectiles()).thenReturn(projectiles);
         when(arena.getCoverWalls()).thenReturn(walls);
 
 
-        ArenaModifier arenaModifier = mock(ArenaModifier.class);
-        Field arenaModifierField = GameController.class.getDeclaredField("arenaModifier");
-        arenaModifierField.setAccessible(true);
-        arenaModifierField.set(controller, arenaModifier);
-
         controller.projectileCollisionsWithCoverWalls();
 
-        expectedCollisions.forEach((wall, hitProjectiles) -> {
-            hitProjectiles.forEach(projectile -> {
-                verify(arenaModifier).removeProjectile(projectile);
-            });
-        });
+        expectedCollisions.forEach((wall, hitProjectiles) -> hitProjectiles.forEach(projectile -> verify(arenaModifier).removeProjectile(projectile)));
         verifyNoMoreInteractions(arenaModifier);
     }
 
@@ -522,21 +593,11 @@ class ArenaControllerTest {
     void testProjectileCollisionWithAlienShip(
             AlienShip alienShip,
             List<Projectile> projectiles,
-            List<Projectile> expectedCollisions) throws NoSuchFieldException, IllegalAccessException {
+            List<Projectile> expectedCollisions) {
 
         when(arena.getProjectiles()).thenReturn(projectiles);
         when(arena.getAlienShip()).thenReturn(alienShip);
 
-
-        ArenaModifier arenaModifier = mock(ArenaModifier.class);
-        Field arenaModifierField = GameController.class.getDeclaredField("arenaModifier");
-        arenaModifierField.setAccessible(true);
-        arenaModifierField.set(controller, arenaModifier);
-
-        AlienShipController alienShipController = mock(AlienShipController.class);
-        Field alienShipControllerField = ArenaController.class.getDeclaredField("alienShipController");
-        alienShipControllerField.setAccessible(true);
-        alienShipControllerField.set(controller, alienShipController);
 
         controller.projectileCollisionWithAlienShip();
 
@@ -552,38 +613,102 @@ class ArenaControllerTest {
     void testShipCollisionsWithCollectables(
             Ship ship,
             Collectable collectable,
-            boolean expectCollision) throws NoSuchFieldException, IllegalAccessException {
+            int expectCollision) {
 
         when(arena.getShip()).thenReturn(ship);
         when(arena.getActiveCollectable()).thenReturn(collectable);
 
-        ArenaController controller = new ArenaController(arena);
-
-        ArenaModifier arenaModifier = mock(ArenaModifier.class);
-        Field arenaModifierField = GameController.class.getDeclaredField("arenaModifier");
-        arenaModifierField.setAccessible(true);
-        arenaModifierField.set(controller, arenaModifier);
-
         SoundManager soundManager = mock(SoundManager.class);
-        try (MockedStatic<SoundManager> mockedStatic = mockStatic(SoundManager.class)) {
-            mockedStatic.when(SoundManager::getInstance).thenReturn(soundManager);
+        MockedStatic<SoundManager> mockedStatic = mockStatic(SoundManager.class);
+        mockedStatic.when(SoundManager::getInstance).thenReturn(soundManager);
 
-            // Execute
-            controller.shipCollisionsWithCollectables();
+        controller.shipCollisionsWithCollectables();
 
-            // Verify
-            if (expectCollision) {
-                verify(collectable).execute();
-                verify(arenaModifier).removeActiveCollectable();
-                verify(soundManager).playSound(Sound_Options.COLLECTABLE);
-            } else {
-                verifyNoInteractions(arenaModifier, soundManager);
-                if (collectable != null) {
-                    verify(collectable, never()).execute();
-                }
-            }
+        if (collectable != null) {
+            verify(collectable, times(expectCollision)).execute();
         }
+        verify(arenaModifier, times(expectCollision)).removeActiveCollectable();
+        verify(soundManager, times(expectCollision)).playSound(Sound_Options.COLLECTABLE);
+
+        mockedStatic.close();
     }
 
+    @ParameterizedTest
+    @MethodSource("collectableWallCollisionTestCases")
+    void testCollectableCollisionsWithWalls(List<Wall> walls, Collectable collectable, int numCollision) {
+        when(arena.getWalls()).thenReturn(walls);
+        when(arena.getActiveCollectable()).thenReturn(collectable);
 
+        controller.collectableCollisionsWithWalls();
+
+        verify(arena, times(numCollision)).setActiveCollectable(null);
+    }
+
+    @ParameterizedTest
+    @MethodSource("removeDestroyedCoverWalls")
+    void testRemoveDestroyedCoverWalls(List<CoverWall> coverWalls, List<CoverWall> coverWallsRemoved) {
+        when(arena.getCoverWalls()).thenReturn(coverWalls);
+
+        controller.removeDestroyedCoverWalls();
+
+        coverWallsRemoved.forEach(coverWall -> verify(arenaModifier).removeCoverWall(coverWall));
+        verifyNoMoreInteractions(arenaModifier);
+    }
+
+    @Test
+    void testCheckCollisions() {
+        ArenaController controllerSpy = spy(controller);
+
+        controllerSpy.checkCollisions();
+
+        verify(controllerSpy).projectileCollisionsWithWalls();
+        verify(controllerSpy).projectileCollisionsWithShip();
+        verify(controllerSpy).projectileCollisionsWithAliens();
+        verify(controllerSpy).shipCollisionsWithCollectables();
+        verify(controllerSpy).collectableCollisionsWithWalls();
+        verify(controllerSpy).projectileCollisionsWithCoverWalls();
+        verify(controllerSpy).projectileCollisionWithAlienShip();
+    }
+
+    @ParameterizedTest
+    @MethodSource("stepMethodTestCases")
+    void testStep(long time, boolean needToUpdateTimers, boolean expectedNeedToUpdateTimers, KeyStroke key, boolean isShipDestroyed, boolean shipCollidesWithAlien, boolean alienCollidesWithCoverWall, boolean alienReachesBottomArenaWall, boolean aliensEmpty, GameStates expectedState, int numSetTimers, int numExpectedState) {
+        var controllerSpy = spy(controller);
+
+        controllerSpy.setNeedToUpdateTimers(needToUpdateTimers);
+
+        var ship = mock(Ship.class);
+        when(ship.isDestroyed()).thenReturn(isShipDestroyed);
+        when(arena.getShip()).thenReturn(ship);
+
+        doReturn(shipCollidesWithAlien).when(controllerSpy).shipCollidesWithAlien();
+        doReturn(alienCollidesWithCoverWall).when(controllerSpy).alienCollidesWithCoverWall();
+        doReturn(alienReachesBottomArenaWall).when(controllerSpy).alienReachesBottomArenaWall();
+
+        var aliens = mock(List.class);
+        when(aliens.isEmpty()).thenReturn(aliensEmpty);
+        when(arena.getAliens()).thenReturn(aliens);
+
+        var game = mock(Game.class);
+
+        assertDoesNotThrow(() -> controllerSpy.step(game, key, time));
+
+        assertEquals(expectedNeedToUpdateTimers, controllerSpy.isNeedToUpdateTimers());
+        assertDoesNotThrow(() -> verify(game, times(numExpectedState)).setState(expectedState));
+        verify(controllerSpy, times(numSetTimers)).setTimers(time);
+        verify(controllerSpy).checkCollisions();
+        verify(controllerSpy).removeDestroyedCoverWalls();
+        assertDoesNotThrow(() -> verify(shipController).step(game, key, time));
+        assertDoesNotThrow(() -> verify(alienController).step(game, key, time));
+        assertDoesNotThrow(() -> verify(projectileController).step(game, key, time));
+        assertDoesNotThrow(() -> verify(collectableController).step(game, key, time));
+        assertDoesNotThrow(() -> verify(alienShipController).step(game, key, time));
+    }
+
+    @Test
+    void testGetSetPause(){
+        long time = 1000;
+        controller.setPauseGameTime(time);
+        assertEquals(time, controller.getPauseGameTime());
+    }
 }

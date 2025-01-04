@@ -56,26 +56,26 @@ Current scope:     <a href="../../index.html">all classes</a>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    64.5%
+    90.3%
   </span>
   <span class="absValue">
-    (20/31)
+    (28/31)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    63.9%
+    100%
   </span>
   <span class="absValue">
-    (46/72)
+    (72/72)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    65.1%
+    97.7%
   </span>
   <span class="absValue">
-    (84/129)
+    (126/129)
   </span>
 </td>
 </tr>
@@ -168,15 +168,15 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setNeedToUpdateTimers(boolean needToUpdateTimers) {
-<b class="nc">&nbsp;        this.needToUpdateTimers = needToUpdateTimers;</b>
+<b class="fc">&nbsp;        this.needToUpdateTimers = needToUpdateTimers;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setProjectileController(ProjectileController projectileController) {
-<b class="nc">&nbsp;        this.projectileController = projectileController;</b>
+<b class="fc">&nbsp;        this.projectileController = projectileController;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public boolean isNeedToUpdateTimers() {
-<b class="nc">&nbsp;        return needToUpdateTimers;</b>
+<b class="fc">&nbsp;        return needToUpdateTimers;</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void setTimers(long time){
@@ -304,12 +304,12 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void collectableCollisionsWithWalls(){
-<b class="nc">&nbsp;        List&lt;Wall&gt; walls = getModel().getWalls();</b>
-<b class="nc">&nbsp;        Collectable collectable = getModel().getActiveCollectable();</b>
-<b class="nc">&nbsp;        if(collectable != null){</b>
-<b class="nc">&nbsp;            for(Wall wall : walls){</b>
-<b class="nc">&nbsp;                if(collisionBetween(wall,collectable)){</b>
-<b class="nc">&nbsp;                    getModel().setActiveCollectable(null);</b>
+<b class="fc">&nbsp;        List&lt;Wall&gt; walls = getModel().getWalls();</b>
+<b class="fc">&nbsp;        Collectable collectable = getModel().getActiveCollectable();</b>
+<b class="fc">&nbsp;        if(collectable != null){</b>
+<b class="fc">&nbsp;            for(Wall wall : walls){</b>
+<b class="fc">&nbsp;                if(collisionBetween(wall,collectable)){</b>
+<b class="fc">&nbsp;                    getModel().setActiveCollectable(null);</b>
 &nbsp;                }
 &nbsp;            }
 &nbsp;        }
@@ -320,56 +320,56 @@ Current scope:     <a href="../../index.html">all classes</a>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void removeDestroyedCoverWalls(){
-<b class="nc">&nbsp;        List&lt;CoverWall&gt; coverWalls = getModel().getCoverWalls();</b>
-<b class="nc">&nbsp;        for (int i = 0; i &lt; coverWalls.size(); i++){</b>
-<b class="nc">&nbsp;            if(coverWalls.get(i).isDestroyed()){</b>
-<b class="nc">&nbsp;               arenaModifier.removeCoverWall(coverWalls.get(i));</b>
+<b class="fc">&nbsp;        List&lt;CoverWall&gt; coverWalls = getModel().getCoverWalls();</b>
+<b class="fc">&nbsp;        for (int i = 0; i &lt; coverWalls.size(); i++){</b>
+<b class="fc">&nbsp;            if(coverWalls.get(i).isDestroyed()){</b>
+<b class="fc">&nbsp;               arenaModifier.removeCoverWall(coverWalls.get(i));</b>
 &nbsp;            }
 &nbsp;        }
 &nbsp;    }
 &nbsp;
 &nbsp;    public void removeDestroyedElements(){
-<b class="nc">&nbsp;        this.getAlienController().removeDestroyedAliens();</b>
-<b class="nc">&nbsp;        removeDestroyedCoverWalls();</b>
-<b class="nc">&nbsp;        this.getAlienShipController().removeAlienShip();</b>
+<b class="fc">&nbsp;        this.getAlienController().removeDestroyedAliens();</b>
+<b class="fc">&nbsp;        removeDestroyedCoverWalls();</b>
+<b class="fc">&nbsp;        this.getAlienShipController().removeAlienShip();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    public void checkCollisions(){
-<b class="nc">&nbsp;        projectileCollisionsWithWalls();</b>
-<b class="nc">&nbsp;        projectileCollisionsWithShip();</b>
-<b class="nc">&nbsp;        projectileCollisionsWithAliens();</b>
-<b class="nc">&nbsp;        shipCollisionsWithCollectables();</b>
-<b class="nc">&nbsp;        collectableCollisionsWithWalls();</b>
-<b class="nc">&nbsp;        projectileCollisionsWithCoverWalls();</b>
-<b class="nc">&nbsp;        projectileCollisionWithAlienShip();</b>
+<b class="fc">&nbsp;        projectileCollisionsWithWalls();</b>
+<b class="fc">&nbsp;        projectileCollisionsWithShip();</b>
+<b class="fc">&nbsp;        projectileCollisionsWithAliens();</b>
+<b class="fc">&nbsp;        shipCollisionsWithCollectables();</b>
+<b class="fc">&nbsp;        collectableCollisionsWithWalls();</b>
+<b class="fc">&nbsp;        projectileCollisionsWithCoverWalls();</b>
+<b class="fc">&nbsp;        projectileCollisionWithAlienShip();</b>
 &nbsp;    }
 &nbsp;
 &nbsp;    @Override
 &nbsp;    public void step(Game game, KeyStroke key, long time) throws IOException, URISyntaxException {
-<b class="nc">&nbsp;        if(needToUpdateTimers){</b>
-<b class="nc">&nbsp;            setTimers(time);</b>
-<b class="nc">&nbsp;            needToUpdateTimers = false;</b>
+<b class="fc">&nbsp;        if(needToUpdateTimers){</b>
+<b class="fc">&nbsp;            setTimers(time);</b>
+<b class="fc">&nbsp;            needToUpdateTimers = false;</b>
 &nbsp;        }
-<b class="nc">&nbsp;        if(key != null){</b>
-<b class="nc">&nbsp;            if(key.getKeyType() == KeyType.Escape){</b>
-<b class="nc">&nbsp;                pauseGameTime = time;</b>
-<b class="nc">&nbsp;                needToUpdateTimers = true;</b>
-<b class="nc">&nbsp;                game.setState(GameStates.PAUSE);</b>
+<b class="fc">&nbsp;        if(key != null){</b>
+<b class="fc">&nbsp;            if(key.getKeyType() == KeyType.Escape){</b>
+<b class="fc">&nbsp;                pauseGameTime = time;</b>
+<b class="fc">&nbsp;                needToUpdateTimers = true;</b>
+<b class="fc">&nbsp;                game.setState(GameStates.PAUSE);</b>
 &nbsp;            }
 &nbsp;        }
-<b class="nc">&nbsp;        if(getModel().getShip().isDestroyed() || shipCollidesWithAlien() || alienCollidesWithCoverWall() || alienReachesBottomArenaWall()){</b>
-<b class="nc">&nbsp;            game.setState(GameStates.GAME_OVER);</b>
+<b class="fc">&nbsp;        if(getModel().getShip().isDestroyed() || shipCollidesWithAlien() || alienCollidesWithCoverWall() || alienReachesBottomArenaWall()){</b>
+<b class="fc">&nbsp;            game.setState(GameStates.GAME_OVER);</b>
 &nbsp;        }
-<b class="nc">&nbsp;        if(getModel().getAliens().isEmpty()){</b>
-<b class="nc">&nbsp;           game.setState(GameStates.NEW_GAME_ROUND);</b>
+<b class="fc">&nbsp;        if(getModel().getAliens().isEmpty()){</b>
+<b class="fc">&nbsp;           game.setState(GameStates.NEW_GAME_ROUND);</b>
 &nbsp;        }
-<b class="nc">&nbsp;        shipController.step(game,key,time);</b>
-<b class="nc">&nbsp;        alienController.step(game,key,time);</b>
-<b class="nc">&nbsp;        alienShipController.step(game, key, time);</b>
-<b class="nc">&nbsp;        projectileController.step(game,key,time);</b>
-<b class="nc">&nbsp;        collectableController.step(game,key,time);</b>
-<b class="nc">&nbsp;        checkCollisions();</b>
-<b class="nc">&nbsp;        removeDestroyedElements();</b>
+<b class="fc">&nbsp;        shipController.step(game,key,time);</b>
+<b class="fc">&nbsp;        alienController.step(game,key,time);</b>
+<b class="fc">&nbsp;        alienShipController.step(game, key, time);</b>
+<b class="fc">&nbsp;        projectileController.step(game,key,time);</b>
+<b class="fc">&nbsp;        collectableController.step(game,key,time);</b>
+<b class="fc">&nbsp;        checkCollisions();</b>
+<b class="fc">&nbsp;        removeDestroyedElements();</b>
 &nbsp;    }
 &nbsp;}
 </code>
@@ -395,7 +395,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-04 18:24</div>
+    <div style="float:right;">generated on 2025-01-04 23:27</div>
 </div>
 </body>
 </html>
