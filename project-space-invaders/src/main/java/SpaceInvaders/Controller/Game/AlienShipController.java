@@ -80,7 +80,7 @@ public class AlienShipController extends GameController{
         }
         else if(getModel().getAlienShip() != null){
             if(time - lastMovementTime > 100) {
-                    moveAlienShip();
+                moveAlienShip();
                 lastMovementTime = time;
             }
         }

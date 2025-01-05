@@ -2,7 +2,6 @@ package SpaceInvaders.State;
 
 import SpaceInvaders.Controller.Controller;
 import SpaceInvaders.Controller.Game.ArenaController;
-import SpaceInvaders.Controller.Game.MovementDirection;
 import SpaceInvaders.Controller.Menu.GameOverController;
 import SpaceInvaders.Controller.Menu.OnlyTextMenuController;
 import SpaceInvaders.Controller.Menu.PauseMenuController;
@@ -17,12 +16,15 @@ import SpaceInvaders.Viewer.Game.GameViewer;
 import SpaceInvaders.Viewer.Menu.*;
 import SpaceInvaders.Viewer.Viewer;
 import com.googlecode.lanterna.input.KeyStroke;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.net.URISyntaxException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -34,13 +36,28 @@ public class StateTest {
     private GUI gui;
     @Mock
     private Game game;
+    @Mock
+    private SoundManager soundManager;
+    @Mock
+    private MockedStatic<SoundManager> soundManagerMock;
 
     @BeforeEach
     void setUp() {
-        State.setInstance(null);
+        Field instance = assertDoesNotThrow(() -> State.class.getDeclaredField("instance"));
+        instance.setAccessible(true);
+        assertDoesNotThrow(() -> instance.set(null, null));
         state = State.getInstance();
         gui = Mockito.mock(GUI.class);
         game = Mockito.mock(Game.class);
+
+        soundManagerMock = mockStatic(SoundManager.class);
+        soundManager = mock(SoundManager.class);
+        soundManagerMock.when(SoundManager::getInstance).thenReturn(soundManager);
+    }
+
+    @AfterEach
+    void tearDown() {
+        soundManagerMock.close();
     }
 
     @Test
@@ -50,7 +67,6 @@ public class StateTest {
 
     @Test
     void testGetInstanceNull() {
-        State.setInstance(null);
         assertInstanceOf(State.class, State.getInstance());
     }
 
@@ -135,9 +151,6 @@ public class StateTest {
 
     @Test
     void testStateActionsPause() throws IOException, URISyntaxException {
-        var soundManager = Mockito.mock(SoundManager.class);
-        SoundManager.setInstance(soundManager);
-
         state.UpdateState(GameStates.PAUSE);
         assertInstanceOf(PauseMenuController.class, state.getController());
         assertInstanceOf(PauseMenuViewer.class, state.getViewer());
@@ -146,9 +159,6 @@ public class StateTest {
 
     @Test
     void testStateActionsNewGame() throws IOException, URISyntaxException {
-        var soundManager = Mockito.mock(SoundManager.class);
-        SoundManager.setInstance(soundManager);
-
         state.UpdateState(GameStates.NEW_GAME);
         assertInstanceOf(ArenaController.class, state.getController());
         assertInstanceOf(GameViewer.class, state.getViewer());
@@ -164,9 +174,6 @@ public class StateTest {
 
     @Test
     void testStateActionsGameOver() throws IOException, URISyntaxException {
-        var soundManager = Mockito.mock(SoundManager.class);
-        SoundManager.setInstance(soundManager);
-
         var arenaMock = Mockito.mock(Arena.class);
         state.setArena(arenaMock);
         when(arenaMock.getScore()).thenReturn(100);
@@ -190,9 +197,6 @@ public class StateTest {
 
     @Test
     void testStateActionsResumeGame() throws IOException, URISyntaxException {
-        var soundManager = Mockito.mock(SoundManager.class);
-        SoundManager.setInstance(soundManager);
-
         var arena = Mockito.mock(Arena.class);
         var alienShip = Mockito.mock(AlienShip.class);
         when(arena.getAlienShip()).thenReturn(alienShip);
@@ -207,8 +211,7 @@ public class StateTest {
 
     @Test
     void testStateActionsResumeGameNullAlienShip() throws IOException, URISyntaxException {
-        var soundManager = Mockito.mock(SoundManager.class);
-        SoundManager.setInstance(soundManager);
+
         var arena = Mockito.mock(Arena.class);
         when(arena.getAlienShip()).thenReturn(null);
         state.setArena(arena);

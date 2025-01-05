@@ -1,29 +1,34 @@
 package SpaceInvaders.Controller.Game;
 
+import SpaceInvaders.Controller.Sound.SoundManager;
 import SpaceInvaders.Model.Game.Arena;
 import SpaceInvaders.Model.Game.Collectables.Collectable;
 import SpaceInvaders.Model.Game.Collectables.DamageCollectable;
 import SpaceInvaders.Model.Game.RegularGameElements.*;
 import SpaceInvaders.Model.Position;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.stream.Stream;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class CollectableControllerTest {
 
     private Arena arenaSpy;
     private CollectableController collectableController;
+    private MockedStatic<SoundManager> soundManagerMock;
+    private SoundManager mockInstance;
 
     private static Stream<Arguments> stepTestProvider() {
         Alien normalAlien = mock(Alien.class);
@@ -73,6 +78,14 @@ public class CollectableControllerTest {
         Arena arena = new Arena(10, 10);
         arenaSpy = spy(arena);
         collectableController = new CollectableController(arenaSpy);
+        soundManagerMock = mockStatic(SoundManager.class);
+        mockInstance = mock(SoundManager.class);
+        soundManagerMock.when(SoundManager::getInstance).thenReturn(mockInstance);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        soundManagerMock.close();
     }
 
     @Test
@@ -117,6 +130,9 @@ public class CollectableControllerTest {
     public void stepTest(long time, long generateCollectableTime, long movementTime, Collectable collectable, List<Alien> aliens, Ship ship, long expectedGenerateCollectableTime, long expectedMovementTime, int expectedNumGenerate, int expectedNumMovement, int expectedNumEnd) throws IOException {
         var collectableControllerSpy = spy(collectableController);
 
+        Field field = assertDoesNotThrow(() -> collectableControllerSpy.getClass().getDeclaredField("movementTime"));
+        field.setAccessible(true);
+
         doNothing().when(collectableControllerSpy).generateCollectable();
         doNothing().when(collectableControllerSpy).moveCollectable();
         doNothing().when(collectableControllerSpy).endCollectableEffect();
@@ -130,7 +146,8 @@ public class CollectableControllerTest {
         collectableControllerSpy.step(null, null, time);
 
         assertEquals(expectedGenerateCollectableTime, collectableControllerSpy.getGenerateCollectableTime());
-        assertEquals(expectedMovementTime, collectableControllerSpy.getMovementTime());
+        long movementTime1 = assertDoesNotThrow(() -> field.getLong(collectableControllerSpy));
+        assertEquals(expectedMovementTime, movementTime1);
         Mockito.verify(collectableControllerSpy, Mockito.times(expectedNumGenerate)).generateCollectable();
         Mockito.verify(collectableControllerSpy, Mockito.times(expectedNumMovement)).moveCollectable();
         Mockito.verify(collectableControllerSpy, Mockito.times(expectedNumEnd)).endCollectableEffect();

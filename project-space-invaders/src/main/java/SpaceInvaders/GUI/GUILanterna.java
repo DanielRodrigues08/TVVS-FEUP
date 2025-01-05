@@ -62,10 +62,6 @@ public class GUILanterna implements GUI {
         return fontConfig;
     }
 
-    public Screen getScreen() {
-        return screen;
-    }
-
     @Override
     public void drawElement(Position position, char character, String color){
         drawCharacter(position.getX(), position.getY(), character, color);

@@ -158,11 +158,11 @@ public class AlienController extends GameController {
 
     @Override
     public void step(Game game, KeyStroke key, long time) {
-        if(time - lastShotTime > shootingCoolDown()){ // 800
+        if(time - lastShotTime > shootingCoolDown()){
             shootProjectile();
             lastShotTime = time;
         }
-        if(time - lastMovementTime > movementCoolDown()){ // 300
+        if(time - lastMovementTime > movementCoolDown()){
             updateMovementDirection();
             moveAliens();
             lastMovementTime = time;

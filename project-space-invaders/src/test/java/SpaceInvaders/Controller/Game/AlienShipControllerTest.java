@@ -7,12 +7,13 @@ import SpaceInvaders.Model.Game.RegularGameElements.AlienShip;
 import SpaceInvaders.Model.Game.RegularGameElements.Projectile;
 import SpaceInvaders.Model.Position;
 import SpaceInvaders.Model.Sound.Sound_Options;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.Mockito;
+import org.mockito.MockedStatic;
 
 import java.io.IOException;
 import java.util.stream.Stream;
@@ -26,6 +27,8 @@ public class AlienShipControllerTest {
     private static final int HEIGHT = 10;
     private Arena arenaSpy;
     private AlienShipController alienShipController;
+    private MockedStatic<SoundManager> soundManagerMock;
+    private SoundManager mockInstance;
 
     static public Stream<Arguments> canMoveAlienShipValues() {
         return Stream.of(
@@ -41,20 +44,25 @@ public class AlienShipControllerTest {
         Arena arena = new Arena(WIDTH, HEIGHT);
         arenaSpy = spy(arena);
         alienShipController = new AlienShipController(arenaSpy);
+        soundManagerMock = mockStatic(SoundManager.class);
+        mockInstance = mock(SoundManager.class);
+        soundManagerMock.when(SoundManager::getInstance).thenReturn(mockInstance);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        soundManagerMock.close();
     }
 
     @Test
     public void generateAlienShipTest() {
-        var soundManager = Mockito.mock(SoundManager.class);
-        SoundManager.setInstance(soundManager);
         arenaSpy.setAlienShip(null);
 
         alienShipController.generateAlienShip();
 
         assertEquals(AlienShip.class, arenaSpy.getAlienShip().getClass());
-        verify(soundManager, times(1)).playSound(Sound_Options.ALIEN_SHIP_HIGH);
-        verify(soundManager, times(1)).playSound(Sound_Options.ALIEN_SHIP_LOW);
-
+        verify(mockInstance, times(1)).playSound(Sound_Options.ALIEN_SHIP_HIGH);
+        verify(mockInstance, times(1)).playSound(Sound_Options.ALIEN_SHIP_LOW);
     }
 
     @ParameterizedTest
@@ -89,9 +97,6 @@ public class AlienShipControllerTest {
 
     @Test
     public void removeAlienShipTestDestroyedTest() {
-        var soundManager = Mockito.mock(SoundManager.class);
-        SoundManager.setInstance(soundManager);
-
         var alienShip = mock(AlienShip.class);
         when(alienShip.isDestroyed()).thenReturn(true);
         arenaSpy.setAlienShip(alienShip);
@@ -99,9 +104,9 @@ public class AlienShipControllerTest {
         alienShipController.removeAlienShip();
 
         assertNull(arenaSpy.getAlienShip());
-        verify(soundManager, times(1)).playSound(Sound_Options.DESTRUCTION);
-        verify(soundManager, times(1)).stopSound(Sound_Options.ALIEN_SHIP_HIGH);
-        verify(soundManager, times(1)).stopSound(Sound_Options.ALIEN_SHIP_LOW);
+        verify(mockInstance, times(1)).playSound(Sound_Options.DESTRUCTION);
+        verify(mockInstance, times(1)).stopSound(Sound_Options.ALIEN_SHIP_HIGH);
+        verify(mockInstance, times(1)).stopSound(Sound_Options.ALIEN_SHIP_LOW);
     }
 
 
@@ -123,9 +128,6 @@ public class AlienShipControllerTest {
 
     @Test
     public void moveShipFalseTest() {
-        var soundManager = Mockito.mock(SoundManager.class);
-        SoundManager.setInstance(soundManager);
-
         var alienShip = mock(AlienShip.class);
         when(alienShip.getPosition()).thenReturn(new Position(1, 1));
 
@@ -136,8 +138,8 @@ public class AlienShipControllerTest {
         alienShipController.moveAlienShip();
 
         assertNull(arenaSpy.getAlienShip());
-        verify(soundManager, times(1)).stopSound(Sound_Options.ALIEN_SHIP_HIGH);
-        verify(soundManager, times(1)).stopSound(Sound_Options.ALIEN_SHIP_LOW);
+        verify(mockInstance, times(1)).stopSound(Sound_Options.ALIEN_SHIP_HIGH);
+        verify(mockInstance, times(1)).stopSound(Sound_Options.ALIEN_SHIP_LOW);
     }
 
     @Test
@@ -159,26 +161,6 @@ public class AlienShipControllerTest {
         assertEquals(expectedHealth, alienShip.getHealth());
     }
 
-    /*@Test
-    public void hitByProjectileDestroyedTest() {
-        var soundManager = Mockito.mock(SoundManager.class);
-        SoundManager.setInstance(soundManager);
-
-        int initialHealth = 2;
-        int damage = 1;
-
-        AlienShip alienShip = new AlienShip(new Position(1, 1), initialHealth, 1, 1);
-        arenaSpy.setAlienShip(alienShip);
-
-        var projectile = mock(Projectile.class);
-        var alien = mock(Alien.class);
-        when(projectile.getElement()).thenReturn(alien);
-        when(alien.getDamagePerShot()).thenReturn(damage);
-
-        alienShipController.hitByProjectile(alienShip, projectile);
-
-        assertTrue(alienShip.isDestroyed());
-    }*/
 
     @Test
     public void stepGenerateTest() throws IOException {

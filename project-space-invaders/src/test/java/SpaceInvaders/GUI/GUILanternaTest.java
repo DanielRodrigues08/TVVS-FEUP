@@ -8,9 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import java.awt.*;
-import java.io.IOException;
-import java.net.URISyntaxException;
+import java.lang.reflect.Field;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -21,19 +19,24 @@ class GUILanternaTest {
     private Screen screen;
 
     @BeforeEach
-    void setUp() throws IOException {
+    void setUp() {
         screen = Mockito.mock(Screen.class);
         gui = new GUILanterna(screen);
     }
 
     @Test
-    void testGUILanternaValid() throws IOException, URISyntaxException, FontFormatException {
-        GUILanterna guiLanterna = new GUILanterna(10, 10);
-        assertInstanceOf(Screen.class, guiLanterna.getScreen());
+    void testGUILanternaValid() {
+        GUILanterna guiLanterna = assertDoesNotThrow(() -> new GUILanterna(10, 10));
+
+        Field screenField = assertDoesNotThrow(() -> GUILanterna.class.getDeclaredField("screen"));
+        screenField.setAccessible(true);
+        Object screen = assertDoesNotThrow(() -> screenField.get(guiLanterna));
+
+        assertInstanceOf(Screen.class, screen);
     }
 
     @Test
-    void testGUILanternaInvalid(){
+    void testGUILanternaInvalid() {
         assertThrows(Exception.class, () -> new GUILanterna(0, 0));
     }
 
@@ -60,12 +63,12 @@ class GUILanternaTest {
     }
 
     @Test
-    void testGetNextAction() throws IOException {
+    void testGetNextAction() {
         KeyStroke keyStroke = mock(KeyStroke.class);
-        when(screen.pollInput()).thenReturn(keyStroke);
-        KeyStroke result = gui.getNextAction();
+        assertDoesNotThrow(() -> when(screen.pollInput()).thenReturn(keyStroke));
+        KeyStroke result = assertDoesNotThrow(() -> gui.getNextAction());
         assertNotNull(result);
-        verify(screen).pollInput();
+        assertDoesNotThrow(() -> verify(screen).pollInput());
     }
 
     @Test
@@ -75,14 +78,18 @@ class GUILanternaTest {
     }
 
     @Test
-    void testRefresh() throws IOException {
-        gui.refresh();
-        verify(screen).refresh();
+    void testRefresh() {
+        assertDoesNotThrow(() -> {
+            gui.refresh();
+            verify(screen).refresh();
+        });
     }
 
     @Test
-    void testClose() throws IOException {
-        gui.close();
-        verify(screen).close();
+    void testClose() {
+        assertDoesNotThrow(() -> {
+            gui.close();
+            verify(screen).close();
+        });
     }
 }

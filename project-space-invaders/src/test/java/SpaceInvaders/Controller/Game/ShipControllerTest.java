@@ -10,19 +10,20 @@ import SpaceInvaders.Model.Position;
 import SpaceInvaders.Model.Sound.Sound_Options;
 import com.googlecode.lanterna.input.KeyStroke;
 import com.googlecode.lanterna.input.KeyType;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.mockito.Mockito;
+import org.mockito.MockedStatic;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class ShipControllerTest {
 
@@ -30,6 +31,8 @@ public class ShipControllerTest {
     private static final int HEIGHT = 1080;
     private Arena arena;
     private ShipController shipController;
+    private MockedStatic<SoundManager> soundManagerMock;
+    private SoundManager mockInstance;
 
     public static int[][] valuesShipOutOfBounds() {
         return new int[][]{
@@ -65,6 +68,15 @@ public class ShipControllerTest {
         arena.setProjectiles(new ArrayList<>());
         arena.setShip(new Ship(new Position(WIDTH / 2, HEIGHT - 2), 100, 10));
         shipController = new ShipController(arena);
+
+        soundManagerMock = mockStatic(SoundManager.class);
+        mockInstance = mock(SoundManager.class);
+        soundManagerMock.when(SoundManager::getInstance).thenReturn(mockInstance);
+    }
+
+    @AfterEach
+    public void tearDown() {
+        soundManagerMock.close();
     }
 
     @Test
@@ -140,23 +152,21 @@ public class ShipControllerTest {
         int expectedProjectileCount = initialProjectileCount + 1;
         Position expectedProjectilePosition = new Position(WIDTH / 2, HEIGHT - 2);
 
-        SoundManager soundManagerMock = Mockito.mock(SoundManager.class);
-        SoundManager.setInstance(soundManagerMock);
 
         shipController.shootProjectile();
 
         assertEquals(expectedProjectileCount, arena.getProjectiles().size());
         assertEquals(expectedProjectilePosition, arena.getProjectiles().get(0).getPosition());
 
-        Mockito.verify(soundManagerMock).playSound(Sound_Options.LASER);
+        verify(mockInstance).playSound(Sound_Options.LASER);
     }
 
     @Test
     public void hitByProjectileTest() {
         int damage = 10;
 
-        var projectileMock = Mockito.mock(Projectile.class);
-        var attackingElementMock = Mockito.mock(AttackingElement.class);
+        var projectileMock = mock(Projectile.class);
+        var attackingElementMock = mock(AttackingElement.class);
         when(attackingElementMock.getDamagePerShot()).thenReturn(damage);
         when(projectileMock.getElement()).thenReturn(attackingElementMock);
 
