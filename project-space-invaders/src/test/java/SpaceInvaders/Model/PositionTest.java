@@ -26,7 +26,7 @@ class PositionTest {
     }
 
     @Test
-    void testPositionCreation() {
+    public void testPositionCreation() {
         Position position = new Position(5, 10);
         assertEquals(5, position.getX());
         assertEquals(10, position.getY());
@@ -37,14 +37,14 @@ class PositionTest {
             "10, 10, 1281",       // Positive numbers
             "-10, -10, 641",    // Negative numbers
     })
-    void testPositionHashCode(int x1, int y1, int expected) {
+    public void testPositionHashCode(int x1, int y1, int expected) {
         Position position1 = new Position(x1, y1);
         assertEquals(expected, position1.hashCode());
     }
 
     @ParameterizedTest
     @MethodSource("positionEqualityTestCases")
-    void testPositionEquality(int x1, int y1, Object obj2, boolean expected) {
+    public void testPositionEquality(int x1, int y1, Object obj2, boolean expected) {
         Position position1 = new Position(x1, y1);
 
         assertEquals(expected, position1.equals(obj2));

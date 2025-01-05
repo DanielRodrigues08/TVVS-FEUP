@@ -35,7 +35,7 @@ public class SoundTest {
     private MockedStatic<Paths> paths;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         audioSystem = mockStatic(AudioSystem.class);
         paths = mockStatic(Paths.class);
 
@@ -51,7 +51,7 @@ public class SoundTest {
     }
 
     @Test
-    void testPlay() {
+    public void testPlay() {
         when(mockClip.isRunning()).thenReturn(false);
 
         sound.play();
@@ -61,7 +61,7 @@ public class SoundTest {
     }
 
     @Test
-    void testPlayInterruptedException() {
+    public void testPlayInterruptedException() {
         when(mockClip.isRunning()).thenReturn(true);
         Thread.currentThread().interrupt();
 
@@ -73,7 +73,7 @@ public class SoundTest {
     }
 
     @Test
-    void testPlayWhileRunning() {
+    public void testPlayWhileRunning() {
         when(mockClip.isRunning()).thenReturn(true);
 
         sound.play();
@@ -84,7 +84,7 @@ public class SoundTest {
     }
 
     @Test
-    void testPlayContinuously() {
+    public void testPlayContinuously() {
         sound.playContinuously();
 
         verify(mockClip).setFramePosition(0);
@@ -93,13 +93,13 @@ public class SoundTest {
     }
 
     @Test
-    void testStop() {
+    public void testStop() {
         sound.stop();
         verify(mockClip).stop();
     }
 
     @Test
-    void testResumePlaying() {
+    public void testResumePlaying() {
         sound.resumePlaying();
 
         verify(mockClip).start();
@@ -107,7 +107,7 @@ public class SoundTest {
     }
 
     @Test
-    void testIsPlaying() {
+    public void testIsPlaying() {
         when(mockClip.isRunning()).thenReturn(true);
         assertTrue(sound.isPlaying());
 
@@ -116,14 +116,14 @@ public class SoundTest {
     }
 
     @Test
-    void testGetterSetter() {
+    public void testGetterSetter() {
         Clip newClip = mock(Clip.class);
         sound.setSound(newClip);
         assertEquals(newClip, sound.getSound());
     }
 
     @Test
-    void testConstructorError() {
+    public void testConstructorError() {
         audioSystem.when(() -> AudioSystem.getAudioInputStream(any(File.class)))
                 .thenThrow(new UnsupportedAudioFileException());
 
@@ -131,7 +131,7 @@ public class SoundTest {
     }
 
     @AfterEach
-    void tearDown() {
+    public void tearDown() {
         audioSystem.close();
         paths.close();
     }

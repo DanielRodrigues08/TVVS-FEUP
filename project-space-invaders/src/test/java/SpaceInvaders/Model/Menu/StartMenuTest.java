@@ -10,30 +10,30 @@ class StartMenuTest {
     private StartMenu startMenu;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         startMenu = new StartMenu();
     }
 
     @Test
-    void testIsSelectedPlay() {
+    public void testIsSelectedPlay() {
         assertTrue(startMenu.isSelectedPlay());
     }
 
     @Test
-    void testIsSelectedLeaderboard() {
+    public void testIsSelectedLeaderboard() {
         startMenu.nextOption();
         assertTrue(startMenu.isSelectedLeaderboard());
     }
 
     @Test
-    void testIsSelectedInstructions() {
+    public void testIsSelectedInstructions() {
         startMenu.nextOption();
         startMenu.nextOption();
         assertTrue(startMenu.isSelectedInstructions());
     }
 
     @Test
-    void testIsSelectedExit() {
+    public void testIsSelectedExit() {
         startMenu.nextOption();
         startMenu.nextOption();
         startMenu.nextOption();
@@ -41,7 +41,7 @@ class StartMenuTest {
     }
 
     @Test
-    void testNextOption() {
+    public void testNextOption() {
         startMenu.nextOption();
         assertTrue(startMenu.isSelectedLeaderboard());
         startMenu.nextOption();
@@ -53,7 +53,7 @@ class StartMenuTest {
     }
 
     @Test
-    void testPreviousOption() {
+    public void testPreviousOption() {
         startMenu.previousOption();
         assertTrue(startMenu.isSelectedExit());
         startMenu.previousOption();

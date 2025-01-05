@@ -13,12 +13,12 @@ class InstructionsTest {
 
 
     @Test
-    void testInstructionsFilePath() {
+    public void testInstructionsFilePath() {
         assertDoesNotThrow(() -> new Instructions());
     }
 
     @Test
-    void testGetText() throws IOException {
+    public void testGetText() throws IOException {
         Instructions instructions = new Instructions();
         List<String> text = instructions.getText();
         assertTrue(text.contains("How to Play:"));

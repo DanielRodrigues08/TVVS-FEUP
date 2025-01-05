@@ -13,14 +13,14 @@ public class CoverWallViewerTest {
     private CoverWall coverWall;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         viewer = new CoverWallViewer();
         gui = Mockito.mock(GUI.class);
         coverWall = Mockito.mock(CoverWall.class);
     }
 
     @Test
-    void testDrawWithHealthAbove75() {
+    public void testDrawWithHealthAbove75() {
         Position position = new Position(10, 20);
         Mockito.when(coverWall.getPosition()).thenReturn(position);
         Mockito.when(coverWall.getHealth()).thenReturn(76);
@@ -31,7 +31,7 @@ public class CoverWallViewerTest {
     }
 
     @Test
-    void testDrawWithHealthAbove50() {
+    public void testDrawWithHealthAbove50() {
         Position position = new Position(10, 20);
         Mockito.when(coverWall.getPosition()).thenReturn(position);
         Mockito.when(coverWall.getHealth()).thenReturn(75);
@@ -42,7 +42,7 @@ public class CoverWallViewerTest {
     }
 
     @Test
-    void testDrawWithHealthAbove25() {
+    public void testDrawWithHealthAbove25() {
         Position position = new Position(10, 20);
         Mockito.when(coverWall.getPosition()).thenReturn(position);
         Mockito.when(coverWall.getHealth()).thenReturn(50);
@@ -53,7 +53,7 @@ public class CoverWallViewerTest {
     }
 
     @Test
-    void testDrawWithHealthAbove0() {
+    public void testDrawWithHealthAbove0() {
         Position position = new Position(10, 20);
         Mockito.when(coverWall.getPosition()).thenReturn(position);
         Mockito.when(coverWall.getHealth()).thenReturn(25);
@@ -64,7 +64,7 @@ public class CoverWallViewerTest {
     }
 
     @Test
-    void testDrawWithHealth0() {
+    public void testDrawWithHealth0() {
         Position position = new Position(10, 20);
         Mockito.when(coverWall.getPosition()).thenReturn(position);
         Mockito.when(coverWall.getHealth()).thenReturn(0);

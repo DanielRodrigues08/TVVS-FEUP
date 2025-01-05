@@ -13,23 +13,23 @@ class ShipTest {
     private Ship ship;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         ship = new Ship(new Position(10, 20), 100, 10);
     }
 
     @Test
-    void testGetShipMode() {
+    public void testGetShipMode() {
         assertEquals(ShipMode.NORMAL_MODE, ship.getShipMode());
     }
 
     @Test
-    void testSetShipMode() {
+    public void testSetShipMode() {
         ship.setShipMode(ShipMode.DAMAGE_2X);
         assertEquals(ShipMode.DAMAGE_2X, ship.getShipMode());
     }
 
     @Test
-    void testGetMaxHealth() {
+    public void testGetMaxHealth() {
         assertEquals(100, ship.getMaxHealth());
     }
 
@@ -43,7 +43,7 @@ class ShipTest {
             "DAMAGE_10X, 100",
             "MACHINE_GUN_MODE, 10",
     })
-    void testGetDamagePerShot(ShipMode shipMode, int expected) {
+    public void testGetDamagePerShot(ShipMode shipMode, int expected) {
         ship.setShipMode(shipMode);
         assertEquals(expected, ship.getDamagePerShot());
     }
@@ -53,27 +53,27 @@ class ShipTest {
             "NORMAL_MODE, 90",
             "GOD_MODE, 100",
     })
-    void testDecreaseHealth(ShipMode shipMode, int expected) {
+    public void testDecreaseHealth(ShipMode shipMode, int expected) {
         ship.setShipMode(shipMode);
         ship.decreaseHealth(10);
         assertEquals(expected, ship.getHealth());
     }
 
     @Test
-    void testIncreaseDamage() {
+    public void testIncreaseDamage() {
         ship.increaseDamage(2);
         assertEquals(20, ship.getDamagePerShot());
     }
 
     @Test
-    void testRestoreHealth() {
+    public void testRestoreHealth() {
         ship.decreaseHealth(50);
         ship.restoreHealth();
         assertEquals(100, ship.getHealth());
     }
 
     @Test
-    void testGetPosition() {
+    public void testGetPosition() {
         assertEquals(new Position(10, 20), ship.getPosition());
     }
 }

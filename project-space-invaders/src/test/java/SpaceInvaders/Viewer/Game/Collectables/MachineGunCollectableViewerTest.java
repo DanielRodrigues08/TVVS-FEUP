@@ -13,14 +13,14 @@ public class MachineGunCollectableViewerTest {
     private MachineGunModeCollectable collectable;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         viewer = new MachineGunCollectableViewer();
         gui = Mockito.mock(GUI.class);
         collectable = Mockito.mock(MachineGunModeCollectable.class);
     }
 
     @Test
-    void testDraw() {
+    public void testDraw() {
         Position position = new Position(10, 20);
         Mockito.when(collectable.getPosition()).thenReturn(position);
 

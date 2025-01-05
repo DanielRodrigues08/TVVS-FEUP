@@ -13,14 +13,14 @@ public class ProjectileViewerTest {
     private Projectile projectile;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         viewer = new ProjectileViewer();
         gui = Mockito.mock(GUI.class);
         projectile = Mockito.mock(Projectile.class);
     }
 
     @Test
-    void testDraw() {
+    public void testDraw() {
         Position position = new Position(10, 20);
         Mockito.when(projectile.getPosition()).thenReturn(position);
 

@@ -20,13 +20,13 @@ class HealthCollectableTest {
     private Position position;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         ship = new Ship(position, 100, 0);
         healthCollectable = new HealthCollectable(position, ship);
     }
 
     @Test
-    void testExecute() {
+    public void testExecute() {
         int expectedHealth = 100;
         ship.decreaseHealth(50);
 

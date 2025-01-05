@@ -42,7 +42,7 @@ public class StateTest {
     private MockedStatic<SoundManager> soundManagerMock;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         Field instance = assertDoesNotThrow(() -> State.class.getDeclaredField("instance"));
         instance.setAccessible(true);
         assertDoesNotThrow(() -> instance.set(null, null));
@@ -56,22 +56,22 @@ public class StateTest {
     }
 
     @AfterEach
-    void tearDown() {
+    public void tearDown() {
         soundManagerMock.close();
     }
 
     @Test
-    void testGetInstance() {
+    public void testGetInstance() {
         assertInstanceOf(State.class, State.getInstance());
     }
 
     @Test
-    void testGetInstanceNull() {
+    public void testGetInstanceNull() {
         assertInstanceOf(State.class, State.getInstance());
     }
 
     @Test
-    void testInitialState() {
+    public void testInitialState() {
         state = State.getInstance();
         assertEquals(GameStates.START_MENU, state.getCurrentState());
         assertEquals(GameStates.START_MENU, state.getPreviousState());
@@ -80,7 +80,7 @@ public class StateTest {
     }
 
     @Test
-    void testUpdateState() throws IOException, URISyntaxException {
+    public void testUpdateState() throws IOException, URISyntaxException {
         state.UpdateState(GameStates.NEW_GAME);
         assertEquals(GameStates.NEW_GAME, state.getCurrentState());
         assertEquals(GameStates.START_MENU, state.getPreviousState());
@@ -89,7 +89,7 @@ public class StateTest {
     }
 
     @Test
-    void testUpdateStateStartMenu() throws IOException, URISyntaxException {
+    public void testUpdateStateStartMenu() throws IOException, URISyntaxException {
         state.UpdateState(GameStates.START_MENU);
         assertEquals(GameStates.START_MENU, state.getCurrentState());
         assertEquals(GameStates.START_MENU, state.getPreviousState());
@@ -98,15 +98,17 @@ public class StateTest {
     }
 
     @Test
-    void testUpdateToPrevious() throws IOException, URISyntaxException {
-        state.UpdateState(GameStates.NEW_GAME);
-        state.UpdateToPrevious();
-        assertEquals(GameStates.START_MENU, state.getCurrentState());
-        assertEquals(GameStates.NEW_GAME, state.getPreviousState());
+    public void testUpdateToPrevious() throws IOException, URISyntaxException {
+        var stateSpy = spy(state);
+        stateSpy.UpdateState(GameStates.NEW_GAME);
+        stateSpy.UpdateToPrevious();
+        assertEquals(GameStates.START_MENU, stateSpy.getCurrentState());
+        assertEquals(GameStates.NEW_GAME, stateSpy.getPreviousState());
+        verify(stateSpy, times(2)).StateActions();
     }
 
     @Test
-    void testStep() throws IOException, URISyntaxException {
+    public void testStep() throws IOException, URISyntaxException {
         KeyStroke key = Mockito.mock(KeyStroke.class);
         Controller controller = Mockito.mock(Controller.class);
         Viewer viewer = Mockito.mock(Viewer.class);
@@ -122,35 +124,35 @@ public class StateTest {
     }
 
     @Test
-    void testSetController() {
+    public void testSetController() {
         Controller controller = Mockito.mock(Controller.class);
         state.setController(controller);
         assertEquals(controller, state.getController());
     }
 
     @Test
-    void testSetViewer() {
+    public void testSetViewer() {
         Viewer viewer = Mockito.mock(Viewer.class);
         state.setViewer(viewer);
         assertEquals(viewer, state.getViewer());
     }
 
     @Test
-    void testSetArena() {
+    public void testSetArena() {
         Arena arena = Mockito.mock(Arena.class);
         state.setArena(arena);
         assertEquals(arena, state.getArena());
     }
 
     @Test
-    void testStateActionsStartMenu() throws IOException, URISyntaxException {
+    public void testStateActionsStartMenu() throws IOException, URISyntaxException {
         state.UpdateState(GameStates.START_MENU);
         assertInstanceOf(StartMenuController.class, state.getController());
         assertInstanceOf(StartMenuViewer.class, state.getViewer());
     }
 
     @Test
-    void testStateActionsPause() throws IOException, URISyntaxException {
+    public void testStateActionsPause() throws IOException, URISyntaxException {
         state.UpdateState(GameStates.PAUSE);
         assertInstanceOf(PauseMenuController.class, state.getController());
         assertInstanceOf(PauseMenuViewer.class, state.getViewer());
@@ -158,7 +160,7 @@ public class StateTest {
     }
 
     @Test
-    void testStateActionsNewGame() throws IOException, URISyntaxException {
+    public void testStateActionsNewGame() throws IOException, URISyntaxException {
         state.UpdateState(GameStates.NEW_GAME);
         assertInstanceOf(ArenaController.class, state.getController());
         assertInstanceOf(GameViewer.class, state.getViewer());
@@ -166,14 +168,14 @@ public class StateTest {
     }
 
     @Test
-    void testStateActionsLeaderboard() throws IOException, URISyntaxException {
+    public void testStateActionsLeaderboard() throws IOException, URISyntaxException {
         state.UpdateState(GameStates.LEADERBOARD);
         assertInstanceOf(OnlyTextMenuController.class, state.getController());
         assertInstanceOf(LeaderboardViewer.class, state.getViewer());
     }
 
     @Test
-    void testStateActionsGameOver() throws IOException, URISyntaxException {
+    public void testStateActionsGameOver() throws IOException, URISyntaxException {
         var arenaMock = Mockito.mock(Arena.class);
         state.setArena(arenaMock);
         when(arenaMock.getScore()).thenReturn(100);
@@ -186,7 +188,7 @@ public class StateTest {
     }
 
     @Test
-    void testStateActionsNewGameRound() throws IOException, URISyntaxException {
+    public void testStateActionsNewGameRound() throws IOException, URISyntaxException {
         var arena = Mockito.mock(Arena.class);
         state.setArena(arena);
         when(arena.getRound()).thenReturn(1);
@@ -196,7 +198,7 @@ public class StateTest {
     }
 
     @Test
-    void testStateActionsResumeGame() throws IOException, URISyntaxException {
+    public void testStateActionsResumeGame() throws IOException, URISyntaxException {
         var arena = Mockito.mock(Arena.class);
         var alienShip = Mockito.mock(AlienShip.class);
         when(arena.getAlienShip()).thenReturn(alienShip);
@@ -210,7 +212,7 @@ public class StateTest {
     }
 
     @Test
-    void testStateActionsResumeGameNullAlienShip() throws IOException, URISyntaxException {
+    public void testStateActionsResumeGameNullAlienShip() throws IOException, URISyntaxException {
 
         var arena = Mockito.mock(Arena.class);
         when(arena.getAlienShip()).thenReturn(null);
@@ -224,7 +226,7 @@ public class StateTest {
     }
 
     @Test
-    void testStateActionsInstructions() throws IOException, URISyntaxException {
+    public void testStateActionsInstructions() throws IOException, URISyntaxException {
         state.UpdateState(GameStates.INSTRUCTIONS);
         assertInstanceOf(OnlyTextMenuController.class, state.getController());
         assertInstanceOf(InstructionsViewer.class, state.getViewer());

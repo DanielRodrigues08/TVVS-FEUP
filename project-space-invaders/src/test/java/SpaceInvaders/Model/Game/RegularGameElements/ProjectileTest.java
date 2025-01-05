@@ -13,18 +13,18 @@ class ProjectileTest {
     private AttackingElement attackingElement;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         attackingElement = new AttackingElement(new Position(5, 5), 100, 10);
         projectile = new Projectile(new Position(10, 20), attackingElement);
     }
 
     @Test
-    void testGetElement() {
+    public void testGetElement() {
         assertSame(attackingElement, projectile.getElement());
     }
 
     @Test
-    void testGetPosition() {
+    public void testGetPosition() {
         assertEquals(new Position(10, 20), projectile.getPosition());
     }
 }

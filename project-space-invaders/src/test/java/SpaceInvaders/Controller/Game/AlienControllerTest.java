@@ -103,7 +103,7 @@ class AlienControllerTest {
     }
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         when(arena.getWidth()).thenReturn(ARENA_WIDTH);
         when(arena.getHeight()).thenReturn(ARENA_HEIGHT);
         controller = new AlienController(arena);
@@ -111,7 +111,7 @@ class AlienControllerTest {
 
     @ParameterizedTest
     @MethodSource("valuesTestCanMoveAlien")
-    void testCanMoveAlien(Position position, MovementDirection direction, boolean expected) {
+    public void testCanMoveAlien(Position position, MovementDirection direction, boolean expected) {
         Alien alien = mock(Alien.class);
         when(alien.getPosition()).thenReturn(position);
         controller.setMovementDirection(direction);
@@ -120,7 +120,7 @@ class AlienControllerTest {
 
     @ParameterizedTest
     @MethodSource("valuesTestCanMoveAliens")
-    void testCanMoveAliens(List<Alien> aliens, boolean expected) {
+    public void testCanMoveAliens(List<Alien> aliens, boolean expected) {
         controller.setMovementDirection(MovementDirection.LEFT);
         when(arena.getAliens()).thenReturn(aliens);
         assertEquals(expected, controller.canMoveAliens());
@@ -128,7 +128,7 @@ class AlienControllerTest {
 
     @ParameterizedTest
     @MethodSource("valuesTestMoveAlien")
-    void testMoveAlien(Position position, MovementDirection direction, Position expected) {
+    public void testMoveAlien(Position position, MovementDirection direction, Position expected) {
         Alien alien = new Alien(position, 0, 0, 0, null, 0);
         controller.setMovementDirection(direction);
         controller.moveAlien(alien);
@@ -136,7 +136,7 @@ class AlienControllerTest {
     }
 
     @Test
-    void testMoveAliens() {
+    public void testMoveAliens() {
         Alien alien1 = new Alien(new Position(3, 0), 0, 0, 0, null, 0);
         Alien alien2 = new Alien(new Position(4, 0), 0, 0, 0, null, 0);
         when(arena.getAliens()).thenReturn(List.of(alien1, alien2));
@@ -150,7 +150,7 @@ class AlienControllerTest {
 
     @ParameterizedTest
     @MethodSource("valuesTestShootProjectile")
-    void testShootProjectile(List<Alien> attackingAliens, int numProjectiles) {
+    public void testShootProjectile(List<Alien> attackingAliens, int numProjectiles) {
         Field arenaModifierField = assertDoesNotThrow(() -> GameController.class.getDeclaredField("arenaModifier"));
         arenaModifierField.setAccessible(true);
 
@@ -164,7 +164,7 @@ class AlienControllerTest {
     }
 
     @Test
-    void testHitByProjectile() {
+    public void testHitByProjectile() {
         Alien alien = mock(Alien.class);
         Projectile projectile = mock(Projectile.class);
         Ship ship = mock(Ship.class);
@@ -179,7 +179,7 @@ class AlienControllerTest {
     }
 
     @Test
-    void testRemoveDestroyedAliens() {
+    public void testRemoveDestroyedAliens() {
         Field arenaModifierField = assertDoesNotThrow(() -> GameController.class.getDeclaredField("arenaModifier"));
         arenaModifierField.setAccessible(true);
 
@@ -209,21 +209,21 @@ class AlienControllerTest {
 
     @ParameterizedTest
     @CsvSource({"5, 100", "6, 50"})
-    void testMovementCooldown(int round, long expected) {
+    public void testMovementCooldown(int round, long expected) {
         when(arena.getRound()).thenReturn(round);
         assertEquals(expected, controller.movementCoolDown());
     }
 
     @ParameterizedTest
     @CsvSource({"7, 200", "8, 100"})
-    void testShootingCooldown(int round, long expected) {
+    public void testShootingCooldown(int round, long expected) {
         when(arena.getRound()).thenReturn(round);
         assertEquals(expected, controller.shootingCoolDown());
     }
 
     @ParameterizedTest
     @MethodSource("testStepValues")
-    void testStep(long time, long lastShotTime, long lastMovementTime,
+    public void testStep(long time, long lastShotTime, long lastMovementTime,
                   int numShootExpected, int numMovementExpected, long shootTimeExpected, long movementTimeExpected, int numMovementUpdate) {
 
         var controllerSpy = spy(controller);
@@ -246,7 +246,7 @@ class AlienControllerTest {
 
     @ParameterizedTest
     @MethodSource("testMovementDirectionTransitions")
-    void testUpdateMovementDirection(MovementDirection initial, boolean canMove,
+    public void testUpdateMovementDirection(MovementDirection initial, boolean canMove,
                                      MovementDirection expected) {
         var alienControllerSpy = spy(controller);
         doReturn(canMove).when(alienControllerSpy).canMoveAliens();
@@ -258,14 +258,14 @@ class AlienControllerTest {
     }
 
     @Test
-    void testSetGetLastMovementTime() {
+    public void testSetGetLastMovementTime() {
         long expected = 100;
         controller.setLastMovementTime(expected);
         assertEquals(expected, controller.getLastMovementTime());
     }
 
     @Test
-    void testSetGetLastShotTime() {
+    public void testSetGetLastShotTime() {
         long expected = 100;
         controller.setLastShotTime(expected);
         assertEquals(expected, controller.getLastShotTime());

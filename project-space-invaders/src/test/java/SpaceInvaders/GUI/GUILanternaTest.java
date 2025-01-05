@@ -19,13 +19,13 @@ class GUILanternaTest {
     private Screen screen;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         screen = Mockito.mock(Screen.class);
         gui = new GUILanterna(screen);
     }
 
     @Test
-    void testGUILanternaValid() {
+    public void testGUILanternaValid() {
         GUILanterna guiLanterna = assertDoesNotThrow(() -> new GUILanterna(10, 10));
 
         Field screenField = assertDoesNotThrow(() -> GUILanterna.class.getDeclaredField("screen"));
@@ -36,12 +36,12 @@ class GUILanternaTest {
     }
 
     @Test
-    void testGUILanternaInvalid() {
+    public void testGUILanternaInvalid() {
         assertThrows(Exception.class, () -> new GUILanterna(0, 0));
     }
 
     @Test
-    void testDrawElement() {
+    public void testDrawElement() {
         var tgMock = mock(TextGraphics.class);
         when(screen.newTextGraphics()).thenReturn(tgMock);
         Position position = new Position(1, 1);
@@ -52,7 +52,7 @@ class GUILanternaTest {
     }
 
     @Test
-    void testDrawText() {
+    public void testDrawText() {
         var tgMock = mock(TextGraphics.class);
         when(screen.newTextGraphics()).thenReturn(tgMock);
         Position position = new Position(1, 1);
@@ -63,7 +63,7 @@ class GUILanternaTest {
     }
 
     @Test
-    void testGetNextAction() {
+    public void testGetNextAction() {
         KeyStroke keyStroke = mock(KeyStroke.class);
         assertDoesNotThrow(() -> when(screen.pollInput()).thenReturn(keyStroke));
         KeyStroke result = assertDoesNotThrow(() -> gui.getNextAction());
@@ -72,13 +72,13 @@ class GUILanternaTest {
     }
 
     @Test
-    void testClear() {
+    public void testClear() {
         gui.clear();
         verify(screen).clear();
     }
 
     @Test
-    void testRefresh() {
+    public void testRefresh() {
         assertDoesNotThrow(() -> {
             gui.refresh();
             verify(screen).refresh();
@@ -86,7 +86,7 @@ class GUILanternaTest {
     }
 
     @Test
-    void testClose() {
+    public void testClose() {
         assertDoesNotThrow(() -> {
             gui.close();
             verify(screen).close();

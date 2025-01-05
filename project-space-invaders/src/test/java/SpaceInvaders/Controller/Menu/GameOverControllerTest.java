@@ -121,7 +121,7 @@ public class GameOverControllerTest {
 
     @ParameterizedTest
     @MethodSource("valuesTestStep")
-    void testStep(KeyStroke key, int numSoundSwitch, int nextOption, int previousOption, GameOverMenu menu, GameStates state, int numState, int numAddLetter, int numRemoveLetter, int numUpdateLeaderboard) {
+    public void testStep(KeyStroke key, int numSoundSwitch, int nextOption, int previousOption, GameOverMenu menu, GameStates state, int numState, int numAddLetter, int numRemoveLetter, int numUpdateLeaderboard) {
         GameOverController controller = spy(new GameOverController(menu));
         clearInvocations(menu, game, mockSoundManager);
 
@@ -139,7 +139,7 @@ public class GameOverControllerTest {
 
     @ParameterizedTest
     @MethodSource("testUpdateLeaderboardValues")
-    void testUpdateLeaderboard(String userName, int score, String expectedLine) throws IOException {
+    public void testUpdateLeaderboard(String userName, int score, String expectedLine) throws IOException {
         GameOverController controller = spy(new GameOverController(new GameOverMenu(100)));
         doReturn(mockBuffer).when(controller).createBuffer(any());
 

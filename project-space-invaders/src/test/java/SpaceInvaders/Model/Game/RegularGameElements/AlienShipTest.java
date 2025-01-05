@@ -11,32 +11,32 @@ class AlienShipTest {
     private AlienShip alienShip;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         alienShip = new AlienShip(new Position(5, 5), 100, 50, 1);
     }
 
     @Test
-    void testGetScore() {
+    public void testGetScore() {
         assertEquals(50, alienShip.getScore());
     }
 
     @Test
-    void testGetMovementDirection() {
+    public void testGetMovementDirection() {
         assertEquals(1, alienShip.getMovementDirection());
     }
 
     @Test
-    void testGetPosition() {
+    public void testGetPosition() {
         assertEquals(new Position(5, 5), alienShip.getPosition());
     }
 
     @Test
-    void testGetHealth() {
+    public void testGetHealth() {
         assertEquals(100, alienShip.getHealth());
     }
 
     @Test
-    void testSetHealth() {
+    public void testSetHealth() {
         alienShip.setHealth(80);
         assertEquals(80, alienShip.getHealth());
     }

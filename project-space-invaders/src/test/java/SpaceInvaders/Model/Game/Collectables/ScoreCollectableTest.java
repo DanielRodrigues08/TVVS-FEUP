@@ -36,7 +36,7 @@ class ScoreCollectableTest {
             "10, SCORE_10X",
             "1, NORMAL_MODE"
     })
-    void testExecute(int multiplier, AlienMode expectedMode) {
+    public void testExecute(int multiplier, AlienMode expectedMode) {
         scoreCollectable = new ScoreCollectable(position, List.of(alien), multiplier);
         scoreCollectable.execute();
 

@@ -441,13 +441,13 @@ class ArenaControllerTest {
     }
 
     @Test
-    void testConstruction() {
+    public void testConstruction() {
         assertNotNull(controller);
         assertEquals(arena, controller.getModel());
     }
 
     @Test
-    void testSetTimers() {
+    public void testSetTimers() {
         int pauseGameTime = 10;
         int init = 10;
         int delta = 1000;
@@ -486,7 +486,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("valuesTestCollisionBetween")
-    void testCollisionBetween(Position p1, Position p2, boolean expected) {
+    public void testCollisionBetween(Position p1, Position p2, boolean expected) {
         Element e1 = mock(Element.class);
         Element e2 = mock(Element.class);
 
@@ -500,7 +500,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("shipCollisionTestCases")
-    void testShipCollidesWithAlien(Ship ship,
+    public void testShipCollidesWithAlien(Ship ship,
                                    List<Alien> aliens, boolean expected) {
         when(arena.getShip()).thenReturn(ship);
         when(arena.getAliens()).thenReturn(aliens);
@@ -510,7 +510,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("alienCollidesWithCoverWallTestCases")
-    void testAlienCollidesWithCoverWall(List<Alien> aliens, List<CoverWall> coverWalls, boolean expected) {
+    public void testAlienCollidesWithCoverWall(List<Alien> aliens, List<CoverWall> coverWalls, boolean expected) {
         when(arena.getAliens()).thenReturn(aliens);
         when(arena.getCoverWalls()).thenReturn(coverWalls);
 
@@ -519,7 +519,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("alienReachesBottomArenaWallTestCases")
-    void testAlienReachesBottomArenaWall(List<Alien> aliens, boolean expected) {
+    public void testAlienReachesBottomArenaWall(List<Alien> aliens, boolean expected) {
         when(arena.getAliens()).thenReturn(aliens);
         when(arena.getHeight()).thenReturn(100);
 
@@ -528,7 +528,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("projectileWallCollisionTestCases")
-    void testProjectileCollisionsWithWalls(List<Wall> walls, List<Projectile> projectiles, List<Projectile> expectedRemovedProjectiles) {
+    public void testProjectileCollisionsWithWalls(List<Wall> walls, List<Projectile> projectiles, List<Projectile> expectedRemovedProjectiles) {
         when(arena.getWalls()).thenReturn(walls);
         when(arena.getProjectiles()).thenReturn(projectiles);
 
@@ -542,7 +542,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("projectileCollisionsWithShipTestCases")
-    void testProjectileCollisionsWithShip(Ship ship, List<Projectile> projectiles, List<Projectile> expectedCollisions) {
+    public void testProjectileCollisionsWithShip(Ship ship, List<Projectile> projectiles, List<Projectile> expectedCollisions) {
         when(arena.getProjectiles()).thenReturn(projectiles);
         when(arena.getShip()).thenReturn(ship);
 
@@ -558,7 +558,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("projectileAlienCollisionTestCases")
-    void testProjectileCollisionsWithAliens(List<Alien> aliens,
+    public void testProjectileCollisionsWithAliens(List<Alien> aliens,
                                             List<Projectile> projectiles,
                                             Map<Alien, List<Projectile>> expectedCollisions) {
         List<Projectile> mutableProjectiles = new ArrayList<>(projectiles);
@@ -577,7 +577,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("projectileCoverWallCollisionTestCases")
-    void testProjectileCollisionsWithCoverWalls(List<CoverWall> walls,
+    public void testProjectileCollisionsWithCoverWalls(List<CoverWall> walls,
                                                 List<Projectile> projectiles,
                                                 Map<CoverWall, List<Projectile>> expectedCollisions) {
         when(arena.getProjectiles()).thenReturn(projectiles);
@@ -596,7 +596,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("projectileAlienShipCollisionTestCases")
-    void testProjectileCollisionWithAlienShip(
+    public void testProjectileCollisionWithAlienShip(
             AlienShip alienShip,
             List<Projectile> projectiles,
             List<Projectile> expectedCollisions) {
@@ -616,7 +616,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("shipCollectableCollisionTestCases")
-    void testShipCollisionsWithCollectables(
+    public void testShipCollisionsWithCollectables(
             Ship ship,
             Collectable collectable,
             int expectCollision) {
@@ -641,7 +641,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("collectableWallCollisionTestCases")
-    void testCollectableCollisionsWithWalls(List<Wall> walls, Collectable collectable, int numCollision) {
+    public void testCollectableCollisionsWithWalls(List<Wall> walls, Collectable collectable, int numCollision) {
         when(arena.getWalls()).thenReturn(walls);
         when(arena.getActiveCollectable()).thenReturn(collectable);
 
@@ -652,7 +652,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("removeDestroyedCoverWalls")
-    void testRemoveDestroyedCoverWalls(List<CoverWall> coverWalls, List<CoverWall> coverWallsRemoved) {
+    public void testRemoveDestroyedCoverWalls(List<CoverWall> coverWalls, List<CoverWall> coverWallsRemoved) {
         when(arena.getCoverWalls()).thenReturn(coverWalls);
 
         controller.removeDestroyedCoverWalls();
@@ -662,7 +662,7 @@ class ArenaControllerTest {
     }
 
     @Test
-    void testCheckCollisions() {
+    public void testCheckCollisions() {
         ArenaController controllerSpy = spy(controller);
 
         controllerSpy.checkCollisions();
@@ -678,7 +678,7 @@ class ArenaControllerTest {
 
     @ParameterizedTest
     @MethodSource("stepMethodTestCases")
-    void testStep(long time, boolean needToUpdateTimers, boolean expectedNeedToUpdateTimers, KeyStroke key, boolean isShipDestroyed, boolean shipCollidesWithAlien, boolean alienCollidesWithCoverWall, boolean alienReachesBottomArenaWall, boolean aliensEmpty, GameStates expectedState, int numSetTimers, int numExpectedState) {
+    public void testStep(long time, boolean needToUpdateTimers, boolean expectedNeedToUpdateTimers, KeyStroke key, boolean isShipDestroyed, boolean shipCollidesWithAlien, boolean alienCollidesWithCoverWall, boolean alienReachesBottomArenaWall, boolean aliensEmpty, GameStates expectedState, int numSetTimers, int numExpectedState) {
         var controllerSpy = spy(controller);
 
         controllerSpy.setNeedToUpdateTimers(needToUpdateTimers);
@@ -712,7 +712,7 @@ class ArenaControllerTest {
     }
 
     @Test
-    void testGetSetPause() {
+    public void testGetSetPause() {
         long time = 1000;
         controller.setPauseGameTime(time);
         assertEquals(time, controller.getPauseGameTime());

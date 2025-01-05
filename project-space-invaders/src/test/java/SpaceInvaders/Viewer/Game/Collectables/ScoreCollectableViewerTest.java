@@ -13,14 +13,14 @@ public class ScoreCollectableViewerTest {
     private ScoreCollectable collectable;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         viewer = new ScoreCollectableViewer();
         gui = Mockito.mock(GUI.class);
         collectable = Mockito.mock(ScoreCollectable.class);
     }
 
     @Test
-    void testDraw() {
+    public void testDraw() {
         Position position = new Position(10, 20);
         Mockito.when(collectable.getPosition()).thenReturn(position);
 

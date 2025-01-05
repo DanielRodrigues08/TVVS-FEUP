@@ -13,14 +13,14 @@ public class ShipViewerTest {
     private Ship ship;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         viewer = new ShipViewer();
         gui = Mockito.mock(GUI.class);
         ship = Mockito.mock(Ship.class);
     }
 
     @Test
-    void testDraw() {
+    public void testDraw() {
         Position position = new Position(10, 20);
         Mockito.when(ship.getPosition()).thenReturn(position);
 

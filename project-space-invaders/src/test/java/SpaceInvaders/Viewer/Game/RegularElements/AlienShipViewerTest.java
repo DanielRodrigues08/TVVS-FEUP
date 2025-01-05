@@ -13,14 +13,14 @@ public class AlienShipViewerTest {
     private AlienShip alienShip;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         viewer = new AlienShipViewer();
         gui = Mockito.mock(GUI.class);
         alienShip = Mockito.mock(AlienShip.class);
     }
 
     @Test
-    void testDraw() {
+    public void testDraw() {
         Position position = new Position(10, 20);
         Mockito.when(alienShip.getPosition()).thenReturn(position);
 

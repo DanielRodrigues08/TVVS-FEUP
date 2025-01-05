@@ -62,7 +62,7 @@ class ArenaModifierTest {
     }
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         arena = spy(new Arena(WIDTH, HEIGHT));
         arenaModifier = new ArenaModifier(arena);
         random = mock(Random.class);
@@ -70,7 +70,7 @@ class ArenaModifierTest {
     }
 
     @Test
-    void testResetShipMode() {
+    public void testResetShipMode() {
         ShipMode expectedShipMode = ShipMode.NORMAL_MODE;
         Ship ship = new Ship(null, 0, 0);
         ship.setShipMode(ShipMode.MACHINE_GUN_MODE);
@@ -82,7 +82,7 @@ class ArenaModifierTest {
     }
 
     @Test
-    void testResetAliensMode() {
+    public void testResetAliensMode() {
         AlienMode expectedShipMode = AlienMode.NORMAL_MODE;
         Alien alien1 = new Alien(null, 0, 0, 0, null, 0);
         alien1.setAlienMode(AlienMode.SCORE_2X);
@@ -98,7 +98,7 @@ class ArenaModifierTest {
     }
 
     @Test
-    void testCreateCollectableAffectingShip() {
+    public void testCreateCollectableAffectingShip() {
         Position expectedPosition = new Position(1, 1);
 
         doReturn(List.of(1)).when(arena).getFreeArenaColumns();
@@ -114,7 +114,7 @@ class ArenaModifierTest {
     }
 
     @Test
-    void testCreateCollectableAffectingAlien() {
+    public void testCreateCollectableAffectingAlien() {
         Position expectedPosition = new Position(1, 1);
 
         doReturn(List.of(1)).when(arena).getFreeArenaColumns();
@@ -132,7 +132,7 @@ class ArenaModifierTest {
 
     @ParameterizedTest
     @MethodSource("testCreateAlienShipValues")
-    void testCreateAlienShip(int movement, AlienShip expectedAlienShip) {
+    public void testCreateAlienShip(int movement, AlienShip expectedAlienShip) {
         when(random.nextInt(anyInt())).thenReturn(movement);
         arenaModifier.createAlienShip();
 
@@ -141,7 +141,7 @@ class ArenaModifierTest {
 
     @ParameterizedTest
     @MethodSource("testHasAlienInFrontValues")
-    void testHasAlienInFront(List<Alien> aliens, Alien alien, Alien excludedAlien, boolean expected) {
+    public void testHasAlienInFront(List<Alien> aliens, Alien alien, Alien excludedAlien, boolean expected) {
         when(arena.getAliens()).thenReturn(aliens);
 
         boolean result = arenaModifier.hasAlienInFront(alien, excludedAlien);
@@ -151,7 +151,7 @@ class ArenaModifierTest {
 
     @ParameterizedTest
     @MethodSource("provideAliensForRemoveAlien")
-    void testRemoveAlien(List<Alien> initialAliens, Alien alienToRemove, List<Alien> expectedAliens) {
+    public void testRemoveAlien(List<Alien> initialAliens, Alien alienToRemove, List<Alien> expectedAliens) {
         when(arena.getAliens()).thenReturn(initialAliens);
 
         arenaModifier.removeAlien(alienToRemove);
@@ -161,7 +161,7 @@ class ArenaModifierTest {
     }
 
     @Test
-    void testRemoveCoverWall() {
+    public void testRemoveCoverWall() {
         CoverWall coverWall = mock(CoverWall.class);
         List<CoverWall> coverWalls = new ArrayList<>();
         coverWalls.add(coverWall);
@@ -173,7 +173,7 @@ class ArenaModifierTest {
     }
 
     @Test
-    void testRemoveActiveCollectable() {
+    public void testRemoveActiveCollectable() {
         Collectable collectable = mock(Collectable.class);
         arena.setActiveCollectable(collectable);
 
@@ -183,7 +183,7 @@ class ArenaModifierTest {
     }
 
     @Test
-    void testAddProjectile() {
+    public void testAddProjectile() {
         Projectile projectile = mock(Projectile.class);
         List<Projectile> projectiles = new ArrayList<>();
         when(arena.getProjectiles()).thenReturn(projectiles);
@@ -194,7 +194,7 @@ class ArenaModifierTest {
     }
 
     @Test
-    void testRemoveProjectile() {
+    public void testRemoveProjectile() {
         Projectile projectile = mock(Projectile.class);
         List<Projectile> projectiles = new ArrayList<>();
         projectiles.add(projectile);
@@ -206,7 +206,7 @@ class ArenaModifierTest {
     }
 
     @Test
-    void testRemoveAlienShip() {
+    public void testRemoveAlienShip() {
         AlienShip alienShip = mock(AlienShip.class);
         arena.setAlienShip(alienShip);
 

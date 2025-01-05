@@ -11,22 +11,22 @@ class CoverWallTest {
     private CoverWall coverWall;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         coverWall = new CoverWall(new Position(10, 20), 100);
     }
 
     @Test
-    void testGetPosition() {
+    public void testGetPosition() {
         assertEquals(new Position(10, 20), coverWall.getPosition());
     }
 
     @Test
-    void testGetHealth() {
+    public void testGetHealth() {
         assertEquals(100, coverWall.getHealth());
     }
 
     @Test
-    void testSetHealth() {
+    public void testSetHealth() {
         coverWall.setHealth(80);
         assertEquals(80, coverWall.getHealth());
     }

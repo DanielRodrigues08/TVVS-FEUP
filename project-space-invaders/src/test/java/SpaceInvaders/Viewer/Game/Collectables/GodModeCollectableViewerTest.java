@@ -13,14 +13,14 @@ public class GodModeCollectableViewerTest {
     private GodModeCollectable collectable;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         viewer = new GodModeCollectableViewer();
         gui = Mockito.mock(GUI.class);
         collectable = Mockito.mock(GodModeCollectable.class);
     }
 
     @Test
-    void testDraw() {
+    public void testDraw() {
         Position position = new Position(10, 20);
         Mockito.when(collectable.getPosition()).thenReturn(position);
 

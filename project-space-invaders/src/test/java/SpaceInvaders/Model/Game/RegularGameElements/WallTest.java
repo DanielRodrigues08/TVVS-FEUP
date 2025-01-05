@@ -11,12 +11,12 @@ class WallTest {
     private Wall wall;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         wall = new Wall(new Position(10, 20));
     }
 
     @Test
-    void testGetPosition() {
+    public void testGetPosition() {
         assertEquals(new Position(10, 20), wall.getPosition());
     }
 }

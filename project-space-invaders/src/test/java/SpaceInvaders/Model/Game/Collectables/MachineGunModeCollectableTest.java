@@ -21,13 +21,13 @@ class MachineGunModeCollectableTest {
     private Position position;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         ship = new Ship(position, 0, 0);
         machineGunModeCollectable = new MachineGunModeCollectable(position, ship);
     }
 
     @Test
-    void testExecute() {
+    public void testExecute() {
         machineGunModeCollectable.execute();
 
         assertEquals(ShipMode.MACHINE_GUN_MODE, ship.getShipMode());

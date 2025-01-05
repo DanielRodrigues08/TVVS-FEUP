@@ -20,7 +20,7 @@ class DamageCollectableTest {
     private Position position;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         ship = new Ship(position, 0, 0);
     }
 
@@ -33,7 +33,7 @@ class DamageCollectableTest {
             "10, DAMAGE_10X",
             "11, NORMAL_MODE"
     })
-    void testConstructor(int multiplier, ShipMode shipMode) {
+    public void testConstructor(int multiplier, ShipMode shipMode) {
         DamageCollectable damageCollectable = new DamageCollectable(position, ship, multiplier);
 
         damageCollectable.execute();

@@ -15,14 +15,14 @@ public class PauseMenuViewerTest {
     private PauseMenu menu;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         menu = Mockito.mock(PauseMenu.class);
         viewer = new PauseMenuViewer(menu);
         gui = Mockito.mock(GUI.class);
     }
 
     @Test
-    void testDrawElements() {
+    public void testDrawElements() {
         when(menu.getNumberOptions()).thenReturn(2);
         when(menu.getOption(0)).thenReturn("Resume");
         when(menu.getOption(1)).thenReturn("Quit");

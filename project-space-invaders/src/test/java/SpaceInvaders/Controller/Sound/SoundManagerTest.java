@@ -39,7 +39,7 @@ public class SoundManagerTest {
     private Sound alienShipHighPitch;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         // Create mock instances
         laser = mock(Sound.class);
         dyingSound = mock(Sound.class);
@@ -89,7 +89,7 @@ public class SoundManagerTest {
             "ALIEN_SHIP_LOW, 0, 0, 0, 0, 0, 1, 0",
             "ALIEN_SHIP_HIGH, 0, 0, 0, 0, 0, 0, 1"
     })
-    void testPlaySound(Sound_Options soundOption, int numMusic, int numLaser, int numSwitch, int numDying, int numCollectable, int numAlienShipLow, int numAlienShipHigh) {
+    public void testPlaySound(Sound_Options soundOption, int numMusic, int numLaser, int numSwitch, int numDying, int numCollectable, int numAlienShipLow, int numAlienShipHigh) {
         mockSoundManager.playSound(soundOption);
 
         verify(laser, times(numLaser)).play();
@@ -104,7 +104,7 @@ public class SoundManagerTest {
     }
 
     @Test
-    void testPlaySoundNull() {
+    public void testPlaySoundNull() {
         assertThrows(Exception.class, () -> mockSoundManager.playSound(null));
         mockedStatic.close();
 
@@ -120,7 +120,7 @@ public class SoundManagerTest {
             "ALIEN_SHIP_LOW, 0, 0, 0, 0, 0, 1, 0",
             "ALIEN_SHIP_HIGH, 0, 0, 0, 0, 0, 0, 1"
     })
-    void testStopSound(Sound_Options soundOption, int numMusic, int numLaser, int numSwitch, int numDying, int numCollectable, int numAlienShipLow, int numAlienShipHigh) {
+    public void testStopSound(Sound_Options soundOption, int numMusic, int numLaser, int numSwitch, int numDying, int numCollectable, int numAlienShipLow, int numAlienShipHigh) {
         mockSoundManager.stopSound(soundOption);
 
         verify(laser, times(numLaser)).stop();
@@ -135,14 +135,14 @@ public class SoundManagerTest {
     }
 
     @Test
-    void testStopSoundNull() {
+    public void testStopSoundNull() {
         assertThrows(Exception.class, () -> mockSoundManager.stopSound(null));
         mockedStatic.close();
 
     }
 
     @Test
-    void testResumePlayingMusic() {
+    public void testResumePlayingMusic() {
         mockSoundManager.resumePlayingMusic();
         verify(backgroundMusic).resumePlaying();
         mockedStatic.close();
@@ -150,7 +150,7 @@ public class SoundManagerTest {
     }
 
     @Test
-    void testResumePlayingAlienShipSound() {
+    public void testResumePlayingAlienShipSound() {
         mockSoundManager.resumePlayingAlienShipSound();
         verify(alienShipLowPitch).resumePlaying();
         verify(alienShipHighPitch).resumePlaying();
@@ -159,7 +159,7 @@ public class SoundManagerTest {
     }
 
     @Test
-    void testStopAllSounds() {
+    public void testStopAllSounds() {
         mockSoundManager.stopAllSounds();
         verify(backgroundMusic).stop();
         verify(laser).stop();
@@ -173,7 +173,7 @@ public class SoundManagerTest {
     }
 
     @Test
-    void testSoundManagerConstructor() throws Exception {
+    public void testSoundManagerConstructor() throws Exception {
         Constructor<SoundManager> constructor = SoundManager.class.getDeclaredConstructor();
         constructor.setAccessible(true);
 
@@ -205,7 +205,7 @@ public class SoundManagerTest {
     }
 
     @Test
-    void testGetInstance() {
+    public void testGetInstance() {
         mockedStatic.close();
 
         Field instance = assertDoesNotThrow(() -> SoundManager.class.getDeclaredField("soundManager"));
@@ -220,7 +220,7 @@ public class SoundManagerTest {
     }
 
     @AfterEach
-    void clear() {
+    public void clear() {
         clearInvocations(mockSoundManager);
         clearInvocations(laser);
         clearInvocations(dyingSound);

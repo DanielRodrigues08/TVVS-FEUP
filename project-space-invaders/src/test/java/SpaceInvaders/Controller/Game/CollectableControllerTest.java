@@ -89,7 +89,7 @@ public class CollectableControllerTest {
     }
 
     @Test
-    public void generateCollectableTest() {
+    public void testGenerateCollectable() {
         arenaSpy.setActiveCollectable(null);
         doReturn(List.of(1)).when(arenaSpy).getFreeArenaColumns();
 
@@ -111,7 +111,7 @@ public class CollectableControllerTest {
     }
 
     @Test
-    public void endCollectableEffectTest() {
+    public void testEndCollectableEffect() {
         arenaSpy.setShip(new Ship(null, 0, 0));
         arenaSpy.getShip().setShipMode(ShipMode.MACHINE_GUN_MODE);
         doReturn(List.of(new Alien(null, 0, 0, 0, AlienState.ATTACKING, 0))).when(arenaSpy).getAliens();
@@ -127,7 +127,7 @@ public class CollectableControllerTest {
 
     @ParameterizedTest
     @MethodSource("stepTestProvider")
-    public void stepTest(long time, long generateCollectableTime, long movementTime, Collectable collectable, List<Alien> aliens, Ship ship, long expectedGenerateCollectableTime, long expectedMovementTime, int expectedNumGenerate, int expectedNumMovement, int expectedNumEnd) throws IOException {
+    public void testStep(long time, long generateCollectableTime, long movementTime, Collectable collectable, List<Alien> aliens, Ship ship, long expectedGenerateCollectableTime, long expectedMovementTime, int expectedNumGenerate, int expectedNumMovement, int expectedNumEnd) throws IOException {
         var collectableControllerSpy = spy(collectableController);
 
         Field field = assertDoesNotThrow(() -> collectableControllerSpy.getClass().getDeclaredField("movementTime"));

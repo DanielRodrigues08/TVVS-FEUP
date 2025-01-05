@@ -102,7 +102,7 @@ public class PauseMenuControllerTest {
 
     @ParameterizedTest
     @MethodSource("valuesTestStep")
-    void testStep(KeyStroke key, int numSoundSwitch, int nextOption, int previousOption, PauseMenu menu, GameStates state, int numState) {
+    public void testStep(KeyStroke key, int numSoundSwitch, int nextOption, int previousOption, PauseMenu menu, GameStates state, int numState) {
         PauseMenuController controller = new PauseMenuController(menu);
         clearInvocations(menu, game, mockSoundManager);
 

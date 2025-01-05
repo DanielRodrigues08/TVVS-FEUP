@@ -53,7 +53,7 @@ class ArenaBuilderByRoundTest {
     }
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         arenaBuilder = assertDoesNotThrow(() -> new ArenaBuilderByRound(5));
         arenaBuilder.setArenaLines(LINES_ROUND5);
     }
@@ -72,36 +72,36 @@ class ArenaBuilderByRoundTest {
     }
 
     @Test
-    void testGetWidth() {
+    public void testGetWidth() {
         assertEquals(LINES_ROUND5.getFirst().length(), arenaBuilder.getWidth());
     }
 
     @Test
-    void testGetHeight() {
+    public void testGetHeight() {
         assertEquals(LINES_ROUND5.size(), arenaBuilder.getHeight());
     }
 
     @Test
-    void testGetRound() {
+    public void testGetRound() {
         int expectedRound = 5;
         assertEquals(expectedRound, arenaBuilder.getRound());
     }
 
     @Test
-    void testSetArenaLines() {
+    public void testSetArenaLines() {
         List<String> expectedLines = Arrays.asList("line1", "line2");
         arenaBuilder.setArenaLines(expectedLines);
         assertEquals(expectedLines, arenaBuilder.getArenaLines());
     }
 
     @Test
-    void testGetArenaLines() {
+    public void testGetArenaLines() {
         assertEquals(LINES_ROUND5, arenaBuilder.getArenaLines());
     }
 
     @ParameterizedTest
     @MethodSource("testCreateShipValues")
-    void testCreateShip(List<String> lines, Ship expectedShip) {
+    public void testCreateShip(List<String> lines, Ship expectedShip) {
         arenaBuilder.setArenaLines(lines);
         Ship ship = arenaBuilder.createShip();
 
@@ -109,7 +109,7 @@ class ArenaBuilderByRoundTest {
     }
 
     @Test
-    void testCreateAliens() {
+    public void testCreateAliens() {
         List<Alien> expectedAliens = List.of(
                 new Alien(new Position(0, 0), 0, 0, 0, AlienState.PASSIVE, 0),
                 new Alien(new Position(0, 1), 0, 0, 0, AlienState.ATTACKING, 1),
@@ -125,7 +125,7 @@ class ArenaBuilderByRoundTest {
     }
 
     @Test
-    void testCreateWalls() {
+    public void testCreateWalls() {
         List<Wall> expectedWalls = List.of(
                 new Wall(new Position(2, 0))
         );
@@ -136,7 +136,7 @@ class ArenaBuilderByRoundTest {
     }
 
     @Test
-    void testCreateCoverWalls() {
+    public void testCreateCoverWalls() {
         List<CoverWall> expectedCoverWalls = List.of(
                 new CoverWall(new Position(3, 0), 0)
         );
@@ -147,7 +147,7 @@ class ArenaBuilderByRoundTest {
     }
 
     @Test
-    void testCreateArena() {
+    public void testCreateArena() {
         arenaBuilder.setArenaLines(LINES_ROUND3);
 
         Ship ship = new Ship(new Position(2, 1), 100, 50);

@@ -70,12 +70,12 @@ public class GameViewerTest {
     }
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         viewer = new GameViewer(arena);
     }
 
     @Test
-    void testDrawElements() throws Exception {
+    public void testDrawElements() throws Exception {
         Alien alien = Mockito.mock(Alien.class);
         CoverWall coverWall = Mockito.mock(CoverWall.class);
         Wall wall = Mockito.mock(Wall.class);
@@ -115,7 +115,7 @@ public class GameViewerTest {
             "NORMAL_MODE, 0, SCORE_2X, 1",
             "GOD_MODE, 1, SCORE_2X, 1"
     })
-    void testDrawGameHUD(ShipMode shipMode, int expectedShip, AlienMode alienMode, int expectedAlien) {
+    public void testDrawGameHUD(ShipMode shipMode, int expectedShip, AlienMode alienMode, int expectedAlien) {
         when(arena.getScore()).thenReturn(500);
         when(arena.getRound()).thenReturn(1);
 
@@ -142,7 +142,7 @@ public class GameViewerTest {
 
     @ParameterizedTest
     @MethodSource("collectableViewerTestValues")
-    void testCollectableViewerCreation(
+    public void testCollectableViewerCreation(
             Collectable collectable,
             Class<? extends ElementViewer> viewerClass,
             Class<? extends Collectable> collectableClass,
@@ -165,7 +165,7 @@ public class GameViewerTest {
     }
 
     @Test
-    void testDrawCollectableUnknown() {
+    public void testDrawCollectableUnknown() {
         Ship ship = Mockito.mock(Ship.class);
         when(ship.getHealth()).thenReturn(100);
         when(arena.getShip()).thenReturn(ship);

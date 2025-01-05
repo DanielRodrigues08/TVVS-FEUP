@@ -89,20 +89,20 @@ public class StartMenuControllerTest {
     }
 
     @BeforeAll
-    static void setup() {
+    public static void setup() {
         mockSoundManager = mock(SoundManager.class);
         mockedStatic = mockStatic(SoundManager.class);
         mockedStatic.when(SoundManager::getInstance).thenReturn(mockSoundManager);
     }
 
     @AfterAll
-    static void cleanup() {
+    public static void cleanup() {
         mockedStatic.close();
     }
 
     @ParameterizedTest
     @MethodSource("valuesTestStep")
-    void testStep(KeyStroke key, int numSoundSwitch, int nextOption, int previousOption, StartMenu menu, GameStates state, int numState) {
+    public void testStep(KeyStroke key, int numSoundSwitch, int nextOption, int previousOption, StartMenu menu, GameStates state, int numState) {
         StartMenuController controller = new StartMenuController(menu);
         clearInvocations(menu, game, mockSoundManager);
 

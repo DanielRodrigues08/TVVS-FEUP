@@ -21,13 +21,13 @@ class GodModeCollectableTest {
     private Position position;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         ship = new Ship(position, 0, 0);
         godModeCollectable = new GodModeCollectable(position, ship);
     }
 
     @Test
-    void testExecute() {
+    public void testExecute() {
         godModeCollectable.execute();
 
         assertEquals(ShipMode.GOD_MODE, ship.getShipMode());

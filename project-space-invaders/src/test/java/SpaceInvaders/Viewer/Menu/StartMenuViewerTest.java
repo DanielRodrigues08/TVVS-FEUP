@@ -16,14 +16,14 @@ public class StartMenuViewerTest {
     private StartMenu menu;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         menu = Mockito.mock(StartMenu.class);
         viewer = new StartMenuViewer(menu);
         gui = Mockito.mock(GUI.class);
     }
 
     @Test
-    void testDrawElements() {
+    public void testDrawElements() {
         when(menu.getNumberOptions()).thenReturn(2);
         when(menu.getOption(0)).thenReturn("Start Game");
         when(menu.getOption(1)).thenReturn("Exit");
@@ -38,13 +38,13 @@ public class StartMenuViewerTest {
     }
 
     @Test
-    void testGetReferenceX(){
+    public void testGetReferenceX(){
         int expectedX = 35;
         assertEquals(expectedX, viewer.getReference_x());
     }
 
     @Test
-    void testGetReferenceY(){
+    public void testGetReferenceY(){
         int expectedY = 13;
         assertEquals(expectedY, viewer.getReference_y());
     }

@@ -13,14 +13,14 @@ public class WallViewerTest {
     private Wall wall;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         viewer = new WallViewer();
         gui = Mockito.mock(GUI.class);
         wall = Mockito.mock(Wall.class);
     }
 
     @Test
-    void testDraw() {
+    public void testDraw() {
         Position position = new Position(10, 20);
         Mockito.when(wall.getPosition()).thenReturn(position);
 

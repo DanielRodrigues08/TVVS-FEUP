@@ -10,30 +10,30 @@ class PauseMenuTest {
     private PauseMenu pauseMenu;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         pauseMenu = new PauseMenu();
     }
 
     @Test
-    void testIsSelectedContinue() {
+    public void testIsSelectedContinue() {
         assertTrue(pauseMenu.isSelectedContinue());
     }
 
     @Test
-    void testIsSelectedInstructions() {
+    public void testIsSelectedInstructions() {
         pauseMenu.nextOption();
         assertTrue(pauseMenu.isSelectedInstructions());
     }
 
     @Test
-    void testIsSelectedRestart() {
+    public void testIsSelectedRestart() {
         pauseMenu.nextOption();
         pauseMenu.nextOption();
         assertTrue(pauseMenu.isSelectedRestart());
     }
 
     @Test
-    void testIsSelectedExit() {
+    public void testIsSelectedExit() {
         pauseMenu.nextOption();
         pauseMenu.nextOption();
         pauseMenu.nextOption();
@@ -41,7 +41,7 @@ class PauseMenuTest {
     }
 
     @Test
-    void testNextOption() {
+    public void testNextOption() {
         pauseMenu.nextOption();
         assertTrue(pauseMenu.isSelectedInstructions());
         pauseMenu.nextOption();
@@ -53,7 +53,7 @@ class PauseMenuTest {
     }
 
     @Test
-    void testPreviousOption() {
+    public void testPreviousOption() {
         pauseMenu.previousOption();
         assertTrue(pauseMenu.isSelectedExit());
         pauseMenu.previousOption();

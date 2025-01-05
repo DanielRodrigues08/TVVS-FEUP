@@ -52,49 +52,49 @@ class ArenaTest {
     }
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         arena = new Arena(WIDTH, HEIGHT);
     }
 
     @Test
-    void testGetWidth() {
+    public void testGetWidth() {
         assertEquals(WIDTH, arena.getWidth());
     }
 
     @Test
-    void testGetHeight() {
+    public void testGetHeight() {
         assertEquals(HEIGHT, arena.getHeight());
     }
 
     @Test
-    void testGetRound() {
+    public void testGetRound() {
         int numExpected = 2;
         arena.setRound(numExpected);
         assertEquals(numExpected, arena.getRound());
     }
 
     @Test
-    void testGetScore() {
+    public void testGetScore() {
         int scoreExpected = 0;
         assertEquals(scoreExpected, arena.getScore());
     }
 
     @Test
-    void testIncreaseScore() {
+    public void testIncreaseScore() {
         int scoreExpected = 10;
         arena.increaseScore(scoreExpected);
         assertEquals(scoreExpected, arena.getScore());
     }
 
     @Test
-    void testGetShip() {
+    public void testGetShip() {
         var ship = mock(Ship.class);
         arena.setShip(ship);
         assertSame(ship, arena.getShip());
     }
 
     @Test
-    void testGetAliens() {
+    public void testGetAliens() {
         var alien = mock(Alien.class);
         List<Alien> aliens = List.of(alien);
         arena.setAliens(aliens);
@@ -102,7 +102,7 @@ class ArenaTest {
     }
 
     @Test
-    void testGetWalls() {
+    public void testGetWalls() {
         var wall = mock(Wall.class);
         List<Wall> walls = List.of(wall);
         arena.setWalls(walls);
@@ -110,7 +110,7 @@ class ArenaTest {
     }
 
     @Test
-    void testGetCoverWalls() {
+    public void testGetCoverWalls() {
         var coverWall = mock(CoverWall.class);
         List<CoverWall> coverWalls = List.of(coverWall);
         arena.setCoverWalls(coverWalls);
@@ -118,7 +118,7 @@ class ArenaTest {
     }
 
     @Test
-    void testGetProjectiles() {
+    public void testGetProjectiles() {
         var projectile = mock(Projectile.class);
         List<Projectile> projectiles = List.of(projectile);
         arena.setProjectiles(projectiles);
@@ -126,21 +126,21 @@ class ArenaTest {
     }
 
     @Test
-    void testGetAlienShip() {
+    public void testGetAlienShip() {
         var alienShip = mock(AlienShip.class);
         arena.setAlienShip(alienShip);
         assertSame(alienShip, arena.getAlienShip());
     }
 
     @Test
-    void testGetActiveCollectable() {
+    public void testGetActiveCollectable() {
         var collectable = mock(Collectable.class);
         arena.setActiveCollectable(collectable);
         assertSame(collectable, arena.getActiveCollectable());
     }
 
     @Test
-    void testGetAttackingAliens() {
+    public void testGetAttackingAliens() {
         var alien1 = mock(Alien.class);
         var alien2 = mock(Alien.class);
         when(alien1.getAlienState()).thenReturn(AlienState.ATTACKING);
@@ -156,7 +156,7 @@ class ArenaTest {
 
     @ParameterizedTest
     @MethodSource("valuesFreeArenaPosition")
-    void testFreeArenaPosition(Position position, List<Alien> aliens, List<CoverWall> coverWalls, AlienShip alienShip, boolean expected) {
+    public void testFreeArenaPosition(Position position, List<Alien> aliens, List<CoverWall> coverWalls, AlienShip alienShip, boolean expected) {
         arena.setAliens(aliens);
         arena.setCoverWalls(coverWalls);
         arena.setAlienShip(alienShip);
@@ -164,7 +164,7 @@ class ArenaTest {
     }
 
     @Test
-    void testGetFreeArenaColumns(){
+    public void testGetFreeArenaColumns(){
         List<Integer> expected = List.of(0, 3, 4);
         var alien1 = mock(Alien.class);
         var alien2 = mock(Alien.class);

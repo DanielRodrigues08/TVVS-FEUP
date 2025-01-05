@@ -19,21 +19,21 @@ class CollectableFactoryTest {
     private List<Alien> aliens;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         position = mock(Position.class);
         ship = mock(Ship.class);
         aliens = List.of(mock(Alien.class), mock(Alien.class));
     }
 
     @Test
-    void testCreateHealthCollectable() {
+    public void testCreateHealthCollectable() {
         CollectableFactory<Ship> factory = new CollectableFactory<>(position, CollectableType.HEALTH, 0, ship);
         Collectable collectable = factory.createCollectable();
         assertInstanceOf(HealthCollectable.class, collectable);
     }
 
     @Test
-    void testCreateDamageCollectable() {
+    public void testCreateDamageCollectable() {
         CollectableFactory<Ship> factory = new CollectableFactory<>(position, CollectableType.DAMAGE, 2, ship);
         Collectable collectable = factory.createCollectable();
         assertInstanceOf(DamageCollectable.class, collectable);
@@ -41,7 +41,7 @@ class CollectableFactoryTest {
     }
 
     @Test
-    void testCreateScoreCollectable() {
+    public void testCreateScoreCollectable() {
         CollectableFactory<List<Alien>> factory = new CollectableFactory<>(position, CollectableType.SCORE, 3, aliens);
         Collectable collectable = factory.createCollectable();
         assertTrue(collectable instanceof ScoreCollectable);
@@ -49,14 +49,14 @@ class CollectableFactoryTest {
     }
 
     @Test
-    void testCreateMachineGunModeCollectable() {
+    public void testCreateMachineGunModeCollectable() {
         CollectableFactory<Ship> factory = new CollectableFactory<>(position, CollectableType.MACHINE_GUN_MODE, 0, ship);
         Collectable collectable = factory.createCollectable();
         assertInstanceOf(MachineGunModeCollectable.class, collectable);
     }
 
     @Test
-    void testCreateGodModeCollectable() {
+    public void testCreateGodModeCollectable() {
         CollectableFactory<Ship> factory = new CollectableFactory<>(position, CollectableType.GOD_MODE, 0, ship);
         Collectable collectable = factory.createCollectable();
         assertInstanceOf(GodModeCollectable.class, collectable);

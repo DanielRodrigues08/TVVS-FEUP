@@ -50,7 +50,7 @@ public class OnlyTextMenuControllerTest {
 
     @ParameterizedTest
     @MethodSource("valuesTestStep")
-    void testStep(KeyStroke key, int expected) throws IOException, URISyntaxException {
+    public void testStep(KeyStroke key, int expected) throws IOException, URISyntaxException {
         assertDoesNotThrow(() -> controller.step(game, key, 0));
 
         verify(game, times(expected)).setPrevState();

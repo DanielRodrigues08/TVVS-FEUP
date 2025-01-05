@@ -1,11 +1,15 @@
 package SpaceInvaders.Model.Game.RegularGameElements;
 
+import SpaceInvaders.Model.Game.Element;
 import SpaceInvaders.Model.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.lang.reflect.Field;
+
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AlienTest {
@@ -13,13 +17,13 @@ class AlienTest {
     private Alien alien;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         alien = new Alien(new Position(1, 1), 1, 1, 1, AlienState.PASSIVE, 0);
     }
 
     @ParameterizedTest
     @CsvSource({"3, 0, 2, 2"})
-    void testAlien(int Type, int expectedType) {
+    public void testAlien(int Type, int expectedType) {
         Alien alien1 = new Alien(new Position(1, 1), 1, 1, 1, AlienState.PASSIVE, Type);
         assertEquals(expectedType, alien1.getType());
     }
@@ -31,7 +35,7 @@ class AlienTest {
             "SCORE_4X, 4",
             "SCORE_5X, 5",
             "SCORE_10X, 10"})
-    void testGetScore(AlienMode alienMode, int expectedScore) {
+    public void testGetScore(AlienMode alienMode, int expectedScore) {
         alien.setAlienMode(alienMode);
         assertEquals(expectedScore, alien.getScore());
     }
@@ -58,5 +62,14 @@ class AlienTest {
     public void testScore() {
         alien.setScore(2);
         assertEquals(2, alien.getScore());
+    }
+
+    @Test
+    public void testGetType() {
+        int expected = 3;
+        Field field = assertDoesNotThrow(() -> Alien.class.getDeclaredField("Type"));
+        field.setAccessible(true);
+        assertDoesNotThrow(() -> field.set(alien, expected));
+        assertEquals(expected, alien.getType());
     }
 }

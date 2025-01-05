@@ -15,14 +15,14 @@ public class GameOverMenuViewerTest {
     private GameOverMenu menu;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         menu = Mockito.mock(GameOverMenu.class);
         viewer = new GameOverMenuViewer(menu);
         gui = Mockito.mock(GUI.class);
     }
 
     @Test
-    void testDrawElements() {
+    public void testDrawElements() {
         when(menu.getScore()).thenReturn(1000);
         when(menu.getUsername()).thenReturn("Player1");
         when(menu.getNumberOptions()).thenReturn(2);

@@ -17,14 +17,14 @@ public class LeaderboardViewerTest {
     private Leaderboard leaderboard;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         leaderboard = Mockito.mock(Leaderboard.class);
         viewer = new LeaderboardViewer(leaderboard);
         gui = Mockito.mock(GUI.class);
     }
 
     @Test
-    void testDrawElements() {
+    public void testDrawElements() {
         when(leaderboard.getText()).thenReturn(List.of("Player1 - 1000", "Player2 - 900", "Player3 - 800"));
 
         viewer.drawElements(gui, 1000);
@@ -36,7 +36,7 @@ public class LeaderboardViewerTest {
     }
 
     @Test
-    void testDrawFileText() {
+    public void testDrawFileText() {
         when(leaderboard.getText()).thenReturn(List.of("Player1 - 1000", "Player2 - 900", "Player3 - 800"));
 
         viewer.drawFileText(gui);

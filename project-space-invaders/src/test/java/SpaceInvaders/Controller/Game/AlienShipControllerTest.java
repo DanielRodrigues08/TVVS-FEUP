@@ -203,7 +203,7 @@ public class AlienShipControllerTest {
     }
 
     @Test
-    public void generateAlienShipTest() {
+    public void testGenerateAlienShip() {
         arenaSpy.setAlienShip(null);
 
         alienShipController.generateAlienShip();
@@ -215,7 +215,7 @@ public class AlienShipControllerTest {
 
     @ParameterizedTest
     @MethodSource("canMoveAlienShipValues")
-    public void canMoveAlienShipTest(Position position, boolean expected) {
+    public void testCanMoveAlienShip(Position position, boolean expected) {
         AlienShip alienShipMock = mock(AlienShip.class);
         doReturn(alienShipMock).when(arenaSpy).getAlienShip();
         when(alienShipMock.getPosition()).thenReturn(position);
@@ -226,7 +226,7 @@ public class AlienShipControllerTest {
     }
 
     @Test
-    public void removeAlienShipTestNotDestroyedTest() {
+    public void testRemoveAlienShipTestNotDestroyed() {
         var alienShip = mock(AlienShip.class);
         when(alienShip.isDestroyed()).thenReturn(false);
         arenaSpy.setAlienShip(alienShip);
@@ -237,14 +237,14 @@ public class AlienShipControllerTest {
     }
 
     @Test
-    public void removeNullAlienShipTest() {
+    public void testRemoveNullAlienShip() {
         alienShipController.removeAlienShip();
 
         assertNull(arenaSpy.getAlienShip());
     }
 
     @Test
-    public void removeAlienShipTestDestroyedTest() {
+    public void testRemoveAlienShipTestDestroyed() {
         var alienShip = mock(AlienShip.class);
         when(alienShip.isDestroyed()).thenReturn(true);
         arenaSpy.setAlienShip(alienShip);
@@ -258,7 +258,7 @@ public class AlienShipControllerTest {
     }
 
     @Test
-    public void moveShipTrueTest() {
+    public void testMoveShipTrue() {
         Position initPosition = new Position(2, 1);
         int movementDirection = 1;
         Position expectedPosition = new Position(initPosition.getX() + movementDirection, initPosition.getY());
@@ -273,7 +273,7 @@ public class AlienShipControllerTest {
     }
 
     @Test
-    public void moveShipFalseTest() {
+    public void testMoveShipFalse() {
         var alienShip = mock(AlienShip.class);
         when(alienShip.getPosition()).thenReturn(new Position(1, 1));
 
@@ -290,7 +290,7 @@ public class AlienShipControllerTest {
 
     @ParameterizedTest
     @CsvSource({"1, 1, 0, 1", "2, 1, 1, 0"})
-    public void hitByProjectileTest(int initialHealth, int damage, int expectedHealth, int expectedScore) {
+    public void testHitByProjectile(int initialHealth, int damage, int expectedHealth, int expectedScore) {
         AlienShip alienShip = new AlienShip(new Position(1, 1), initialHealth, 1, 1);
         arenaSpy.setAlienShip(alienShip);
         arenaSpy.increaseScore(-arenaSpy.getScore());

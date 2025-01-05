@@ -14,13 +14,13 @@ public class AlienViewerTest {
     private Alien alien;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         gui = Mockito.mock(GUI.class);
         alien = Mockito.mock(Alien.class);
     }
 
     @Test
-    void testDrawWithCharChoice0() {
+    public void testDrawWithCharChoice0() {
         AlienViewer viewer = new AlienViewer(0);
         Position position = new Position(10, 20);
         Mockito.when(alien.getPosition()).thenReturn(position);
@@ -32,7 +32,7 @@ public class AlienViewerTest {
     }
 
     @Test
-    void testDrawWithCharChoice1() {
+    public void testDrawWithCharChoice1() {
         AlienViewer viewer = new AlienViewer(1);
         Position position = new Position(10, 20);
         Mockito.when(alien.getPosition()).thenReturn(position);
@@ -44,7 +44,7 @@ public class AlienViewerTest {
     }
 
     @Test
-    void testDrawWithCharChoice2() {
+    public void testDrawWithCharChoice2() {
         AlienViewer viewer = new AlienViewer(2);
         Position position = new Position(10, 20);
         Mockito.when(alien.getPosition()).thenReturn(position);

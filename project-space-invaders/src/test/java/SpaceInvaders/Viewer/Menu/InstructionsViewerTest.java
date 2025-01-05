@@ -18,14 +18,14 @@ public class InstructionsViewerTest {
     private Instructions instructions;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         instructions = Mockito.mock(Instructions.class);
         viewer = new InstructionsViewer(instructions);
         gui = Mockito.mock(GUI.class);
     }
 
     @Test
-    void testDrawElements() throws IOException {
+    public void testDrawElements() throws IOException {
         when(instructions.getText()).thenReturn(List.of("Some instruction text"));
 
         viewer.drawElements(gui, 1000);
@@ -35,7 +35,7 @@ public class InstructionsViewerTest {
     }
 
     @Test
-    void testDrawFileText() throws IOException {
+    public void testDrawFileText() throws IOException {
         when(instructions.getText()).thenReturn(List.of("Some instruction text"));
 
         viewer.drawFileText(gui);

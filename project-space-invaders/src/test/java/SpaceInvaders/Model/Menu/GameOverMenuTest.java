@@ -10,22 +10,22 @@ class GameOverMenuTest {
     private GameOverMenu gameOverMenu;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         gameOverMenu = new GameOverMenu(100);
     }
 
     @Test
-    void testGetScore() {
+    public void testGetScore() {
         assertEquals(100, gameOverMenu.getScore());
     }
 
     @Test
-    void testGetUsername() {
+    public void testGetUsername() {
         assertEquals("", gameOverMenu.getUsername());
     }
 
     @Test
-    void testAddLetter() {
+    public void testAddLetter() {
         gameOverMenu.addLetter('A');
         assertEquals("A", gameOverMenu.getUsername());
         gameOverMenu.addLetter('B');
@@ -33,7 +33,7 @@ class GameOverMenuTest {
     }
 
     @Test
-    void testAddLetterLimit() {
+    public void testAddLetterLimit() {
         gameOverMenu.addLetter('A');
         gameOverMenu.addLetter('B');
         gameOverMenu.addLetter('C');
@@ -45,7 +45,7 @@ class GameOverMenuTest {
     }
 
     @Test
-    void testRemoveLetter() {
+    public void testRemoveLetter() {
         gameOverMenu.addLetter('A');
         gameOverMenu.addLetter('B');
         gameOverMenu.removeLetter();
@@ -55,18 +55,18 @@ class GameOverMenuTest {
     }
 
     @Test
-    void testRemoveLetterEmpty() {
+    public void testRemoveLetterEmpty() {
         gameOverMenu.removeLetter();
         assertEquals("", gameOverMenu.getUsername());
     }
 
     @Test
-    void testIsSelectedRestart() {
+    public void testIsSelectedRestart() {
         assertTrue(gameOverMenu.isSelectedRestart());
     }
 
     @Test
-    void testIsSelectedRestartOverflow() {
+    public void testIsSelectedRestartOverflow() {
         gameOverMenu.nextOption();
         gameOverMenu.nextOption();
         gameOverMenu.nextOption();
@@ -74,20 +74,20 @@ class GameOverMenuTest {
     }
 
     @Test
-    void testIsSelectedLeaderboard() {
+    public void testIsSelectedLeaderboard() {
         gameOverMenu.nextOption();
         assertTrue(gameOverMenu.isSelectedLeaderboard());
     }
 
     @Test
-    void testIsSelectedExit() {
+    public void testIsSelectedExit() {
         gameOverMenu.nextOption();
         gameOverMenu.nextOption();
         assertTrue(gameOverMenu.isSelectedExit());
     }
 
     @Test
-    void testSetUsername() {
+    public void testSetUsername() {
         StringBuilder username = new StringBuilder("ABC");
         gameOverMenu.setUsername(username);
         assertEquals("ABC", gameOverMenu.getUsername());

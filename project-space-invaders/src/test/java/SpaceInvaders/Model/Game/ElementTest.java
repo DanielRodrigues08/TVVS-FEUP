@@ -29,7 +29,7 @@ class ElementTest {
     }
 
     @Test
-    void testGetPosition() {
+    public void testGetPosition() {
         Position position = new Position(1, 2);
         Element element = new Element(position) {
         };
@@ -37,7 +37,7 @@ class ElementTest {
     }
 
     @Test
-    void testSetPosition() {
+    public void testSetPosition() {
         Position position = new Position(1, 2);
         Element element = new Element(position) {
         };
@@ -48,12 +48,12 @@ class ElementTest {
 
     @ParameterizedTest
     @MethodSource("provideEqualsTestCases")
-    void testEquals(Element o1, Object o2, boolean expected) {
+    public void testEquals(Element o1, Object o2, boolean expected) {
         assertEquals(expected, o1.equals(o2));
     }
 
     @Test
-    void testHashCode() {
+    public void testHashCode() {
         Position position = new Position(1, 2);
         Element element = new Element(position) {
         };
