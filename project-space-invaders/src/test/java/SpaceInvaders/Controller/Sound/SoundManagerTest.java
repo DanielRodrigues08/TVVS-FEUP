@@ -2,9 +2,8 @@ package SpaceInvaders.Controller.Sound;
 
 import SpaceInvaders.Model.Sound.Sound;
 import SpaceInvaders.Model.Sound.Sound_Options;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -12,6 +11,8 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.mockito.MockedConstruction;
 import org.mockito.MockedStatic;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -24,20 +25,21 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 public class SoundManagerTest {
 
-    private static MockedStatic<SoundManager> mockedStatic;
-    private static SoundManager mockSoundManager;
-    private static Sound laser;
-    private static Sound dyingSound;
-    private static Sound switchOption;
-    private static Sound backgroundMusic;
-    private static Sound collectableSound;
-    private static Sound alienShipLowPitch;
-    private static Sound alienShipHighPitch;
+    private MockedStatic<SoundManager> mockedStatic;
+    private SoundManager mockSoundManager;
+    private Sound laser;
+    private Sound dyingSound;
+    private Sound switchOption;
+    private Sound backgroundMusic;
+    private Sound collectableSound;
+    private Sound alienShipLowPitch;
+    private Sound alienShipHighPitch;
 
-    @BeforeAll
-    static void setUp() {
+    @BeforeEach
+    void setUp() {
         // Create mock instances
         laser = mock(Sound.class);
         dyingSound = mock(Sound.class);
@@ -76,10 +78,6 @@ public class SoundManagerTest {
         mockSoundManager.setSwitchOption(switchOption);
     }
 
-    @AfterAll
-    static void cleanup() {
-        mockedStatic.close();
-    }
 
     @ParameterizedTest
     @CsvSource({
@@ -101,11 +99,15 @@ public class SoundManagerTest {
         verify(collectableSound, times(numCollectable)).play();
         verify(alienShipLowPitch, times(numAlienShipLow)).playContinuously();
         verify(alienShipHighPitch, times(numAlienShipHigh)).playContinuously();
+        mockedStatic.close();
+
     }
 
     @Test
     void testPlaySoundNull() {
         assertThrows(Exception.class, () -> mockSoundManager.playSound(null));
+        mockedStatic.close();
+
     }
 
     @ParameterizedTest
@@ -128,17 +130,23 @@ public class SoundManagerTest {
         verify(collectableSound, times(numCollectable)).stop();
         verify(alienShipLowPitch, times(numAlienShipLow)).stop();
         verify(alienShipHighPitch, times(numAlienShipHigh)).stop();
+        mockedStatic.close();
+
     }
 
     @Test
     void testStopSoundNull() {
         assertThrows(Exception.class, () -> mockSoundManager.stopSound(null));
+        mockedStatic.close();
+
     }
 
     @Test
     void testResumePlayingMusic() {
         mockSoundManager.resumePlayingMusic();
         verify(backgroundMusic).resumePlaying();
+        mockedStatic.close();
+
     }
 
     @Test
@@ -146,6 +154,8 @@ public class SoundManagerTest {
         mockSoundManager.resumePlayingAlienShipSound();
         verify(alienShipLowPitch).resumePlaying();
         verify(alienShipHighPitch).resumePlaying();
+        mockedStatic.close();
+
     }
 
     @Test
@@ -158,6 +168,8 @@ public class SoundManagerTest {
         verify(collectableSound).stop();
         verify(alienShipLowPitch).stop();
         verify(alienShipHighPitch).stop();
+        mockedStatic.close();
+
     }
 
     @Test
@@ -188,10 +200,14 @@ public class SoundManagerTest {
         assertTrue(constructedSounds.stream().allMatch(sound -> sound instanceof Sound));
 
         mockedSound.close();
+        mockedStatic.close();
+
     }
 
     @Test
     void testGetInstance() {
+        mockedStatic.close();
+
         Field instance = assertDoesNotThrow(() -> SoundManager.class.getDeclaredField("soundManager"));
         instance.setAccessible(true);
         assertDoesNotThrow(() -> instance.set(null, null));

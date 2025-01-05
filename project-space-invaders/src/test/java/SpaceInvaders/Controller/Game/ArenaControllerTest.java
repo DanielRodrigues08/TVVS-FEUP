@@ -448,10 +448,12 @@ class ArenaControllerTest {
 
     @Test
     void testSetTimers() {
-        int init = 1;
+        int pauseGameTime = 10;
+        int init = 10;
         int delta = 1000;
-        int expected = init + delta;
+        int expected = (init + delta) - pauseGameTime;
 
+        controller.setPauseGameTime(pauseGameTime);
 
         ShipController realShipController = new ShipController(arena);
         AlienController realAlienController = new AlienController(arena);
@@ -581,10 +583,14 @@ class ArenaControllerTest {
         when(arena.getProjectiles()).thenReturn(projectiles);
         when(arena.getCoverWalls()).thenReturn(walls);
 
+        var controllerSpy = spy(controller);
 
-        controller.projectileCollisionsWithCoverWalls();
+        controllerSpy.projectileCollisionsWithCoverWalls();
 
-        expectedCollisions.forEach((wall, hitProjectiles) -> hitProjectiles.forEach(projectile -> verify(arenaModifier).removeProjectile(projectile)));
+        expectedCollisions.forEach((wall, hitProjectiles) -> hitProjectiles.forEach(projectile -> {
+            verify(arenaModifier).removeProjectile(projectile);
+            verify(controllerSpy).coverWallHitByProjectile(wall, projectile);
+        }));
         verifyNoMoreInteractions(arenaModifier);
     }
 
@@ -706,9 +712,33 @@ class ArenaControllerTest {
     }
 
     @Test
-    void testGetSetPause(){
+    void testGetSetPause() {
         long time = 1000;
         controller.setPauseGameTime(time);
         assertEquals(time, controller.getPauseGameTime());
+    }
+
+    @Test
+    public void testCoverWallHitByProjectile(){
+        int expectedHealth = 10;
+        CoverWall wall = new CoverWall(mock(Position.class), 20);
+        Projectile projectile = mock(Projectile.class);
+        when(projectile.getElement()).thenReturn(mock(AttackingElement.class));
+        when(projectile.getElement().getDamagePerShot()).thenReturn(10);
+
+        controller.coverWallHitByProjectile(wall, projectile);
+
+        assertEquals(expectedHealth, wall.getHealth());
+    }
+
+    @Test
+    public void testRemoveDestroyedElements(){
+        var controllerSpy = spy(controller);
+
+        controllerSpy.removeDestroyedElements();
+
+        verify(controllerSpy).removeDestroyedCoverWalls();
+        verify(alienController).removeDestroyedAliens();
+        verify(alienShipController).removeAlienShip();
     }
 }

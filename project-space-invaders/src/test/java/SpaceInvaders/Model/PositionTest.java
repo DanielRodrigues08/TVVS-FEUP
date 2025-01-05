@@ -1,13 +1,29 @@
 package SpaceInvaders.Model;
 
-import SpaceInvaders.Model.Position;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.util.stream.Stream;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class PositionTest {
+
+    private static Stream<Arguments> positionEqualityTestCases() {
+        Position samePosition = new Position(5, 10);
+        return Stream.of(
+                // format: x1, y1, object2, expectedResult, testCase
+                Arguments.of(5, 10, new Position(5, 10), true),
+                Arguments.of(5, 10, samePosition, true),
+                Arguments.of(5, 10, new Object(), false),
+                Arguments.of(6, 10, new Position(5, 10), false),
+                Arguments.of(5, 11, new Position(5, 10), false),
+                Arguments.of(5, 10, null, false)
+        );
+    }
 
     @Test
     void testPositionCreation() {
@@ -16,51 +32,21 @@ class PositionTest {
         assertEquals(10, position.getY());
     }
 
-    @Test
-    void testPositionEquality() {
-        Position position1 = new Position(5, 10);
-        Position position2 = new Position(5, 10);
-
-        assertEquals(position1, position2);
-    }
-
-    @Test
-    void testPositionEqualitySameObject() {
-        Position position1 = new Position(5, 10);
-
-        assertEquals(position1, position1);
-    }
-
-    @Test
-    void testPositionEqualityDifferentClass() {
-        Position position1 = new Position(5, 10);
-        Object object = new Object();
-        assertFalse(position1.equals(object));
+    @ParameterizedTest
+    @CsvSource({"0, 0, 961",           // Origin point
+            "10, 10, 1281",       // Positive numbers
+            "-10, -10, 641",    // Negative numbers
+    })
+    void testPositionHashCode(int x1, int y1, int expected) {
+        Position position1 = new Position(x1, y1);
+        assertEquals(expected, position1.hashCode());
     }
 
     @ParameterizedTest
-    @CsvSource({"6, 10, 5, 10", "5, 11, 5, 10", "5, 11, 10, 6"})
-    void testPositionInequality(int x1, int y1, int x2, int y2) {
+    @MethodSource("positionEqualityTestCases")
+    void testPositionEquality(int x1, int y1, Object obj2, boolean expected) {
         Position position1 = new Position(x1, y1);
-        Position position2 = new Position(x2, y2);
 
-        assertNotEquals(position1, position2);
-    }
-
-
-    @Test
-    void testPositionHashCode() {
-        Position position1 = new Position(5, 10);
-        Position position2 = new Position(5, 10);
-
-        assertEquals(position1.hashCode(), position2.hashCode());
-    }
-
-    @Test
-    void testPositionInequality() {
-        Position position1 = new Position(5, 10);
-        Position position2 = new Position(10, 5);
-
-        assertNotEquals(position1, position2);
+        assertEquals(expected, position1.equals(obj2));
     }
 }

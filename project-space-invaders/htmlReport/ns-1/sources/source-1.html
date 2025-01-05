@@ -5,7 +5,7 @@
 <html id="htmlId">
 <head>
   <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
-  <title>Coverage Report > AlienController</title>
+  <title>Coverage Report > SoundManager</title>
   <style type="text/css">
     @import "../../css/coverage.css";
     @import "../../css/idea.min.css";
@@ -19,10 +19,10 @@
 <div class="breadCrumbs">
 Current scope:     <a href="../../index.html">all classes</a>
     <span class="separator">|</span>
-    <a href="../index.html">SpaceInvaders.Controller.Game</a>
+    <a href="../index.html">SpaceInvaders.Controller.Sound</a>
 </div>
 
-<h1>Coverage Summary for Class: AlienController (SpaceInvaders.Controller.Game)</h1>
+<h1>Coverage Summary for Class: SoundManager (SpaceInvaders.Controller.Sound)</h1>
 
 <table class="coverageStats">
 
@@ -42,34 +42,34 @@ Current scope:     <a href="../../index.html">all classes</a>
 </th>
 </tr>
 <tr>
-  <td class="name">AlienController</td>
+  <td class="name">SoundManager</td>
 <td class="coverageStat">
   <span class="percent">
-    27.8%
+    64.3%
   </span>
   <span class="absValue">
-    (5/18)
+    (9/14)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    12.5%
   </span>
   <span class="absValue">
-    (0/37)
+    (2/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    13.1%
+    40.9%
   </span>
   <span class="absValue">
-    (8/61)
+    (18/44)
   </span>
 </td>
 </tr>
   <tr>
-    <td class="name">AlienController$1</td>
+    <td class="name">SoundManager$1</td>
 <td class="coverageStat">
   <span class="percent">
     0%
@@ -91,26 +91,26 @@ Current scope:     <a href="../../index.html">all classes</a>
   <td class="name"><strong>Total</strong></td>
 <td class="coverageStat">
   <span class="percent">
-    26.3%
+    60%
   </span>
   <span class="absValue">
-    (5/19)
+    (9/15)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    0%
+    12.5%
   </span>
   <span class="absValue">
-    (0/37)
+    (2/16)
   </span>
 </td>
 <td class="coverageStat">
   <span class="percent">
-    12.9%
+    40%
   </span>
   <span class="absValue">
-    (8/62)
+    (18/45)
   </span>
 </td>
 </tr>
@@ -121,177 +121,112 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 
 <pre>
-<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Controller.Game;
+<code class="sourceCode" id="sourceCode">&nbsp;package SpaceInvaders.Controller.Sound;
 &nbsp;
-&nbsp;import SpaceInvaders.Controller.Sound.SoundManager;
-&nbsp;import SpaceInvaders.Game;
-&nbsp;import SpaceInvaders.Model.Game.Arena;
-&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Alien;
-&nbsp;import SpaceInvaders.Model.Game.RegularGameElements.Projectile;
-&nbsp;import SpaceInvaders.Model.Position;
+&nbsp;import SpaceInvaders.Model.Sound.Sound;
 &nbsp;import SpaceInvaders.Model.Sound.Sound_Options;
-&nbsp;import com.googlecode.lanterna.input.KeyStroke;
 &nbsp;
-&nbsp;import java.util.List;
-&nbsp;import java.util.Random;
+&nbsp;import javax.sound.sampled.FloatControl;
 &nbsp;
+&nbsp;public class SoundManager {
+&nbsp;    private Sound laser;
+&nbsp;    private Sound dyingSound;
+&nbsp;    private Sound switchOption;
+&nbsp;    private Sound backgroundMusic;
+&nbsp;    private Sound collectableSound;
+&nbsp;    private Sound alienShipLowPitch;
+&nbsp;    private Sound alienShipHighPitch;
+&nbsp;    private static SoundManager soundManager;
 &nbsp;
-&nbsp;
-&nbsp;public class AlienController extends GameController {
-&nbsp;
-&nbsp;    private MovementDirection movementDirection;
-&nbsp;
-&nbsp;    private long lastMovementTime;
-&nbsp;
-&nbsp;    private long lastShotTime;
-&nbsp;
-&nbsp;    public AlienController(Arena arena) {
-<b class="fc">&nbsp;        super(arena);</b>
-<b class="fc">&nbsp;        this.movementDirection = MovementDirection.RIGHT;</b>
-<b class="fc">&nbsp;        this.lastMovementTime = 0;</b>
-<b class="fc">&nbsp;        this.lastShotTime = 0;</b>
+<b class="fc">&nbsp;    private SoundManager(){</b>
+<b class="fc">&nbsp;            this.laser = new Sound(&quot;src/main/resources/sounds/shoot.wav&quot;);</b>
+<b class="fc">&nbsp;            this.dyingSound = new Sound(&quot;src/main/resources/sounds/invaderkilled.wav&quot;);</b>
+<b class="fc">&nbsp;            this.switchOption = new Sound(&quot;src/main/resources/sounds/Menu_option.wav&quot;);</b>
+<b class="fc">&nbsp;            this.backgroundMusic = new Sound(&quot;src/main/resources/sounds/spaceinvaders1.wav&quot;);</b>
+<b class="fc">&nbsp;            this.collectableSound = new Sound(&quot;src/main/resources/sounds/Collectable.wav&quot;);</b>
+<b class="fc">&nbsp;            this.alienShipHighPitch = new Sound(&quot;src/main/resources/sounds/ufo_highpitch.wav&quot;);</b>
+<b class="fc">&nbsp;            this.alienShipLowPitch = new Sound(&quot;src/main/resources/sounds/ufo_lowpitch.wav&quot;);</b>
 &nbsp;    }
 &nbsp;
-&nbsp;
-&nbsp;    public long getLastMovementTime() {
-<b class="fc">&nbsp;        return lastMovementTime;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public long getLastShotTime() {
-<b class="fc">&nbsp;        return lastShotTime;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setLastMovementTime(long lastMovementTime) {
-<b class="fc">&nbsp;        this.lastMovementTime = lastMovementTime;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setLastShotTime(long lastShotTime) {
-<b class="fc">&nbsp;        this.lastShotTime = lastShotTime;</b>
-&nbsp;    }
-&nbsp;
-&nbsp;    public void setMovementDirection(MovementDirection direction){
-<b class="nc">&nbsp;        movementDirection = direction;</b>
-&nbsp;    }
-&nbsp;
-<b class="nc">&nbsp;    public MovementDirection getMovementDirection() {return movementDirection;}</b>
-&nbsp;
-&nbsp;    public boolean canMoveAlien(Alien alien) {
-<b class="nc">&nbsp;       return switch (this.getMovementDirection()) {</b>
-&nbsp;            case LEFT:
-<b class="nc">&nbsp;                yield alien.getPosition().getX() - 3 &gt; 0;</b>
-&nbsp;            case RIGHT:
-<b class="nc">&nbsp;                yield alien.getPosition().getX() + 3 &lt; getModel().getWidth() - 1;</b>
-&nbsp;            case DOWN:
-<b class="nc">&nbsp;                yield true;</b>
-&nbsp;        };
-&nbsp;    }
-&nbsp;
-&nbsp;    public boolean canMoveAliens(){
-<b class="nc">&nbsp;        List&lt;Alien&gt; aliens = getModel().getAliens();</b>
-<b class="nc">&nbsp;        for(Alien alien : aliens){</b>
-<b class="nc">&nbsp;            if(!canMoveAlien(alien)){</b>
-<b class="nc">&nbsp;                return false;</b>
-&nbsp;            }
+&nbsp;    public static SoundManager getInstance(){
+<b class="fc">&nbsp;        if(soundManager == null){</b>
+<b class="fc">&nbsp;            soundManager = new SoundManager();</b>
 &nbsp;        }
-<b class="nc">&nbsp;        return true;</b>
+<b class="fc">&nbsp;        return soundManager;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public void moveAlien(Alien alien){
-<b class="nc">&nbsp;        Position alienPosition = new Position(alien.getPosition().getX(),alien.getPosition().getY());</b>
-<b class="nc">&nbsp;        switch(this.getMovementDirection()){</b>
-&nbsp;            case LEFT:
-<b class="nc">&nbsp;                alien.setPosition(new Position(alienPosition.getX() - 1,alienPosition.getY()));</b>
-&nbsp;                break;
-&nbsp;            case RIGHT:
-<b class="nc">&nbsp;                alien.setPosition(new Position(alienPosition.getX() + 1,alienPosition.getY()));</b>
-&nbsp;                break;
-&nbsp;            case DOWN:
-<b class="nc">&nbsp;                alien.setPosition(new Position(alienPosition.getX(),alienPosition.getY() + 1));</b>
-&nbsp;                break;
+&nbsp;    public void playSound(Sound_Options option){
+<b class="nc">&nbsp;        switch (option){</b>
+<b class="nc">&nbsp;            case MUSIC -&gt; backgroundMusic.playContinuously();</b>
+<b class="nc">&nbsp;            case LASER -&gt; laser.play();</b>
+<b class="nc">&nbsp;            case MENU_SWITCH -&gt; switchOption.play();</b>
+<b class="nc">&nbsp;            case DESTRUCTION -&gt; dyingSound.play();</b>
+<b class="nc">&nbsp;            case COLLECTABLE -&gt; collectableSound.play();</b>
+<b class="nc">&nbsp;            case ALIEN_SHIP_LOW -&gt; alienShipLowPitch.playContinuously();</b>
+<b class="nc">&nbsp;            case ALIEN_SHIP_HIGH -&gt; alienShipHighPitch.playContinuously();</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
-&nbsp;    public void moveAliens(){
-<b class="nc">&nbsp;        List&lt;Alien&gt; aliens = getModel().getAliens();</b>
-<b class="nc">&nbsp;        for(Alien alien : aliens){</b>
-<b class="nc">&nbsp;            moveAlien(alien);</b>
+&nbsp;    public void stopSound(Sound_Options option){
+<b class="nc">&nbsp;        switch (option){</b>
+<b class="nc">&nbsp;            case MUSIC -&gt; backgroundMusic.stop();</b>
+<b class="nc">&nbsp;            case LASER -&gt; laser.stop();</b>
+<b class="nc">&nbsp;            case MENU_SWITCH -&gt; switchOption.stop();</b>
+<b class="nc">&nbsp;            case DESTRUCTION -&gt; dyingSound.stop();</b>
+<b class="nc">&nbsp;            case COLLECTABLE -&gt; collectableSound.stop();</b>
+<b class="nc">&nbsp;            case ALIEN_SHIP_HIGH -&gt; alienShipHighPitch.stop();</b>
+<b class="nc">&nbsp;            case ALIEN_SHIP_LOW -&gt; alienShipLowPitch.stop();</b>
 &nbsp;        }
 &nbsp;    }
 &nbsp;
-&nbsp;    public void shootProjectile(){
-<b class="nc">&nbsp;        List&lt;Alien&gt; attackingAliens = getModel().getAttackingAliens();</b>
-<b class="nc">&nbsp;        if(!getModel().getAttackingAliens().isEmpty()){</b>
-<b class="nc">&nbsp;            Random random = new Random();</b>
-<b class="nc">&nbsp;            int randomIndex = random.nextInt(attackingAliens.size());</b>
-<b class="nc">&nbsp;            Alien randomAlien = attackingAliens.get(randomIndex);</b>
-<b class="nc">&nbsp;            getArenaModifier().addProjectile(new Projectile(randomAlien.getPosition(),randomAlien));</b>
-&nbsp;        }
+&nbsp;    public void resumePlayingMusic(){
+<b class="nc">&nbsp;        backgroundMusic.resumePlaying();</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public void hitByProjectile(Alien alien, Projectile projectile){
-<b class="nc">&nbsp;        alien.decreaseHealth(projectile.getElement().getDamagePerShot());</b>
-<b class="nc">&nbsp;        getModel().increaseScore(alien.getScore());</b>
+&nbsp;    public void resumePlayingAlienShipSound(){
+<b class="nc">&nbsp;        alienShipLowPitch.resumePlaying();</b>
+<b class="nc">&nbsp;        alienShipHighPitch.resumePlaying();</b>
+&nbsp;    }
+&nbsp;    public void stopAllSounds(){
+<b class="nc">&nbsp;        backgroundMusic.stop();</b>
+<b class="nc">&nbsp;        laser.stop();</b>
+<b class="nc">&nbsp;        switchOption.stop();</b>
+<b class="nc">&nbsp;        dyingSound.stop();</b>
+<b class="nc">&nbsp;        collectableSound.stop();</b>
+<b class="nc">&nbsp;        alienShipHighPitch.stop();</b>
+<b class="nc">&nbsp;        alienShipLowPitch.stop();</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public void removeDestroyedAliens(){
-<b class="nc">&nbsp;        List&lt;Alien&gt; aliens = getModel().getAliens();</b>
-<b class="nc">&nbsp;        for(int i = 0; i &lt; aliens.size(); i++){</b>
-<b class="nc">&nbsp;            if(aliens.get(i).isDestroyed()){</b>
-<b class="nc">&nbsp;               getArenaModifier().removeAlien(aliens.get(i));</b>
-<b class="nc">&nbsp;               SoundManager.getInstance().playSound(Sound_Options.DESTRUCTION);</b>
-&nbsp;            }
-&nbsp;        }
+&nbsp;    public void setLaser(Sound laser){
+<b class="fc">&nbsp;        this.laser = laser;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;
-&nbsp;
-&nbsp;    public void updateMovementDirection(){
-<b class="nc">&nbsp;        switch (this.getMovementDirection()){</b>
-&nbsp;            case LEFT:
-<b class="nc">&nbsp;                if(!canMoveAliens()){</b>
-<b class="nc">&nbsp;                    this.movementDirection = MovementDirection.DOWN;</b>
-&nbsp;                }
-&nbsp;                break;
-&nbsp;            case RIGHT:
-<b class="nc">&nbsp;                if(!canMoveAliens()){</b>
-<b class="nc">&nbsp;                    this.movementDirection = MovementDirection.LEFT;</b>
-&nbsp;                }
-&nbsp;                break;
-&nbsp;            case DOWN:
-<b class="nc">&nbsp;                this.movementDirection = MovementDirection.RIGHT;</b>
-&nbsp;                break;
-&nbsp;        }
+&nbsp;    public void setDyingSound(Sound dyingSound) {
+<b class="fc">&nbsp;        this.dyingSound = dyingSound;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public long movementCoolDown(){
-<b class="nc">&nbsp;        long movementCoolDown = 300 - (getModel().getRound() - 1) * 50L;</b>
-<b class="nc">&nbsp;        if(movementCoolDown &lt; 100){</b>
-<b class="nc">&nbsp;            return 50;</b>
-&nbsp;        }
-<b class="nc">&nbsp;        return movementCoolDown;</b>
+&nbsp;    public void setSwitchOption(Sound switchOption) {
+<b class="fc">&nbsp;        this.switchOption = switchOption;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    public long shootingCoolDown(){
-<b class="nc">&nbsp;        long shootingCoolDown = 800 - (getModel().getRound() - 1) * 100L;</b>
-<b class="nc">&nbsp;        if(shootingCoolDown &lt; 200){</b>
-<b class="nc">&nbsp;            return 100;</b>
-&nbsp;        }
-<b class="nc">&nbsp;        return shootingCoolDown;</b>
+&nbsp;    public void setBackgroundMusic(Sound backgroundMusic) {
+<b class="fc">&nbsp;        this.backgroundMusic = backgroundMusic;</b>
 &nbsp;    }
 &nbsp;
-&nbsp;    @Override
-&nbsp;    public void step(Game game, KeyStroke key, long time) {
-<b class="nc">&nbsp;        if(time - lastShotTime &gt; shootingCoolDown()){ // 800</b>
-<b class="nc">&nbsp;            shootProjectile();</b>
-<b class="nc">&nbsp;            lastShotTime = time;</b>
-&nbsp;        }
-<b class="nc">&nbsp;        if(time - lastMovementTime &gt; movementCoolDown()){ // 300</b>
-<b class="nc">&nbsp;            updateMovementDirection();</b>
-<b class="nc">&nbsp;            moveAliens();</b>
-<b class="nc">&nbsp;            lastMovementTime = time;</b>
-&nbsp;        }
+&nbsp;    public void setCollectableSound(Sound collectableSound) {
+<b class="fc">&nbsp;        this.collectableSound = collectableSound;</b>
 &nbsp;    }
+&nbsp;
+&nbsp;    public void setAlienShipLowPitch(Sound alienShipLowPitch) {
+<b class="fc">&nbsp;        this.alienShipLowPitch = alienShipLowPitch;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void setAlienShipHighPitch(Sound alienShipHighPitch) {
+<b class="fc">&nbsp;        this.alienShipHighPitch = alienShipHighPitch;</b>
+&nbsp;    }
+&nbsp;
 &nbsp;}
+&nbsp;
 </code>
 </pre>
 </div>
@@ -315,7 +250,7 @@ Current scope:     <a href="../../index.html">all classes</a>
 
 <div class="footer">
     
-    <div style="float:right;">generated on 2025-01-04 23:27</div>
+    <div style="float:right;">generated on 2025-01-05 01:26</div>
 </div>
 </body>
 </html>

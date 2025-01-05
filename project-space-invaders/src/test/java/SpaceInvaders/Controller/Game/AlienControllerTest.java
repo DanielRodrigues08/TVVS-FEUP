@@ -95,10 +95,10 @@ class AlienControllerTest {
 
     private static Stream<Arguments> testStepValues() {
         return Stream.of(
-                Arguments.of(900L, 100L, 1000L, 0, 0, 100L, 1000L),
-                Arguments.of(901L, 100L, 1000L, 1, 0, 901L, 1000L),
-                Arguments.of(400L, 10L, 100L, 0, 0, 10L, 100L),
-                Arguments.of(401L, 10L, 100L, 0, 1, 10L, 401L)
+                Arguments.of(900L, 100L, 1000L, 0, 0, 100L, 1000L, 0),
+                Arguments.of(901L, 100L, 1000L, 1, 0, 901L, 1000L, 0),
+                Arguments.of(400L, 10L, 100L, 0, 0, 10L, 100L, 0),
+                Arguments.of(401L, 10L, 100L, 0, 1, 10L, 401L, 1)
         );
     }
 
@@ -224,7 +224,7 @@ class AlienControllerTest {
     @ParameterizedTest
     @MethodSource("testStepValues")
     void testStep(long time, long lastShotTime, long lastMovementTime,
-                  int numShootExpected, int numMovementExpected, long shootTimeExpected, long movementTimeExpected) {
+                  int numShootExpected, int numMovementExpected, long shootTimeExpected, long movementTimeExpected, int numMovementUpdate) {
 
         var controllerSpy = spy(controller);
 
@@ -238,6 +238,7 @@ class AlienControllerTest {
 
         verify(controllerSpy, times(numShootExpected)).shootProjectile();
         verify(controllerSpy, times(numMovementExpected)).moveAliens();
+        verify(controllerSpy, times(numMovementUpdate)).updateMovementDirection();
         assertEquals(shootTimeExpected, controllerSpy.getLastShotTime());
         assertEquals(movementTimeExpected, controllerSpy.getLastMovementTime());
     }

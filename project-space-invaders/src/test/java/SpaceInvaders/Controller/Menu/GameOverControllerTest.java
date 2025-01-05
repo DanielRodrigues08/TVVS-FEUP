@@ -98,17 +98,17 @@ public class GameOverControllerTest {
         when(key6.getKeyType()).thenReturn(KeyType.Backspace);
 
         return Stream.of(
-                Arguments.of(key1, 1, 0, 1, menu4, GameStates.START_MENU, 0, 0, 0),
-                Arguments.of(key2, 1, 1, 0, menu4, GameStates.START_MENU, 0, 0, 0),
-                Arguments.of(key3, 0, 0, 0, menu1, GameStates.NEW_GAME, 1, 0, 0),
-                Arguments.of(key3, 0, 0, 0, menu2, GameStates.LEADERBOARD, 1, 0, 0),
-                Arguments.of(key3, 0, 0, 0, menu3, GameStates.START_MENU, 1, 0, 0),
-                Arguments.of(key3, 0, 0, 0, menu4, GameStates.QUIT_GAME, 0, 0, 0),
-                Arguments.of(key3, 0, 0, 0, menu4, GameStates.QUIT_GAME, 0, 0, 0),
-                Arguments.of(null, 0, 0, 0, menu4, GameStates.START_MENU, 0, 0, 0),
-                Arguments.of(key4, 0, 0, 0, menu4, GameStates.START_MENU, 0, 0, 0),
-                Arguments.of(key5, 0, 0, 0, menu4, GameStates.START_MENU, 0, 1, 0),
-                Arguments.of(key6, 0, 0, 0, menu4, GameStates.START_MENU, 0, 0, 1)
+                Arguments.of(key1, 1, 0, 1, menu4, GameStates.START_MENU, 0, 0, 0, 0),
+                Arguments.of(key2, 1, 1, 0, menu4, GameStates.START_MENU, 0, 0, 0, 0),
+                Arguments.of(key3, 0, 0, 0, menu1, GameStates.NEW_GAME, 1, 0, 0, 1),
+                Arguments.of(key3, 0, 0, 0, menu2, GameStates.LEADERBOARD, 1, 0, 0, 0),
+                Arguments.of(key3, 0, 0, 0, menu3, GameStates.START_MENU, 1, 0, 0, 1),
+                Arguments.of(key3, 0, 0, 0, menu4, GameStates.QUIT_GAME, 0, 0, 0, 0),
+                Arguments.of(key3, 0, 0, 0, menu4, GameStates.QUIT_GAME, 0, 0, 0, 0),
+                Arguments.of(null, 0, 0, 0, menu4, GameStates.START_MENU, 0, 0, 0, 0),
+                Arguments.of(key4, 0, 0, 0, menu4, GameStates.START_MENU, 0, 0, 0, 0),
+                Arguments.of(key5, 0, 0, 0, menu4, GameStates.START_MENU, 0, 1, 0, 0),
+                Arguments.of(key6, 0, 0, 0, menu4, GameStates.START_MENU, 0, 0, 1, 0)
         );
     }
 
@@ -121,8 +121,8 @@ public class GameOverControllerTest {
 
     @ParameterizedTest
     @MethodSource("valuesTestStep")
-    void testStep(KeyStroke key, int numSoundSwitch, int nextOption, int previousOption, GameOverMenu menu, GameStates state, int numState, int numAddLetter, int numRemoveLetter) {
-        GameOverController controller = new GameOverController(menu);
+    void testStep(KeyStroke key, int numSoundSwitch, int nextOption, int previousOption, GameOverMenu menu, GameStates state, int numState, int numAddLetter, int numRemoveLetter, int numUpdateLeaderboard) {
+        GameOverController controller = spy(new GameOverController(menu));
         clearInvocations(menu, game, mockSoundManager);
 
         assertDoesNotThrow(() -> controller.step(game, key, 0));
@@ -132,6 +132,7 @@ public class GameOverControllerTest {
         verify(menu, times(previousOption)).previousOption();
         verify(menu, times(numAddLetter)).addLetter(any());
         verify(menu, times(numRemoveLetter)).removeLetter();
+        assertDoesNotThrow(() -> verify(controller, times(numUpdateLeaderboard)).updateLeaderboard(menu.getScore(), menu.getUsername()));
         assertDoesNotThrow(() -> verify(game, times(numState)).setState(any()));
         assertDoesNotThrow(() -> verify(game, times(numState)).setState(state));
     }

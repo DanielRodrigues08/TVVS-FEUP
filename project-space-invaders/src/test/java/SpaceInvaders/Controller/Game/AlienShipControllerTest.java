@@ -12,6 +12,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.MockedStatic;
 
@@ -36,6 +37,153 @@ public class AlienShipControllerTest {
                 Arguments.of(new Position(2, 1), true),
                 Arguments.of(new Position(WIDTH - 2, 1), false),
                 Arguments.of(new Position(WIDTH - 3, 1), true)
+        );
+    }
+
+    private static Stream<Arguments> stepTestProvider() {
+        AlienShip mockAlienShip = mock(AlienShip.class);
+
+        return Stream.of(
+                // Generate case
+                Arguments.of(
+                        60001L,              // time
+                        10000L,             // lastAppearance
+                        0L,                 // lastMovementTime
+                        null,               // alienShip
+                        1,                  // expectedGenerateCalls
+                        0,                  // expectedMoveCalls
+                        60001L,             // expectedLastAppearance
+                        0L                  // expectedLastMovementTime
+                ),
+                // Move case
+                Arguments.of(
+                        10101L,             // time
+                        0L,                 // lastAppearance
+                        10000L,             // lastMovementTime
+                        mockAlienShip,      // alienShip
+                        0,                  // expectedGenerateCalls
+                        1,                  // expectedMoveCalls
+                        0L,                 // expectedLastAppearance
+                        10101L              // expectedLastMovementTime
+                ),
+                // No action case
+                Arguments.of(
+                        10100L,             // time
+                        0L,                 // lastAppearance
+                        10000L,             // lastMovementTime
+                        mockAlienShip,      // alienShip
+                        0,                  // expectedGenerateCalls
+                        0,                  // expectedMoveCalls
+                        0L,                 // expectedLastAppearance
+                        10000L              // expectedLastMovementTime
+                ),
+                // Null alien ship case
+                Arguments.of(
+                        10100L,             // time
+                        0L,                 // lastAppearance
+                        0L,                 // lastMovementTime
+                        null,               // alienShip
+                        0,                  // expectedGenerateCalls
+                        0,                  // expectedMoveCalls
+                        0L,                 // expectedLastAppearance
+                        0L                  // expectedLastMovementTime
+                ),
+                Arguments.of(
+                        6000L,             // time
+                        1000L,                 // lastAppearance
+                        0L,                 // lastMovementTime
+                        null,               // alienShip
+                        0,                  // expectedGenerateCalls
+                        0,                  // expectedMoveCalls
+                        1000L,                 // expectedLastAppearance
+                        0L                  // expectedLastMovementTime
+                ),
+                Arguments.of(
+                        50000L,             // time
+                        0L,                 // lastAppearance
+                        0L,                 // lastMovementTime
+                        null,              // alienShip
+                        0,                 // expectedGenerateCalls
+                        0,                 // expectedMoveCalls
+                        0L,                // expectedLastAppearance
+                        0L                 // expectedLastMovementTime
+                ),
+                // Just above boundary
+                Arguments.of(
+                        50001L,            // time
+                        0L,                // lastAppearance
+                        0L,                // lastMovementTime
+                        null,              // alienShip
+                        1,                 // expectedGenerateCalls
+                        0,                 // expectedMoveCalls
+                        50001L,            // expectedLastAppearance
+                        0L                 // expectedLastMovementTime
+                ),
+                // Testing addition scenario
+                Arguments.of(
+                        100000L,           // time
+                        49999L,            // lastAppearance
+                        0L,                // lastMovementTime
+                        null,              // alienShip
+                        1,                 // expectedGenerateCalls
+                        0,                 // expectedMoveCalls
+                        100000L,           // expectedLastAppearance
+                        0L                 // expectedLastMovementTime
+                ),
+                // Move existing ship
+                Arguments.of(
+                        10101L,            // time
+                        0L,                // lastAppearance
+                        10000L,            // lastMovementTime
+                        mockAlienShip,     // alienShip
+                        0,                 // expectedGenerateCalls
+                        1,                 // expectedMoveCalls
+                        0L,                // expectedLastAppearance
+                        10101L             // expectedLastMovementTime
+                ),
+                Arguments.of(
+                        60000L,             // time
+                        5000L,             // lastAppearance (60000 - 5000 = 55000 > 50000)
+                        0L,                // lastMovementTime
+                        null,              // alienShip
+                        1,                 // expectedGenerateCalls (should generate)
+                        0,                 // expectedMoveCalls
+                        60000L,            // expectedLastAppearance
+                        0L                 // expectedLastMovementTime
+                ),
+                // Addition operation test case (would pass if addition used instead of subtraction)
+                Arguments.of(
+                        5000L,             // time
+                        60000L,            // lastAppearance (5000 + 60000 > 50000 but 5000 - 60000 < 50000)
+                        0L,                // lastMovementTime
+                        null,              // alienShip
+                        0,                 // expectedGenerateCalls (should NOT generate)
+                        0,                 // expectedMoveCalls
+                        60000L,            // expectedLastAppearance
+                        0L                 // expectedLastMovementTime
+                ),
+                // Operation order test
+                Arguments.of(
+                        100000L,           // time
+                        40000L,            // lastAppearance (100000 - 40000 = 60000 > 50000)
+                        0L,                // lastMovementTime
+                        null,              // alienShip
+                        1,                 // expectedGenerateCalls
+                        0,                 // expectedMoveCalls
+                        100000L,           // expectedLastAppearance
+                        0L                 // expectedLastMovementTime
+                ),
+                // Negative time difference
+                Arguments.of(
+                        40000L,            // time
+                        90000L,            // lastAppearance (40000 - 90000 = -50000 < 50000)
+                        0L,                // lastMovementTime
+                        null,              // alienShip
+                        0,                 // expectedGenerateCalls
+                        0,                 // expectedMoveCalls
+                        90000L,            // expectedLastAppearance
+                        0L                 // expectedLastMovementTime
+                )
         );
     }
 
@@ -109,7 +257,6 @@ public class AlienShipControllerTest {
         verify(mockInstance, times(1)).stopSound(Sound_Options.ALIEN_SHIP_LOW);
     }
 
-
     @Test
     public void moveShipTrueTest() {
         Position initPosition = new Position(2, 1);
@@ -124,7 +271,6 @@ public class AlienShipControllerTest {
 
         assertEquals(expectedPosition, alienShip.getPosition());
     }
-
 
     @Test
     public void moveShipFalseTest() {
@@ -142,14 +288,12 @@ public class AlienShipControllerTest {
         verify(mockInstance, times(1)).stopSound(Sound_Options.ALIEN_SHIP_LOW);
     }
 
-    @Test
-    public void hitByProjectileNotDestroyedTest() {
-        int initialHealth = 2;
-        int damage = 1;
-        int expectedHealth = initialHealth - damage;
-
+    @ParameterizedTest
+    @CsvSource({"1, 1, 0, 1", "2, 1, 1, 0"})
+    public void hitByProjectileTest(int initialHealth, int damage, int expectedHealth, int expectedScore) {
         AlienShip alienShip = new AlienShip(new Position(1, 1), initialHealth, 1, 1);
         arenaSpy.setAlienShip(alienShip);
+        arenaSpy.increaseScore(-arenaSpy.getScore());
 
         var projectile = mock(Projectile.class);
         var alien = mock(Alien.class);
@@ -159,67 +303,28 @@ public class AlienShipControllerTest {
         alienShipController.hitByProjectile(alienShip, projectile);
 
         assertEquals(expectedHealth, alienShip.getHealth());
+        assertEquals(expectedScore, arenaSpy.getScore());
     }
 
+    @ParameterizedTest
+    @MethodSource("stepTestProvider")
+    void testStep(long time, long lastAppearance, long lastMovementTime,
+                  AlienShip alienShip, int expectedGenerateCalls,
+                  int expectedMoveCalls, long expectedLastAppearance,
+                  long expectedLastMovementTime) throws IOException {
 
-    @Test
-    public void stepGenerateTest() throws IOException {
-        int time = 60001;
-        var alienShipControllerSpy = spy(alienShipController);
-        alienShipControllerSpy.setLastAppearance(10000);
-
-        alienShipControllerSpy.step(null, null, time);
-
-        verify(alienShipControllerSpy, times(1)).generateAlienShip();
-        verify(alienShipControllerSpy, times(0)).moveAlienShip();
-        assertEquals(time, alienShipControllerSpy.getLastAppearance());
-        assertEquals(0, alienShipControllerSpy.getLastMovementTime());
-    }
-
-    @Test
-    public void stepMoveTest() throws IOException {
-        int time = 10101;
         var alienShipControllerSpy = spy(alienShipController);
         doNothing().when(alienShipControllerSpy).moveAlienShip();
-        var alienShip = mock(AlienShip.class);
+
+        alienShipControllerSpy.setLastAppearance(lastAppearance);
+        alienShipControllerSpy.setLastMovementTime(lastMovementTime);
         arenaSpy.setAlienShip(alienShip);
-        alienShipControllerSpy.setLastMovementTime(10000);
 
         alienShipControllerSpy.step(null, null, time);
 
-        verify(alienShipControllerSpy, times(1)).moveAlienShip();
-        verify(alienShipControllerSpy, times(0)).generateAlienShip();
-        assertEquals(time, alienShipControllerSpy.getLastMovementTime());
-        assertEquals(0, alienShipControllerSpy.getLastAppearance());
-    }
-
-    @Test
-    public void stepNullTest() throws IOException {
-        int time = 10100;
-        var alienShipControllerSpy = spy(alienShipController);
-        doNothing().when(alienShipControllerSpy).moveAlienShip();
-        var alienShip = mock(AlienShip.class);
-        arenaSpy.setAlienShip(alienShip);
-        alienShipControllerSpy.setLastMovementTime(10000);
-
-        alienShipControllerSpy.step(null, null, time);
-
-        verify(alienShipControllerSpy, times(0)).generateAlienShip();
-        verify(alienShipControllerSpy, times(0)).moveAlienShip();
-        assertEquals(10000, alienShipControllerSpy.getLastMovementTime());
-        assertEquals(0, alienShipControllerSpy.getLastAppearance());
-    }
-
-    @Test
-    public void stepAlienShipNullTest() throws IOException {
-        int time = 10100;
-        var alienShipControllerSpy = spy(alienShipController);
-
-        alienShipControllerSpy.step(null, null, time);
-
-        verify(alienShipControllerSpy, times(0)).generateAlienShip();
-        verify(alienShipControllerSpy, times(0)).moveAlienShip();
-        assertEquals(0, alienShipControllerSpy.getLastMovementTime());
-        assertEquals(0, alienShipControllerSpy.getLastAppearance());
+        verify(alienShipControllerSpy, times(expectedGenerateCalls)).generateAlienShip();
+        verify(alienShipControllerSpy, times(expectedMoveCalls)).moveAlienShip();
+        assertEquals(expectedLastAppearance, alienShipControllerSpy.getLastAppearance());
+        assertEquals(expectedLastMovementTime, alienShipControllerSpy.getLastMovementTime());
     }
 }
